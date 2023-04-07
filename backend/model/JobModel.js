@@ -30,20 +30,16 @@ const jobSchema = new mongoose.Schema({
         type: String,
     },
     createdAt: {
-        type: Date,
-        default: () => new Date()
+        type: String,
+        default: () => new Date().toISOString()
     },
     expirationDate: {
-        type: Date,
+        type: String,
         require: true,
-        default: () => new Date()
     },
     description: {
         type: String,
     }
-
-
-
     
 })
 
