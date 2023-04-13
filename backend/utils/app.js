@@ -2,7 +2,10 @@ const config = require('./config')
 const express = require('express')
 const app = express()
 const cors = require('cors')
+
 const jobRouter = require('../controllers/jobs')
+const userRouter = require('../controllers/users')
+
 const middleware = require('./middleware')
 const logger = require('./logger')
 const mongoose = require('mongoose')
@@ -25,6 +28,7 @@ app.use(express.json())
 app.use(middleware.requestLogger)
 
 app.use('/api/jobs', jobRouter)
+app.use('/api/users', userRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

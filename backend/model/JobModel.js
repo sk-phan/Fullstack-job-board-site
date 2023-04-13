@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const jobSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     title: {
         type: String,
         minLength: 3,
