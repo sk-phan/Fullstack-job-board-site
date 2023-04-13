@@ -1,5 +1,6 @@
 const jobRouter = require('express').Router()
 const Job = require('../model/JobModel')
+const User = require('../model/UserModel')
 
 jobRouter.get('/', (req, res) => {
     Job.find()
@@ -24,10 +25,11 @@ jobRouter.get('/:id', async (req, res, next) => {
 })
 
 jobRouter.post('/', async (req, res, next) => {
- 
+    const user = await User.findById(req.body.user)
+    console.log(req.body.user)
+
     const newJob = await new Job({
         title: req.body.title,
-        company: req.body.company,
         location: req.body.location,
         minSalary: req.body.minSalary,
         maxSalary: req.body.maxSalary,
@@ -35,14 +37,14 @@ jobRouter.post('/', async (req, res, next) => {
         companyLogo: req.body.companyLogo,
         createdAt: new Date().toISOString(),
         expirationDate: req.body.expirationDate,
-        description: req.body.description
+        description: req.body.description,
+        user: user.id
     })
 
-    newJob.save()
-    .then(savedJob => {
-        res.json( savedJob )
-    })
-    .catch(error => next(error))
+    const savedJob = await newJob.save()
+    user.jobs = user.jobs.concat(savedJob)
+    await user.save()
+    res.json( savedJob )
 })
 
 jobRouter.delete('/:id', async (req, res, next) => {

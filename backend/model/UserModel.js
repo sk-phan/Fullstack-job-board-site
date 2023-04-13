@@ -1,18 +1,20 @@
 const mongoose = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator')
+const Job = require('./JobModel')
 
 const userSchema = new mongoose.Schema({
-    username: String,
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     name: String,
     passwordHash: String,
     userType: Number, // 1 = Company, 2 = Job seeker
-    jobs: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Job'
-        }
-    ]
-
+    jobs: [Job.schema],
 })
+
+userSchema.plugin(uniqueValidator)
 
 userSchema.set('toJSON', {
     transform: (document, returnedObject) => {
