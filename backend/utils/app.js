@@ -5,6 +5,7 @@ const cors = require('cors')
 
 const jobRouter = require('../controllers/jobs')
 const userRouter = require('../controllers/users')
+const loginRouter = require('../controllers/login')
 
 const middleware = require('./middleware')
 const logger = require('./logger')
@@ -29,6 +30,7 @@ app.use(middleware.requestLogger)
 
 app.use('/api/jobs', jobRouter)
 app.use('/api/users', userRouter)
+app.use('/api/token', loginRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

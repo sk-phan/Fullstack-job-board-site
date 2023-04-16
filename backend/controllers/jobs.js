@@ -1,6 +1,16 @@
 const jobRouter = require('express').Router()
 const Job = require('../model/JobModel')
 const User = require('../model/UserModel')
+const jwt = require('jsonwebtoken')
+
+const getTokenFrom = (request) => {
+    const authorization = request.get('authorization')
+  if (authorization && authorization.startsWith('Bearer ')) {
+    return authorization.replace('Bearer ', '')
+  }
+  return null
+
+}
 
 jobRouter.get('/', (req, res) => {
     Job.find()
@@ -25,19 +35,25 @@ jobRouter.get('/:id', async (req, res, next) => {
 })
 
 jobRouter.post('/', async (req, res, next) => {
-    const user = await User.findById(req.body.user)
-    console.log(req.body.user)
+    const body = req.body
+    const decodedToken = jwt.verify(await getTokenFrom(req), process.env.SECRET)
+
+    if (!decodedToken.id) {
+        return res.status(401).json({ error: 'token invalid' })
+    }
+    
+    const user = await User.findById(decodedToken.id)
 
     const newJob = await new Job({
-        title: req.body.title,
-        location: req.body.location,
-        minSalary: req.body.minSalary,
-        maxSalary: req.body.maxSalary,
-        jobType: req.body.jobType,
-        companyLogo: req.body.companyLogo,
+        title: body.title,
+        location: body.location,
+        minSalary: body.minSalary,
+        maxSalary: body.maxSalary,
+        jobType: body.jobType,
+        companyLogo: body.companyLogo,
         createdAt: new Date().toISOString(),
-        expirationDate: req.body.expirationDate,
-        description: req.body.description,
+        expirationDate: body.expirationDate,
+        description: body.description,
         user: user.id
     })
 
