@@ -63,6 +63,12 @@ userRouter.get('/:id', async (req, res, next) => {
 
 userRouter.put('/:id', async (req, res, next) => {
   try {
+    const decodedToken = jwt.verify(await getTokenFrom(req), process.env.SECRET)
+
+    if (!decodedToken.id) {
+      return res.status(401).json({ error: 'token invalid' })
+    }
+
     const id = req.params.id
     const user = await User.findById(id)
 
@@ -89,6 +95,12 @@ userRouter.put('/:id', async (req, res, next) => {
 userRouter.delete('/:id', async (req, res, next) => {
   
   try {
+    const decodedToken = jwt.verify(await getTokenFrom(req), process.env.SECRET)
+
+    if (!decodedToken.id) {
+      return res.status(401).json({ error: 'token invalid' })
+    }
+    
     const id = req.params.id
     const user = await User.findByIdAndDelete(id)
     
