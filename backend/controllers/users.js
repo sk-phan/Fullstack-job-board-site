@@ -3,7 +3,6 @@ const { req } = require('http')
 const userRouter = require('express').Router()
 const User = require('../model/UserModel')
 const jwt = require('jsonwebtoken')
-const { error } = require('console')
 
 const getTokenFrom = (req) => {
   const authorization = req.get('authorization')
@@ -95,12 +94,12 @@ userRouter.put('/:id', async (req, res, next) => {
 userRouter.delete('/:id', async (req, res, next) => {
   
   try {
-    const decodedToken = jwt.verify(await getTokenFrom(req), process.env.SECRET)
+    const decodedToken =  await jwt.verify(getTokenFrom(req), process.env.SECRET)
 
     if (!decodedToken.id) {
       return res.status(401).json({ error: 'token invalid' })
     }
-    
+
     const id = req.params.id
     const user = await User.findByIdAndDelete(id)
     
@@ -111,7 +110,7 @@ userRouter.delete('/:id', async (req, res, next) => {
 
   }
   catch(err) {
-    next(error)
+    next(err)
   }
 
 
