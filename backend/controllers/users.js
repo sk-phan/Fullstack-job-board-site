@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken')
 
 const getTokenFrom = (req) => {
   const authorization = req.get('authorization')
-
   if (authorization && authorization.startsWith('Bearer ')) {
     return authorization.replace('Bearer ', '')
   }
@@ -36,23 +35,52 @@ userRouter.get('/', async (req, res) => {
     res.json(users)
 })
 
-userRouter.get('/user/:id', async (req, res) => {
-  const decodedToken = jwt.verify(getTokenFrom(req), process.env.SECRET)
-  if (!decodedToken.id) {
-    return res.status(401).json({ error: 'token invalid' })
-  } else {
+userRouter.get('/:id', async (req, res, next) => {
 
+  try {
+
+    const decodedToken = jwt.verify(await getTokenFrom(req), process.env.SECRET)
+
+    if (!decodedToken.id) {
+      return res.status(401).json({ error: 'token invalid' })
+    }
     const id = req.params.id
-  
-    User.findById(id)
-    .then(user => {
-      if (user) {
-        res.json(user)
-      } else {
-        res.status(404).end()
-      }
-    })
-    .catch(error => next(error))
+    const user = await User.findById(id)
+    
+    if (!user) {
+      return res.status(400).json({ error: 'User not found' })
+    }
+
+    res.json(user)
+
+  }
+  catch(err) {
+    next(err)
+  }
+
+})
+
+userRouter.put('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id
+    const user = await User.findById(id)
+
+    //If user id is invalid
+    if (!user) {
+      return res.status(404).json({ error: 'Phonebook entry not found' });
+    }
+
+    //Update user
+    const updatedUser = await User.findByIdAndUpdate(
+      id, 
+      req.body, 
+      { new: true, runValidators: true, context: 'query' }
+    )
+    
+    res.json(updatedUser)
+  }
+  catch(err) {
+    next(err)
   }
 
 })
