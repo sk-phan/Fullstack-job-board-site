@@ -3,6 +3,7 @@ const { req } = require('http')
 const userRouter = require('express').Router()
 const User = require('../model/UserModel')
 const jwt = require('jsonwebtoken')
+const { error } = require('console')
 
 const getTokenFrom = (req) => {
   const authorization = req.get('authorization')
@@ -67,7 +68,7 @@ userRouter.put('/:id', async (req, res, next) => {
 
     //If user id is invalid
     if (!user) {
-      return res.status(404).json({ error: 'Phonebook entry not found' });
+      return res.status(404);
     }
 
     //Update user
@@ -82,6 +83,25 @@ userRouter.put('/:id', async (req, res, next) => {
   catch(err) {
     next(err)
   }
+
+})
+
+userRouter.delete('/:id', async (req, res, next) => {
+  
+  try {
+    const id = req.params.id
+    const user = await User.findByIdAndDelete(id)
+    
+    if (!user) {
+      return res.status(404)
+    }
+    res.status(204).end()
+
+  }
+  catch(err) {
+    next(error)
+  }
+
 
 })
 module.exports = userRouter
