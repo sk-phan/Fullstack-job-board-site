@@ -36,7 +36,7 @@ jobRouter.get('/:id', async (req, res, next) => {
 
 jobRouter.post('/', async (req, res, next) => {
     const body = req.body
-    const decodedToken = jwt.verify(await getTokenFrom(req), process.env.SECRET)
+    const decodedToken = jwt.verify(getTokenFrom(req), process.env.SECRET)
 
     if (!decodedToken.id) {
         return res.status(401).json({ error: 'token invalid' })
@@ -64,13 +64,21 @@ jobRouter.post('/', async (req, res, next) => {
 })
 
 jobRouter.delete('/:id', async (req, res, next) => {
-    const jobId = req.params.id;
-
-    Job.findByIdAndRemove( jobId )
-    .then(() => {
-        res.status(204).end()
-    })
-    .catch(error => next(error))
+    try {
+        const decodedToken = jwt.verify( getTokenFrom(req), process.env.SECRET )
+        if (!decodedToken.id) {
+            return res.status(401).json({ error: 'token invalid' })
+        }
+        const jobId = req.params.id;
+    
+        Job.findByIdAndRemove( jobId )
+        .then(() => {
+            res.status(204).end()
+        })
+    }
+    catch(err) {
+        next(err)
+    }
 
 })
 module.exports = jobRouter
