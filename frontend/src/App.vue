@@ -2,28 +2,26 @@
   <v-app>
     <v-container fluid class="padding">
       <main-nav></main-nav>
+
+      <router-view></router-view>
     </v-container>
   </v-app>
 </template>
 
 <script>
-import MainNav from './components/MainNav.vue';
-export default {
-  name: 'App',
+  import MainNav from './components/MainNav.vue';
+  export default {
+    name: 'App',
+    components: {MainNav  },
+    data () {
+      return {
 
-  components: {
-
-MainNav  },
-
-  data () {
-    return {
+      }
+    },
+    created() {
 
     }
-  },
-  created() {
-
-  }
-};
+  };
 </script>
 
 <style lang="scss">

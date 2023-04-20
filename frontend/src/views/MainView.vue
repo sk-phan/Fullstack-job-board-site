@@ -1,9 +1,12 @@
 <template>
-    <div></div>
-</template>
+    <div>
+      <h1>Title</h1>
+    </div>
+  </template>
+  
 
 <script>
-export default {
-    name: 'MainView'
-}
+    export default {
+        name: 'MainView'
+    }
 </script>
