@@ -1,15 +1,41 @@
 const mongoose = require('mongoose')
+const jobCategories = [
+    "Accounting",
+    "Administration",
+    "Customer Service",
+    "Design",
+    "Engineering",
+    "Finance",
+    "Healthcare",
+    "Human Resources",
+    "Information Technology (IT)",
+    "Legal",
+    "Marketing",
+    "Operations",
+    "Sales"
+  ];
 
-const jobSchema = new mongoose.Schema({
+  const categoriesValidator = (categories) => {
+    console.log(categories)
+    const isValid = categories.length > 0 && categories.every(item => jobCategories.includes(item))
+    if (!isValid) {
+        throw new Error('Invalid categories')
+    }
+  }
+  
+  const jobSchema = new mongoose.Schema({
     user: String,
     title: {
         type: String,
         minLength: 3,
         required: true
     },
-    location: {
+    city: {
         type: String,
-        minLength: 5,
+        required: true
+    },
+    country: {
+        type: String,
         required: true
     },
     minSalary: {
@@ -35,6 +61,11 @@ const jobSchema = new mongoose.Schema({
     },
     description: {
         type: String,
+    },
+    categories: {
+        type: [String],
+        require: true,
+        validate: [ categoriesValidator, 'Invalid categories' ]
     }
     
 })
