@@ -1,7 +1,10 @@
 <template>
     <div>
       <v-row>
-        <v-col v-if=" jobs.length > 0 "  md="8">
+        <v-col>
+          <job-filter></job-filter>
+        </v-col>
+        <v-col v-if=" jobs.length > 0 "  md="9">
           <div v-for=" job in jobs " :key=" job.id ">
             <job-item :job=" job "></job-item>
           </div>
@@ -12,11 +15,12 @@
   
 
 <script>
+import JobFilter from '../components/JobFilter.vue';
 import JobItem from '../components/JobItem.vue';
 import jobApi from '../utils/jobApi';
 
     export default {
-  components: { JobItem },
+  components: { JobItem, JobFilter },
         name: 'MainView',
         data() {
           return {
