@@ -43,10 +43,11 @@ jobRouter.post('/', async (req, res, next) => {
     }
     
     const user = await User.findById(decodedToken.id)
-
+console.log("hej", user)
     const newJob = await new Job({
         title: body.title,
-        location: body.location,
+        city: body.city,
+        country: body.country,
         minSalary: body.minSalary,
         maxSalary: body.maxSalary,
         jobType: body.jobType,
@@ -54,12 +55,13 @@ jobRouter.post('/', async (req, res, next) => {
         createdAt: new Date().toISOString(),
         expirationDate: body.expirationDate,
         description: body.description,
+        categories: body.categories,
         user: user.id
     })
 
     const savedJob = await newJob.save()
-    user.jobs = user.jobs.concat(savedJob)
-    await user.save()
+     user.jobs = user.jobs.concat([savedJob])
+     await user.save()
     res.json( savedJob )
 })
 
