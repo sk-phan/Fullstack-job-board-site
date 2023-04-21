@@ -56,7 +56,8 @@ console.log("hej", user)
         expirationDate: body.expirationDate,
         description: body.description,
         categories: body.categories,
-        user: user.id
+        user: user.id,
+        username: user.username
     })
 
     const savedJob = await newJob.save()

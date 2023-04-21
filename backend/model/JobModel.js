@@ -25,6 +25,7 @@ const jobCategories = [
   
   const jobSchema = new mongoose.Schema({
     user: String,
+    username: String,
     title: {
         type: String,
         minLength: 3,
