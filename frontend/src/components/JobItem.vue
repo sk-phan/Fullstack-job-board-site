@@ -14,7 +14,7 @@
             </div>
             <div class="d-flex flex-column">
                 <span> {{ job.city }}, {{ job.country }} </span>
-                <span> {{ job.createdAt }} </span>
+                <span> {{ createdDate }} </span>
             </div>
         </div>
         <p> {{ job.description }} </p>
@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import dayjs from 'dayjs';
+
 export default {
     name: 'JobItem',
     props: {
@@ -33,6 +35,11 @@ export default {
     data() {
         return {
         }
+    },
+    computed: {
+        createdDate() {
+            return 'Posted ' + dayjs(this.job.createdAt).fromNow()
+        },
     }
 }
 </script>
