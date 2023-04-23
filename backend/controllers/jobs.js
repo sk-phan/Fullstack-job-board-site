@@ -73,11 +73,20 @@ jobRouter.delete('/:id', async (req, res, next) => {
             return res.status(401).json({ error: 'token invalid' })
         }
         const jobId = req.params.id;
+        const job = await Job.findById(jobId)
     
+        if (job) {
+
+            const user = await User.findById(job.user)
+            user.jobs = user.jobs.filter(i => i.id !== jobId)
+            await user.save()
+        }
+
         Job.findByIdAndRemove( jobId )
         .then(() => {
             res.status(204).end()
         })
+
     }
     catch(err) {
         next(err)
