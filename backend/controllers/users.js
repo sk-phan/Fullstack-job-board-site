@@ -3,6 +3,7 @@ const { req } = require('http')
 const userRouter = require('express').Router()
 const User = require('../model/UserModel')
 const jwt = require('jsonwebtoken')
+const Job = require('../model/JobModel')
 
 const getTokenFrom = (req) => {
   const authorization = req.get('authorization')
@@ -82,6 +83,8 @@ userRouter.put('/:id', async (req, res, next) => {
       req.body, 
       { new: true, runValidators: true, context: 'query' }
     )
+
+    await Job.updateMany({  user: id },{ $set: { name: updatedUser.name } })
     
     res.json(updatedUser)
   }

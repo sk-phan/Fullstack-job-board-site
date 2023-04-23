@@ -86,6 +86,7 @@ jobRouter.delete('/:id', async (req, res, next) => {
 })
 
 jobRouter.put('/:id', async (req, res, next) => {
+    console.log(req.body)
     try {
         const decodedToken = jwt.verify( getTokenFrom(req), process.env.SECRET )
         if (!decodedToken.id) {
@@ -99,7 +100,7 @@ jobRouter.put('/:id', async (req, res, next) => {
             return res.status(404);
         }
         const updateJob = await Job.findByIdAndUpdate(
-            id,
+            jobId,
             req.body,
             { new: true, runValidators: true, context: 'query' }
         )

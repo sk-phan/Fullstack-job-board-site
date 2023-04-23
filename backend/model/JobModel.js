@@ -66,7 +66,7 @@ const jobCategories = [
     categories: {
         type: String,
         require: true,
-        validate: [ categoriesValidator, 'Invalid categories' ]
+       // validate: [ categoriesValidator, 'Invalid categories' ]
     }
     
 })
