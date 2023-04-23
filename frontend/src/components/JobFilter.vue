@@ -1,5 +1,5 @@
 <template>
-    <p>Filter</p>
+    <p></p>
 </template>
 
 <script>

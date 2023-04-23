@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container fluid class="padding">
+    <v-container fluid class="padding bg">
       <main-nav></main-nav>
 
       <router-view></router-view>
@@ -25,10 +25,17 @@
 </script>
 
 <style lang="scss">
+
+  @import "@/scss/main.scss";
+
   .padding {
     padding: 0 !important;
   }
   button {
     text-transform: none !important;
+  }
+  .bg {
+    background: #f5f5f5 !important;
+    height: 100vh !important;
   }
 </style>

@@ -17,7 +17,7 @@ const jobCategories = [
 
   const categoriesValidator = (categories) => {
     console.log(categories)
-    const isValid = categories.length > 0 && categories.every(item => jobCategories.includes(item))
+    const isValid = categories !== '' && jobCategories.includes(item)
     if (!isValid) {
         throw new Error('Invalid categories')
     }
@@ -25,7 +25,7 @@ const jobCategories = [
   
   const jobSchema = new mongoose.Schema({
     user: String,
-    username: String,
+    name: String,
     title: {
         type: String,
         minLength: 3,
@@ -64,7 +64,7 @@ const jobCategories = [
         type: String,
     },
     categories: {
-        type: [String],
+        type: String,
         require: true,
         validate: [ categoriesValidator, 'Invalid categories' ]
     }

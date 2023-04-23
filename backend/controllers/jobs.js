@@ -43,7 +43,7 @@ jobRouter.post('/', async (req, res, next) => {
     }
     
     const user = await User.findById(decodedToken.id)
-console.log("hej", user)
+
     const newJob = await new Job({
         title: body.title,
         city: body.city,
@@ -57,12 +57,12 @@ console.log("hej", user)
         description: body.description,
         categories: body.categories,
         user: user.id,
-        username: user.username
+        name: user.name
     })
 
     const savedJob = await newJob.save()
-     user.jobs = user.jobs.concat([savedJob])
-     await user.save()
+    user.jobs = user.jobs.concat([savedJob])
+    await user.save()
     res.json( savedJob )
 })
 
@@ -83,5 +83,30 @@ jobRouter.delete('/:id', async (req, res, next) => {
         next(err)
     }
 
+})
+
+jobRouter.put('/:id', async (req, res, next) => {
+    try {
+        const decodedToken = jwt.verify( getTokenFrom(req), process.env.SECRET )
+        if (!decodedToken.id) {
+            return res.status(401).json({ error: 'token invalid' })
+        }
+        const jobId = req.params.id
+        const job = await Job.findById(jobId)
+
+        //If user id is invalid
+        if (!job) {
+            return res.status(404);
+        }
+        const updateJob = await Job.findByIdAndUpdate(
+            id,
+            req.body,
+            { new: true, runValidators: true, context: 'query' }
+        )
+        res.json(updateJob)
+    }
+    catch(err) {
+        next(err)
+    }
 })
 module.exports = jobRouter

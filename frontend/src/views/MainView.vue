@@ -1,10 +1,10 @@
 <template>
     <div>
-      <v-row>
+      <v-row class="mx-12">
         <v-col>
           <job-filter></job-filter>
         </v-col>
-        <v-col v-if=" jobs.length > 0 "  md="9">
+        <v-col v-if=" jobs.length > 0 "  md="8">
           <div v-for=" job in jobs " :key=" job.id ">
             <job-item :job=" job "></job-item>
           </div>

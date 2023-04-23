@@ -1,3 +1,7 @@
-.no {
-    text-transform: none;
-}
+// global.scss
+:root {
+    --primary-base: #43a047;
+    --primary-lighten: #e8f5e9c8;
+    --secondary-darken: #e99c02;
+    --secondary-base: #9e9e9e;
+  }
