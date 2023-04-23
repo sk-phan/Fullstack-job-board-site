@@ -1,7 +1,7 @@
 <template>
     <div>
       <v-row class="mx-12">
-        <v-col>
+        <v-col md="3">
           <job-filter></job-filter>
         </v-col>
         <v-col v-if=" jobs.length > 0 "  md="8">
@@ -15,6 +15,7 @@
   
 
 <script>
+import axios from 'axios';
 import JobFilter from '../components/JobFilter.vue';
 import JobItem from '../components/JobItem.vue';
 import jobApi from '../utils/jobApi';
@@ -37,6 +38,7 @@ methods: {
 },
 created() {
   this.getJobs()
+  axios.get('https://restcountries.com/v3.1/all').then(res => console.log(res.data))
 }
 }
 </script>
