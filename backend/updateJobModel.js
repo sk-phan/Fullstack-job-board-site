@@ -7,7 +7,7 @@ mongoose.connect('mongodb+srv://sukiphan97:Hongnhung1912@cluster0.kn1fqop.mongod
   useUnifiedTopology: true,
 });
 
-Job.updateMany({}, { $set: { categories: 'Design' } })
+Job.updateMany({}, { $set: { experienceLevel: '1' } })
   .then(result => {
     console.log(`${result.nModified} documents updated.`);
     mongoose.connection.close();

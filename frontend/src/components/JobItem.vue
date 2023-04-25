@@ -24,7 +24,8 @@
                 <div>
                     <span class="rounded pa-2 px-4 mr-2 highlight small-text">{{ job.categories }}</span>   
                     <span class="rounded pa-2 px-4 mr-2 highlight small-text">{{ jobType }}</span> 
-                    <span class="rounded pa-2 px-4 mr-2 highlight small-text">{{ job.minSalary }}-{{ job.maxSalary }} €</span>     
+                    <span class="rounded pa-2 px-4 mr-2 highlight small-text">{{ level[ job.experienceLevel - 1 ] }}</span> 
+                    <span class="rounded pa-2 px-4 mr-2 highlight small-text">{{ job.minSalary }} - {{ job.maxSalary }} €</span>     
                 </div>
             </v-row>
     
@@ -59,7 +60,12 @@ export default {
     },
     data() {
         return {
-            img: sample
+            img: sample,
+            level: [
+                'Entry level',
+                'Intermidate',
+                'Expert'
+            ]
         }
     },
     computed: {
@@ -68,7 +74,7 @@ export default {
         },
         jobType() {
             return this.job.jobType === 'fullTime' ? 'Full time' : 'Part time'
-        }
+        },
     }
 }
 </script>
