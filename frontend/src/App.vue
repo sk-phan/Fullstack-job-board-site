@@ -37,5 +37,6 @@
   .bg {
     background: #f5f5f5 !important;
     height: 100vh !important;
+    overflow: scroll !important;
   }
 </style>

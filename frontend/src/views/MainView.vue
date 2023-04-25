@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="my-10">
       <v-row class="mx-12">
-        <v-col md="3">
+        <v-col md="3" class="pa-0">
           <job-filter></job-filter>
         </v-col>
         <v-col v-if=" jobs.length > 0 "  md="8">

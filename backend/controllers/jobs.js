@@ -56,6 +56,7 @@ jobRouter.post('/', async (req, res, next) => {
         expirationDate: body.expirationDate,
         description: body.description,
         categories: body.categories,
+        experienceLevel: body.experienceLevel,
         user: user.id,
         name: user.name
     })

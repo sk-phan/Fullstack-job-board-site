@@ -1,5 +1,5 @@
 <template>
-    <v-app-bar flat>
+    <v-app-bar flat class="nav">
         <v-toolbar-title>
           <img :src="logoImg" style="height: 20px ;" alt="image"/>
         </v-toolbar-title>
@@ -28,3 +28,10 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+  .nav {
+    background: #fff !important;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px !important;
+  }
+</style>
