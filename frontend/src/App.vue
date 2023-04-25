@@ -2,7 +2,6 @@
   <v-app>
     <v-container fluid class="padding bg">
       <main-nav></main-nav>
-
       <router-view></router-view>
     </v-container>
   </v-app>

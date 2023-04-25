@@ -6,7 +6,7 @@
         
         <v-spacer></v-spacer>
         
-        <v-btn text>  
+        <v-btn text class="mr-3" @click=" logIn ">  
           Log in    
         </v-btn>
   
@@ -25,6 +25,11 @@ export default {
         return {
             logoImg: logo
         }
+    },
+    methods: {
+      logIn() {
+        this.$router.push('/login')
+      }
     }
 }
 </script>
