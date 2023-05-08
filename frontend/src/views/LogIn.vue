@@ -37,7 +37,11 @@ export default {
         logIn() {
             authApi
             .logIn(this.username, this.password)
-            .then(res => console.log(res.data, "sign in"))
+            .then(res => {
+                if (res.data) {
+                    console.log(res.data, "sign in")
+                }
+            })
         }
     }
 }
