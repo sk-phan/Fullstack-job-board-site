@@ -1,16 +1,22 @@
 <template>
-    <v-container>
-        <div class="d-flex flex-row">
-                <v-form ref="form">
-                    <v-text-field outlined label="Username" v-model="username"></v-text-field>
+    <v-container fluid>
+        <v-row class="container">
+            <v-col cols="12" md="5" class="pl-10">
+                <v-form class="form">
+                    <h3 class="mb-6">Log in</h3>
+                    <v-text-field outlined label="Username" v-model="username"></v-text-field>                    
                     <v-text-field outlined label="Password" v-model="password"></v-text-field>
-                    <v-btn color="primary" depressed @click=" logIn ">Log in</v-btn>
+                    <v-btn block color="primary" depressed @click=" logIn ">Log in</v-btn> 
                 </v-form>
+            </v-col>
 
+            <v-col>
                 <div class="side-bg">
                     <img class="img" :src="bg" alt="log in image"/>
                 </div>
-            </div>
+            </v-col>
+
+        </v-row>
     </v-container>
 </template>
 
@@ -38,13 +44,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .container {
+       width: 100vw !important;
+    }
     .side-bg {
         background: var(--primary-base);
         right: 0;
     }
     .img {
-        width: 100%;
+        width: auto;
         height: 100vh;
-        object-fit: cover;
+        position: absolute;
+        overflow-x: hidden;
+    }
+    .form {
+        width: 80%;
+        position: relative;
+        top: 50%;
     }
 </style>
