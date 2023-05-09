@@ -110,6 +110,7 @@
                                 label="Under 1000€"
                                 color="primary"
                                 hide-details
+                                @change=" $emit('filterMinSalary', 0); $emit('filterMaxSalary', 999) "
                             ></v-checkbox>
                         </v-col>
                         <v-col cols="1">
@@ -124,6 +125,7 @@
                                 label="1000€ - 3000€"
                                 color="primary"
                                 hide-details
+                                @change=" $emit('filterMinSalary', 1000); $emit('filterMaxSalary', 3000) "
                             ></v-checkbox>
                         </v-col>
                         <v-col cols="1">
@@ -138,6 +140,8 @@
                                 label="3000€ - 5000€"
                                 color="primary"
                                 hide-details
+                                value = "1000"
+                                @change=" $emit('filterMinSalary', 3000); $emit('filterMaxSalary', 5000) "
                             ></v-checkbox>
                         </v-col>
                         <v-col cols="1">
@@ -152,6 +156,7 @@
                                 label="Up to 5000€"
                                 color="primary"
                                 hide-details
+                                @change="$emit('filterMaxSalary', 5000) "
                             ></v-checkbox>
                         </v-col>
                         <v-col cols="1">
@@ -219,6 +224,12 @@ export default {
             jobTypes: {
                 fullTime: false,
                 partTime: false
+            },
+            salaryRanges: {
+                "0-1000": false,
+                "1000-3000": false,
+                "3000-5000": false,
+                "5000": false
             }
         }
     },

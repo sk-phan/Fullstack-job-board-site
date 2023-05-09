@@ -5,11 +5,13 @@
           <job-filter
             @filterLevel = " experienceLevel = $event "
             @filterJobType = " jobTypes = $event "
-            @filterCategories = " jobCategories = $event ">
+            @filterCategories = " jobCategories = $event "
+            @filterMinSalary = " minSalary = $event "
+            @filterMaxSalary = " maxSalary = $event ">
           </job-filter>
         </v-col>
         <v-col v-if=" jobs.length > 0 "  md="8">
-          <div v-for=" job in jobCategoriesFilter " :key=" job.id ">
+          <div v-for=" job in jobSalaryFilter " :key=" job.id ">
             <job-item :job=" job "></job-item>
           </div>
         </v-col>
@@ -54,9 +56,9 @@ data() {
       "Operations": false,
       "Sales": false
     },
+    title: [  ],
     minSalary: 0,
-    maxSalary: 5000,
-    title: [  ]
+    maxSalary: 0
   }
 },
 watch: {
@@ -102,6 +104,12 @@ computed: {
         return this.jobTypeFilter.filter(job => this.jobCategories[ job.categories ])
     }
     else return this.jobTypeFilter
+  },
+  jobSalaryFilter() {
+    if (this.minSalary !== 0 || this.maxSalary !== 0) {
+      return this.jobCategoriesFilter.filter(job => job.minSalary >= this.minSalary && job.maxSalary <= this.maxSalary )
+    }
+    else return this.jobCategoriesFilter
   }
 },
 created() {
