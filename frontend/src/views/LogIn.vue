@@ -30,7 +30,7 @@ export default {
         return {
             username: '',
             password: '',
-            bg: img
+            bg: img,
         }
     },
     methods: {

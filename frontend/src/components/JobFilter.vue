@@ -16,6 +16,8 @@
                                 label="Entry level"
                                 color="primary"
                                 hide-details
+                                v-model=" experienceLevel.entry "
+                                @change=" $emit('filterLevel', experienceLevel) "
                             ></v-checkbox>
                         </v-col>
                         <v-col cols="1">
@@ -30,6 +32,8 @@
                                 label="Intermidate"
                                 color="primary"
                                 hide-details
+                                v-model=" experienceLevel.intermidate "
+                                @change=" $emit('filterLevel', experienceLevel) "
                             ></v-checkbox>
                         </v-col>
                         <v-col cols="1">
@@ -44,6 +48,8 @@
                                 label="Expert"
                                 color="primary"
                                 hide-details
+                                v-model=" experienceLevel.expert "
+                                @change=" $emit('filterLevel', experienceLevel) "
                             ></v-checkbox>
                         </v-col>
                         <v-col cols="1">
@@ -108,7 +114,7 @@
                     </v-row>
     
                     <v-row >
-                        <v-col  cols="10">
+                        <v-col cols="10">
                             <v-checkbox
                                 class="ma-0 pa-0"
                                 label="1000€ - 3000€"
@@ -198,7 +204,12 @@ export default {
                 "Marketing",
                 "Operations",
                 "Sales"
-            ]
+            ],
+            experienceLevel: {
+                entry: false,
+                intermidate: false,
+                expert: false
+            }
         }
     }
 }
