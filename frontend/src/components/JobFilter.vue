@@ -71,6 +71,8 @@
                                 label="Full time"
                                 color="primary"
                                 hide-details
+                                v-model=" jobTypes.fullTime "
+                                @change="$emit('filterJobType', jobTypes)"
                             ></v-checkbox>
                         </v-col>
                         <v-col cols="1">
@@ -79,12 +81,14 @@
                     </v-row>
     
                     <v-row >
-                        <v-col  cols="10">
+                        <v-col cols="10">
                             <v-checkbox
                                 class="ma-0 pa-0"
                                 label="Part time"
                                 color="primary"
                                 hide-details
+                                v-model=" jobTypes.partTime "
+                                @change="$emit('filterJobType', jobTypes)"
                             ></v-checkbox>
                         </v-col>
                         <v-col cols="1">
@@ -209,6 +213,10 @@ export default {
                 entry: false,
                 intermidate: false,
                 expert: false
+            },
+            jobTypes: {
+                fullTime: false,
+                partTime: false
             }
         }
     }
