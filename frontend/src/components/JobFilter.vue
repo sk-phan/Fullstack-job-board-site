@@ -169,13 +169,15 @@
             <v-col>
                 <span class="label">Job title</span>
                 <div class="mt-4">
-                    <v-row v-for="i in jobCategories" :key="i">
+                    <v-row v-for="i in jobCategoriesKeys" :key="i">
                         <v-col cols="10">
                             <v-checkbox
                                 class="ma-0 pa-0"
                                 :label="i"
                                 color="primary"
                                 hide-details
+                                v-model=" jobCategories[i] "
+                                @change=" $emit('filterCategories', jobCategories) "
                             ></v-checkbox>
                         </v-col>
                         <v-col cols="1">
@@ -194,21 +196,21 @@ export default {
     name: 'JobFilter',
     data() {
         return {
-            jobCategories: [
-                "Accounting",
-                "Administration",
-                "Customer Service",
-                "Design",
-                "Engineering",
-                "Finance",
-                "Healthcare",
-                "Human Resources",
-                "Information Technology (IT)",
-                "Legal",
-                "Marketing",
-                "Operations",
-                "Sales"
-            ],
+            jobCategories: {
+                "Accounting": false,
+                "Administration": false,
+                "Customer Service": false,
+                "Design": false,
+                "Engineering": false,
+                "Finance": false,
+                "Healthcare": false,
+                "Human Resources": false,
+                "Information Technology (IT)": false,
+                "Legal": false,
+                "Marketing": false,
+                "Operations": false,
+                "Sales": false
+                },
             experienceLevel: {
                 entry: false,
                 intermidate: false,
@@ -218,6 +220,11 @@ export default {
                 fullTime: false,
                 partTime: false
             }
+        }
+    },
+    computed: {
+        jobCategoriesKeys() {
+            return Object.keys(this.jobCategories)
         }
     }
 }

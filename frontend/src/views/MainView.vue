@@ -4,11 +4,12 @@
         <v-col md="3" class="pa-0">
           <job-filter
             @filterLevel = " experienceLevel = $event "
-            @filterJobType = " jobTypes = $event ">
+            @filterJobType = " jobTypes = $event "
+            @filterCategories = " jobCategories = $event ">
           </job-filter>
         </v-col>
         <v-col v-if=" jobs.length > 0 "  md="8">
-          <div v-for=" job in jobTypeFilter " :key=" job.id ">
+          <div v-for=" job in jobCategoriesFilter " :key=" job.id ">
             <job-item :job=" job "></job-item>
           </div>
         </v-col>
@@ -37,6 +38,21 @@ data() {
     jobTypes: {
       fullTime: false,
       partTime: false
+    },
+    jobCategories: {
+      "Accounting": false,
+      "Administration": false,
+      "Customer Service": false,
+      "Design": false,
+      "Engineering": false,
+      "Finance": false,
+      "Healthcare": false,
+      "Human Resources": false,
+      "Information Technology (IT)": false,
+      "Legal": false,
+      "Marketing": false,
+      "Operations": false,
+      "Sales": false
     },
     minSalary: 0,
     maxSalary: 5000,
@@ -77,6 +93,15 @@ computed: {
       return this.experienceLevelFilter.filter(job => values.includes(job.jobType))
     }
     else return this.experienceLevelFilter
+  },
+  jobCategoriesFilter() {
+    const keys = Object.keys( this.jobCategories )
+    const selectedItems = keys.filter(v => this.jobCategories[v])
+
+    if (selectedItems.length > 0) {
+        return this.jobTypeFilter.filter(job => this.jobCategories[ job.categories ])
+    }
+    else return this.jobTypeFilter
   }
 },
 created() {
