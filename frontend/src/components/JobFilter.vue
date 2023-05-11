@@ -2,7 +2,7 @@
     <div class="bg pa-6 mr-6 rounded">
         <v-row class="mx-0 align-center justify-space-between mb-6">
             <span class="mb-0">Filter</span>
-            <v-btn text class="pa-0" color="primary">Clear all</v-btn>
+            <v-btn text class="pa-0" color="primary" @click="clearFilter">Clear all</v-btn>
         </v-row>
 
         <v-row>
@@ -236,6 +236,26 @@ export default {
     computed: {
         jobCategoriesKeys() {
             return Object.keys(this.jobCategories)
+        }
+    },
+    methods: {
+        clearFilter() {
+            this.jobTypes = {
+                fullTime: false,
+                partTime: false
+            }
+
+            this.experienceLevel = {
+                entry: false,
+                intermidate: false,
+                expert: false
+            }
+            
+            for( let i in this.jobCategories ) {
+                this.jobCategories[i] = false
+            }
+
+            this.$emit('filterCategories', this.jobCategories)
         }
     }
 }
