@@ -110,7 +110,8 @@
                                 label="Under 1000€"
                                 color="primary"
                                 hide-details
-                                @change=" $emit('filterMinSalary', 0); $emit('filterMaxSalary', 999) "
+                                v-model=" salaryRanges['0-1000'] "
+                                @change=" $emit('filterSalary', salaryRanges) "
                             ></v-checkbox>
                         </v-col>
                         <v-col cols="1">
@@ -125,7 +126,8 @@
                                 label="1000€ - 3000€"
                                 color="primary"
                                 hide-details
-                                @change=" $emit('filterMinSalary', 1000); $emit('filterMaxSalary', 3000) "
+                                v-model=" salaryRanges['1000-3000'] "
+                                @change=" $emit('filterSalary', salaryRanges)"
                             ></v-checkbox>
                         </v-col>
                         <v-col cols="1">
@@ -140,8 +142,8 @@
                                 label="3000€ - 5000€"
                                 color="primary"
                                 hide-details
-                                value = "1000"
-                                @change=" $emit('filterMinSalary', 3000); $emit('filterMaxSalary', 5000) "
+                                v-model=" salaryRanges['3000-5000'] "
+                                @change=" $emit('filterSalary', salaryRanges) "
                             ></v-checkbox>
                         </v-col>
                         <v-col cols="1">
@@ -156,7 +158,8 @@
                                 label="Up to 5000€"
                                 color="primary"
                                 hide-details
-                                @change="$emit('filterMaxSalary', 5000) "
+                                v-model=" salaryRanges[5000] "
+                                @change="$emit('filterSalary', salaryRanges)"
                             ></v-checkbox>
                         </v-col>
                         <v-col cols="1">

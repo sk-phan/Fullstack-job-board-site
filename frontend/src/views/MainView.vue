@@ -6,8 +6,8 @@
             @filterLevel = " experienceLevel = $event "
             @filterJobType = " jobTypes = $event "
             @filterCategories = " jobCategories = $event "
-            @filterMinSalary = " minSalary = $event "
-            @filterMaxSalary = " maxSalary = $event ">
+            @filterSalary = " salaryRanges = $event "
+            >
           </job-filter>
         </v-col>
         <v-col v-if=" jobs.length > 0 "  md="8">
@@ -56,9 +56,13 @@ data() {
       "Operations": false,
       "Sales": false
     },
-    title: [  ],
-    minSalary: 0,
-    maxSalary: 0
+    title: [ ],
+    salaryRanges: {
+      "0-1000": false,
+      "1000-3000": false,
+      "3000-5000": false,
+      "5000": false
+    }
   }
 },
 watch: {
@@ -76,7 +80,6 @@ methods: {
 },
 computed: {
   experienceLevelFilter() {
-
     const values =  Object.values(this.experienceLevel)
     const levels = values.map((v, index )=> {
       return v ? index + 1 : null
@@ -106,10 +109,28 @@ computed: {
     else return this.jobTypeFilter
   },
   jobSalaryFilter() {
-    if (this.minSalary !== 0 || this.maxSalary !== 0) {
-      return this.jobCategoriesFilter.filter(job => job.minSalary >= this.minSalary && job.maxSalary <= this.maxSalary )
+    const salaries = Object.keys(this.salaryRanges).filter(v => this.salaryRanges[v])
+    
+    
+    if (salaries.length > 0) {
+
+      const salaryItems = []
+  
+      for (let i = 0; i < salaries.length; i++) {
+        const str = salaries[i].split('-')
+  
+        str.forEach(v => salaryItems.push(Number(v)))
+      }
+
+      const max = Math.max(...salaryItems)
+      const min = Math.min(...salaryItems)
+      console.log(salaryItems, max)
+
+      return this.jobCategoriesFilter.filter(job => job.minSalary >= min 
+                                                    && job.maxSalary <= max )
     }
-    else return this.jobCategoriesFilter
+
+     return this.jobCategoriesFilter
   }
 },
 created() {
