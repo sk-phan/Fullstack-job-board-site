@@ -2,6 +2,7 @@
     <div class="my-10">
       <v-row class="mx-12">
         <v-col md="3" class="pa-0">
+          <v-btn @click="signIn">Login google</v-btn>
           <job-filter
             @filterLevel = " experienceLevel = $event "
             @filterJobType = " jobTypes = $event "
@@ -76,6 +77,9 @@ methods: {
     .getJobs()
     .then(res => this.jobs = [...res.data])
     .catch(error => console.log(error))
+  },
+  signIn() {
+    window.location.href = 'http://localhost:3001/auth/google/callback';
   }
 },
 computed: {

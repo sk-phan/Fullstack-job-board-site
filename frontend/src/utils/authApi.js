@@ -7,4 +7,8 @@ export default {
         password
       });
     },
+    googleLogIn() {
+      return api.get('/auth/google/callback')
+           
+    }
   }

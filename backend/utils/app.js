@@ -69,12 +69,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Set up login routes
-app.get('/auth/google',
+app.get('/api/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 app.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', { failureRedirect: '/login' , scope: ['profile', 'email']}),
   (req, res) => {
+    console.log(res)
     // Successful authentication, redirect to a success page or a dashboard.
     res.redirect('/');
   });
