@@ -79,7 +79,7 @@ methods: {
     .catch(error => console.log(error))
   },
   signIn() {
-    window.location.href = 'http://localhost:3001/auth/google/callback';
+    window.location.href = 'http://localhost:3001/api/auth/google/callback';
   }
 },
 computed: {
@@ -122,7 +122,7 @@ computed: {
   
       for (let i = 0; i < salaries.length; i++) {
         const str = salaries[i].split('-')
-  
+
         str.forEach(v => salaryItems.push(Number(v)))
       }
 
