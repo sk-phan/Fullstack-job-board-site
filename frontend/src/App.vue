@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-container fluid class="padding bg">
-      <main-nav></main-nav>
+      <main-nav v-if=" !$store.state.hideNavBar "></main-nav>
       <router-view></router-view>
     </v-container>
   </v-app>

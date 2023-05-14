@@ -1,5 +1,5 @@
 <template>
-   <v-row class="card pa-4 mb-10">
+   <v-row @click=" goToJob " class="card pa-4 mb-10">
         <v-col>
             <v-row>
                 <v-col class="d-flex" cols="11">
@@ -75,6 +75,11 @@ export default {
         jobType() {
             return this.job.jobType === 'fullTime' ? 'Full time' : 'Part time'
         },
+    },
+    methods: {
+        goToJob() {
+            this.$router.push({ name: 'job', params: { id: this.job.id }})
+        }
     }
 }
 </script>
@@ -82,6 +87,11 @@ export default {
 <style lang="scss" scoped>
     .card {
         background: white;
+        cursor: pointer;
+        transition: ease-in-out 0.3s;
+    }
+    .card:hover {
+       background: #f8f8f8;
     }
     .highlight {
         list-style: none;

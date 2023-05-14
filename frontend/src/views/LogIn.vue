@@ -1,6 +1,6 @@
 <template>
-    <v-container fluid>
-        <v-row class="container">
+    <v-container fluid class="pt-0">
+        <v-row class="container pt-0">
             <v-col cols="12" md="5" class="pl-10">
                 <v-form class="form">
                     <h3 class="mb-6">Log in</h3>
@@ -39,6 +39,8 @@ export default {
             .logIn(this.username, this.password)
             .then(res => {
                 if (res.data) {
+                    this.$router.push('/')
+                    this.$store.commit('setHideNavBar', false)
                     console.log(res.data, "sign in")
                 }
             })
