@@ -75,9 +75,8 @@ app.get('/api/auth/google',
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' , scope: ['profile', 'email']}),
   (req, res) => {
-    console.log(res)
     // Successful authentication, redirect to a success page or a dashboard.
-    res.redirect('/');
+    res.redirect('http://localhost:8080/login');
   });
 
 app.use('/api/jobs', jobRouter)
