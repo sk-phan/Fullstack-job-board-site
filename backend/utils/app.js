@@ -72,7 +72,7 @@ app.use(passport.session());
 app.get('/api/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-app.get('/auth/google/callback',
+app.get('/api/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' , scope: ['profile', 'email']}),
   (req, res) => {
     // Successful authentication, redirect to a success page or a dashboard.
