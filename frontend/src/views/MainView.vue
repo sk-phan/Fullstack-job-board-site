@@ -103,15 +103,6 @@ computed: {
     }
     else return this.experienceLevelFilter
   },
-  jobCategoriesFilter() {
-    const keys = Object.keys( this.jobCategories )
-    const selectedItems = keys.filter(v => this.jobCategories[v])
-
-    if (selectedItems.length > 0) {
-        return this.jobTypeFilter.filter(job => this.jobCategories[ job.categories ])
-    }
-    else return this.jobTypeFilter
-  },
   jobSalaryFilter() {
     const salaries = Object.keys(this.salaryRanges).filter(v => this.salaryRanges[v])
     
@@ -130,12 +121,21 @@ computed: {
       const min = Math.min(...salaryItems)
       console.log(salaryItems, max)
 
-      return this.jobCategoriesFilter.filter(job => job.minSalary >= min 
+      return this.jobTypeFilter.filter(job => job.minSalary >= min 
                                                     && job.maxSalary <= max )
     }
 
-     return this.jobCategoriesFilter
-  }
+     return this.jobTypeFilter
+  },
+  jobCategoriesFilter() {
+    const keys = Object.keys( this.jobCategories )
+    const selectedItems = keys.filter(v => this.jobCategories[v])
+
+    if (selectedItems.length > 0) {
+        return this.jobSalaryFilter.filter(job => this.jobCategories[ job.categories ])
+    }
+    else return this.jobSalaryFilter
+  },
 },
 created() {
   this.getJobs()

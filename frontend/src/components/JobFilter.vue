@@ -254,11 +254,20 @@ export default {
                 expert: false
             }
             
+            this.salaryRanges = {
+                "0-1000": false,
+                "1000-3000": false,
+                "3000-5000": false,
+                "0-5000": false
+            }
             for( let i in this.jobCategories ) {
                 this.jobCategories[i] = false
             }
 
-            this.$emit('filterCategories', this.jobCategories)
+            this.$emit('filterJobType', this.jobTypes)
+            this.$emit('filterLevel', this.experienceLevel)
+            this.$emit('filterLevel', this.experienceLevel)
+            this.$emit('filterSalary', this.salaryRanges)
         }
     }
 }
