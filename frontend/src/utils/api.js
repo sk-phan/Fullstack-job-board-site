@@ -49,6 +49,7 @@ const decodeToken = (token) => {
 }
 
 const isAccessTokenExpired = () => {
+
   const token = getAccessToken()
   if (!token) {
     return true
@@ -69,7 +70,7 @@ const refreshToken = async() => {
 
   try {
     const res = await api.post('/token/refresh', {
-      storedRefreshToken
+      refreshToken: storedRefreshToken
     })
 
     const { token, refreshToken } = res.data;
@@ -90,7 +91,7 @@ const refreshToken = async() => {
 // Function to handle token refresh and return a new access token
 const getNewAccessToken = async() => {
   if (isAccessTokenExpired()) {
-
+console.log(isAccessTokenExpired())
       if (!isRefreshing) {
 
         isRefreshing = true;

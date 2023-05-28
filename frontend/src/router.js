@@ -11,12 +11,13 @@ const routes = [
     path: '/',
     name: 'MainView',
     component: MainView,
-    meta: { requiresAuth: true } // Add the meta property to specify authentication requirement
+   // meta: { requiresAuth: true } // Add the meta property to specify authentication requirement
   },
   {
     path: '/job/:id',
     name: 'job',
     component: SingleJobView,
+    meta: { requiresAuth: true }
   },
   {
     path: '/login',
