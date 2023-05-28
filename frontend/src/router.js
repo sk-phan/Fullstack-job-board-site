@@ -11,6 +11,7 @@ const routes = [
     path: '/',
     name: 'MainView',
     component: MainView,
+    meta: { requiresAuth: true } // Add the meta property to specify authentication requirement
   },
   {
     path: '/job/:id',
@@ -30,5 +31,35 @@ const router = new VueRouter({
   mode: 'history',
   routes,
 });
+
+router.beforeEach( async (to, from, next) => {
+
+  // Check if the current route requires authentication
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (!requiresAuth) {
+    next();
+    return;
+  }
+
+  try {
+    const isValidToken = await localStorage.getItem('token')
+
+    console.log("isValid", isValidToken)
+    if (isValidToken) {
+      // If the token is valid, proceed to the next route
+      next();
+    } else {
+      // If the token is invalid, redirect to the login page
+      next('/login');
+    }
+  } catch (error) {
+    // Handle error, e.g., show an error message or redirect to an error page
+    console.error(error);
+    next('/error');
+  
+  }
+
+} )
 
 export default router;

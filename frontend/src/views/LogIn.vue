@@ -41,6 +41,8 @@ export default {
                 if (res.data) {
                     this.$router.push('/')
                     this.$store.commit('setHideNavBar', false)
+                    localStorage.setItem('token', res.data.token)
+                    localStorage.setItem('refreshToken', res.data.refreshToken)
                     console.log(res.data, "sign in")
                 }
             })
