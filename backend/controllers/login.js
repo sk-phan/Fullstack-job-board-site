@@ -58,8 +58,9 @@ loginRouter.post('/refresh', async(req, res) => {
         
         // Generate a new access token
         const accessToken = jwt.sign(userForToken, "accessSecret", { expiresIn: '60m' });
-        
-        res.json({ accessToken: accessToken });
+        const refreshToken = jwt.sign(userForToken, "refreshSecret", { expiresIn: '15m'});
+
+        res.json({ token: accessToken, refreshToken: refreshToken });
 
     }
     catch (error) {
