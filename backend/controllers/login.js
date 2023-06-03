@@ -25,7 +25,7 @@ loginRouter.post('/', async(req, res) => {
     
     const token = jwt.sign(
         userForToken, 
-        "accessSecret",
+        process.env.SECRET,
         { expiresIn: '60m' }
         )
 
@@ -57,7 +57,7 @@ loginRouter.post('/refresh', async(req, res) => {
         };
         
         // Generate a new access token
-        const accessToken = jwt.sign(userForToken, "accessSecret", { expiresIn: '60m' });
+        const accessToken = jwt.sign(userForToken, process.env.SECRET, { expiresIn: '60m' });
         const refreshToken = jwt.sign(userForToken, "refreshSecret", { expiresIn: '15m'});
 
         res.json({ token: accessToken, refreshToken: refreshToken });

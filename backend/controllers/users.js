@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt')
-const { req } = require('http')
 const userRouter = require('express').Router()
 const User = require('../model/UserModel')
 const jwt = require('jsonwebtoken')
@@ -65,9 +64,10 @@ userRouter.put('/:id', async (req, res, next) => {
   try {
     const decodedToken = jwt.verify(await getTokenFrom(req), process.env.SECRET)
 
-    if (!decodedToken.id) {
-      return res.status(401).json({ error: 'token invalid' })
-    }
+    console.log(decodedToken, "id")
+    // if (!decodedToken.id) {
+    //   return res.status(401).json({ error: 'token invalid' })
+    // }
 
     const id = req.params.id
     const user = await User.findById(id)
