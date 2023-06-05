@@ -49,6 +49,21 @@ applicationRouter.get('/company/:id', async (req, res, next) => {
     .catch(error => next(error))
 })
 
+//Get applications by job seeker id
+applicationRouter.get('/jobSeeker/:id', async (req, res, next) => {
+    const jobSeekerId = req.params.id
+
+    Applications.find({ jobSeekerId })
+    .then(application => {
+        if (application) {
+            res.json(application)
+        } else {
+            res.status(404).end()
+        }
+    })
+    .catch(error => next(error))
+})
+
 //Create application
 applicationRouter.post('/', async (req, res, next) => {
     const body = req.body
@@ -67,6 +82,7 @@ applicationRouter.post('/', async (req, res, next) => {
     const savedApplication = await newApplication.save()
     res.json( savedApplication )
 })
+
 
 
 module.exports = applicationRouter
