@@ -12,6 +12,7 @@ const cors = require('cors')
 const jobRouter = require('../controllers/jobs')
 const userRouter = require('../controllers/users')
 const loginRouter = require('../controllers/login')
+const applicationRouter = require('../controllers/applications')
 
 const middleware = require('./middleware')
 const logger = require('./logger')
@@ -82,6 +83,7 @@ app.get('/api/auth/google/callback',
 app.use('/api/jobs', jobRouter)
 app.use('/api/users', userRouter)
 app.use('/api/token', loginRouter)
+app.use('/api/applications', applicationRouter)
 
 
 app.use(middleware.unknownEndpoint)

@@ -12,8 +12,6 @@ const userSchema = new mongoose.Schema({
     passwordHash: String,
     userType: Number, // 1 = Company, 2 = Job seeker
     jobs: [Job.schema],
-
-
 })
 
 userSchema.plugin(uniqueValidator)

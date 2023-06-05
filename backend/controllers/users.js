@@ -64,10 +64,9 @@ userRouter.put('/:id', async (req, res, next) => {
   try {
     const decodedToken = jwt.verify(await getTokenFrom(req), process.env.SECRET)
 
-    console.log(decodedToken, "id")
-    // if (!decodedToken.id) {
-    //   return res.status(401).json({ error: 'token invalid' })
-    // }
+    if (!decodedToken.id) {
+      return res.status(401).json({ error: 'token invalid' })
+    }
 
     const id = req.params.id
     const user = await User.findById(id)
@@ -87,6 +86,45 @@ userRouter.put('/:id', async (req, res, next) => {
     await Job.updateMany({  user: id },{ $set: { name: updatedUser.name } })
     
     res.json(updatedUser)
+  }
+  catch(err) {
+    next(err)
+  }
+
+})
+
+userRouter.put('/updateApplication/:id', async (req, res, next) => {
+  try {
+    const decodedToken = jwt.verify(await getTokenFrom(req), process.env.SECRET)
+
+    if (!decodedToken.id) {
+      return res.status(401).json({ error: 'token invalid' })
+    }
+
+    const id = req.params.id //company id
+    const user = await User.findById(id)
+
+    //If user id is invalid
+    if (!user) {
+      return res.status(404);
+    }
+
+    else if (user && user.type === 1) {
+
+      const companyProfile = {
+        ...user,
+        applications: [...applications ,req.body]
+      } 
+  
+      //Update user
+      const updatedUser = await User.findByIdAndUpdate(
+        id, 
+        companyProfile, 
+        { new: true, runValidators: true, context: 'query' }
+      )
+      
+      res.json(updatedUser)
+    }
   }
   catch(err) {
     next(err)

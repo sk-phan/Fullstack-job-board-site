@@ -1,0 +1,72 @@
+const applicationRouter = require('express').Router()
+const Applications = require('../model/ApplicationModel')
+const User = require('../model/UserModel')
+const jwt = require('jsonwebtoken')
+
+const getTokenFrom = (request) => {
+    const authorization = request.get('authorization')
+    if (authorization && authorization.startsWith('Bearer ')) {
+    return authorization.replace('Bearer ', '')
+    }
+    return null
+
+}
+
+applicationRouter.get('/', (req, res) => {
+    Applications.find()
+    .then(application => res.json(application))
+})
+
+applicationRouter.get('/:id', async (req, res, next) => {
+    
+    const id = await req.params.id
+
+    Applications.findById(id)
+    .then(application => {
+
+        if (application) {
+            res.json(application)
+        } else {
+            res.status(404).end()
+        }
+    })
+    .catch(error => next(error))
+
+})
+
+//Get applications by company id
+applicationRouter.get('/company/:id', async (req, res, next) => {
+    const companyId = req.params.id
+
+    Applications.find({ companyId })
+    .then(application => {
+        if (application) {
+            res.json(application)
+        } else {
+            res.status(404).end()
+        }
+    })
+    .catch(error => next(error))
+})
+
+//Create application
+applicationRouter.post('/', async (req, res, next) => {
+    const body = req.body
+    
+    const newApplication = await new Applications({
+        firstName: body.firstName,
+        lastName: body.lastName,
+        email: body.email,
+        phoneNumber: body.phoneNumber,
+        description: body.description,
+        file: body.file,
+        companyId: body.companyId,
+        jobSeekerId: body.jobSeekerId
+    })
+
+    const savedApplication = await newApplication.save()
+    res.json( savedApplication )
+})
+
+
+module.exports = applicationRouter

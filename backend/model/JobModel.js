@@ -48,7 +48,7 @@ const jobCategories = [
         required: true
     },
     minSalary: {
-      type: Number,   
+        type: Number,   
     },
     maxSalary: {
         type: Number
@@ -92,3 +92,5 @@ jobSchema.set('toJSON', {
 })
 
 module.exports = mongoose.model('Job', jobSchema)
+
+
