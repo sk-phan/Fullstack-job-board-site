@@ -16,7 +16,7 @@ const jobCategories = [
   ];
 
   const categoriesValidator = (categories) => {
-    const isValid = categories !== '' && jobCategories.includes(item)
+    const isValid = categories !== '' && jobCategories.includes(categories)
     if (!isValid) {
         throw new Error('Invalid categories')
     }
@@ -74,7 +74,7 @@ const jobCategories = [
     categories: {
         type: String,
         require: true,
-        validate: [ categoriesValidator, 'Invalid categories' ]
+       validate: [ categoriesValidator, 'Invalid categories' ]
     },
     experienceLevel: {
         type: Number,
