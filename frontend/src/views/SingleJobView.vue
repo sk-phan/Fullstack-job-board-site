@@ -17,8 +17,42 @@
                     <span class="tag mr-3">{{ job.jobType }}</span>
                     <span class="tag">{{ job.city }}, {{ job.country }}</span>
                 </v-row>
+
                 <v-row>
                     <p>{{ job.description }}</p>
+                </v-row>
+
+                <v-row>
+                    <v-col>
+                        <v-row>Responsibility</v-row>
+                        <v-row>
+                            <p class="responsibility-text">
+                                {{ job.responsibility }}
+                            </p>
+                        </v-row>
+                    </v-col>
+                </v-row>
+
+                <v-row>
+                    <v-col>
+                        <v-row>Skills</v-row>
+                        <v-row>
+                            <p class="responsibility-text">
+                                {{ job.skills }}
+                            </p>
+                        </v-row>
+                    </v-col>
+                </v-row>
+
+                <v-row>
+                    <v-col>
+                        <v-row>Benefits</v-row>
+                        <v-row>
+                            <p class="responsibility-text">
+                                {{ job.benefits }}
+                            </p>
+                        </v-row>
+                    </v-col>
                 </v-row>
             </v-col>
 
@@ -202,4 +236,7 @@ export default {
         border: 2px dashed #eee !important;
         border-radius: 5px;
     }
+    .responsibility-text {
+        white-space: pre-line;
+        }
 </style>

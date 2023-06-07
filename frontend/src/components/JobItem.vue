@@ -16,8 +16,7 @@
     
             <v-row class="mx-0">
                 <v-col md="11" class="mx-0 px-0">
-                    <p>We are seeking a talented graphic designer to join our team. 
-                    You will work on a variety of projects, such as designing marketing materials, creating social media graphics...</p>
+                    <p>{{ description }}</p>
                 </v-col>
             </v-row>
             <v-row class="mx-0 mb-10">
@@ -75,6 +74,11 @@ export default {
         jobType() {
             return this.job.jobType === 'fullTime' ? 'Full time' : 'Part time'
         },
+        description() {
+            const text = this.job.description.split(" ").slice(0, 29)
+        
+            return text.join(" ") + " ..."
+        }
     },
     methods: {
         goToJob() {
@@ -91,7 +95,7 @@ export default {
         transition: ease-in-out 0.3s;
     }
     .card:hover {
-       background: #f8f8f8;
+        background: #f8f8f8;
     }
     .highlight {
         list-style: none;
