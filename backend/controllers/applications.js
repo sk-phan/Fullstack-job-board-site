@@ -1,8 +1,10 @@
 const applicationRouter = require('express').Router()
 const Applications = require('../model/ApplicationModel')
-const User = require('../model/UserModel')
-const jwt = require('jsonwebtoken')
+
+const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
 const multer = require('multer');
+
 
 // Set up storage configuration for multer
 const storage = multer.diskStorage({
@@ -96,6 +98,44 @@ applicationRouter.post('/', upload.single("file"), async (req, res, next) => {
 
     const savedApplication = await newApplication.save()
     res.json( savedApplication )
+
+    // Compose email content
+    const emailContent = `
+        Dear ${body.firstName},
+
+        Thank you for providing your information. We have received the following details:
+
+        Name: ${body.firstName}
+        Email: hongnhung19121997@gmail.com
+
+        We will get back to you soon.
+
+        Regards,
+        Your Company
+    `;
+
+    const mailOptions = {
+        from: "WorkHive <hongnhung19121997@gmail.com>",
+        to: "hongnhung19121997@gmail.com",
+        subject: "Notification",
+        text: emailContent
+    }
+
+    const transporter = nodemailer.createTransport({
+        service: "Gmail",
+        auth: {
+            user: "sukiphan97@gmail.com",
+            pass: "lrmpbvkxswjmsjnl"
+        }
+    })
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error('Error sending email:', error);
+        } else {
+          console.log('Email sent:', info.response);
+        }
+      });
 })
 
 
