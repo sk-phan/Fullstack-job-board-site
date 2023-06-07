@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const uniqueValidator = require('mongoose-unique-validator')
 
 const applicationSchema = new mongoose.Schema({
     firstName: String,
@@ -9,7 +8,8 @@ const applicationSchema = new mongoose.Schema({
     description: String,
     file: String,
     companyId: String,
-    jobSeekerId: String
+    jobSeekerId: String,
+    jobId: String
 })
 
 applicationSchema.set('toJSON', {

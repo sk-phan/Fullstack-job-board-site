@@ -191,13 +191,14 @@ export default {
         fileUploaded(file) {
             const formData = new FormData();
             formData.append('file', file);
-            formData.append('firstName', "Nikko");
-            formData.append('lastName', this.applicant.lastName);
-            formData.append('email', this.applicant.email);
-            formData.append('phoneNumber', this.applicant.phoneNumber);
+            formData.append('firstName', "Mikko");
+            formData.append('lastName', "Hassinen");
+            formData.append('email', "hongnhung19121997@gmail.com");
+            formData.append('phoneNumber', "0938291930");
             formData.append('description', this.applicant.description);
             formData.append('companyId', '6443e3ce3999375a8f25731e');
             formData.append('jobSeekerId', null);
+            formData.append('jobId', this.jobId);
 
             applicationApi.createApplication(formData)
             .then(response => {

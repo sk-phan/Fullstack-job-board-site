@@ -1,7 +1,7 @@
 const applicationRouter = require('express').Router()
 const Applications = require('../model/ApplicationModel')
+const Jobs = require('../model/JobModel')
 
-const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const multer = require('multer');
 
@@ -84,58 +84,77 @@ applicationRouter.get('/jobSeeker/:id', async (req, res, next) => {
 //Create application
 applicationRouter.post('/', upload.single("file"), async (req, res, next) => {
     const body = req.body
+    const jobInfo = await Jobs.findById(req.body.jobId)
+
+    if (jobInfo) {
+
+        const newApplication = await new Applications({
+            firstName: body.firstName,
+            lastName: body.lastName,
+            email: body.email,
+            phoneNumber: body.phoneNumber,
+            description: body.description,
+            file: req.file.originalname,
+            jobId: req.body.jobId,
+            companyId: jobInfo.user,
+            jobSeekerId: body.jobSeekerId
+        })
     
-    const newApplication = await new Applications({
-        firstName: body.firstName,
-        lastName: body.lastName,
-        email: body.email,
-        phoneNumber: body.phoneNumber,
-        description: body.description,
-        file: req.file.originalname,
-        companyId: body.companyId,
-        jobSeekerId: body.jobSeekerId
-    })
-
-    const savedApplication = await newApplication.save()
-    res.json( savedApplication )
-
-    // Compose email content
-    const emailContent = `
-        Dear ${body.firstName},
-
-        Thank you for providing your information. We have received the following details:
-
-        Name: ${body.firstName}
-        Email: hongnhung19121997@gmail.com
-
-        We will get back to you soon.
-
-        Regards,
-        Your Company
-    `;
-
-    const mailOptions = {
-        from: "WorkHive <hongnhung19121997@gmail.com>",
-        to: "hongnhung19121997@gmail.com",
-        subject: "Notification",
-        text: emailContent
+        const savedApplication = await newApplication.save()
+        res.json( savedApplication )
+    
+        // Compose email content
+        const emailContent = `
+            Subject: Application Forwarded - ${jobInfo.title}
+    
+            Dear ${body.firstName},
+    
+            Thank you for applying to the position of [Position Title] through our job board. We want to inform you that your application has been successfully forwarded to the hiring company. We appreciate your interest in this opportunity and the effort you put into your application.
+    
+            Here are the details of your application:
+            - Full Name: ${body.firstName + ' ' + body.lastName}
+            - Email Address: ${body.email}
+            - Phone Number: ${body.phoneNumber}
+            - Position: ${jobInfo.title}
+            - Application Date: ${new Date().toLocaleDateString()}
+    
+            Please note that this email serves as confirmation that your application has been received and forwarded. The hiring company will now review your application and consider your qualifications and experience. If your profile matches their requirements, they may contact you directly for further steps in the selection process.
+    
+            We kindly request your patience as the hiring process takes place. Each company has its own timeline and procedures for reviewing applications. Rest assured that your application will be given due consideration.
+    
+            If you have any questions or need further assistance, please do not hesitate to contact us at sukiphan97@gmail.com. We are here to support you throughout your job search.
+    
+            Thank you again for using our job board and best of luck with your application. We hope you find success in your career endeavors.
+    
+            Warm regards,
+            Suki
+            WorkHive
+    
+        `;
+    
+        const mailOptions = {
+            from: "Suki from WorkHive <hongnhung19121997@gmail.com>",
+            to: "hongnhung19121997@gmail.com",
+            subject: "Notification",
+            text: emailContent
+        }
+    
+        const transporter = nodemailer.createTransport({
+            service: "Gmail",
+            auth: {
+                user: "sukiphan97@gmail.com",
+                pass: "lrmpbvkxswjmsjnl"
+            }
+        })
+    
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              console.error('Error sending email:', error);
+            } else {
+              console.log('Email sent:', info.response);
+            }
+        });
     }
-
-    const transporter = nodemailer.createTransport({
-        service: "Gmail",
-        auth: {
-            user: "sukiphan97@gmail.com",
-            pass: "lrmpbvkxswjmsjnl"
-        }
-    })
-
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.error('Error sending email:', error);
-        } else {
-          console.log('Email sent:', info.response);
-        }
-      });
 })
 
 

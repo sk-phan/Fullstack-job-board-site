@@ -1,6 +1,6 @@
 <template>
     <v-app-bar flat class="nav">
-        <v-toolbar-title>
+        <v-toolbar-title class="hover-style" @click=" $router.push('/') ">
           <img :src="logoImg" style="height: 20px ;" alt="image"/>
         </v-toolbar-title>
         
@@ -39,5 +39,8 @@ export default {
   .nav {
     background: #fff !important;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px !important;
+  }
+  .hover-style {
+    cursor: pointer !important;
   }
 </style>
