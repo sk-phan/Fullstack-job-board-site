@@ -91,7 +91,6 @@ const refreshToken = async() => {
 // Function to handle token refresh and return a new access token
 const getNewAccessToken = async() => {
   if (isAccessTokenExpired()) {
-console.log(isAccessTokenExpired())
       if (!isRefreshing) {
 
         isRefreshing = true;

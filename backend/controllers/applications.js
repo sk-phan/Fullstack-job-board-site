@@ -83,7 +83,6 @@ applicationRouter.get('/jobSeeker/:id', async (req, res, next) => {
 applicationRouter.post('/', upload.single("file"), async (req, res, next) => {
     const body = req.body
     
-    console.log(body, req.file)
     const newApplication = await new Applications({
         firstName: body.firstName,
         lastName: body.lastName,
@@ -98,6 +97,7 @@ applicationRouter.post('/', upload.single("file"), async (req, res, next) => {
     const savedApplication = await newApplication.save()
     res.json( savedApplication )
 })
+
 
 
 
