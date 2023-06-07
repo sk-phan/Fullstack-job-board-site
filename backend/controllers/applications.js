@@ -2,6 +2,21 @@ const applicationRouter = require('express').Router()
 const Applications = require('../model/ApplicationModel')
 const User = require('../model/UserModel')
 const jwt = require('jsonwebtoken')
+const multer = require('multer');
+
+// Set up storage configuration for multer
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads'); // Set the destination folder where the files will be saved
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.originalname); // Use the original file name for saving
+    },
+});
+
+
+// Create the multer upload instance
+const upload = multer({ storage });
 
 const getTokenFrom = (request) => {
     const authorization = request.get('authorization')
@@ -65,16 +80,17 @@ applicationRouter.get('/jobSeeker/:id', async (req, res, next) => {
 })
 
 //Create application
-applicationRouter.post('/', async (req, res, next) => {
+applicationRouter.post('/', upload.single("file"), async (req, res, next) => {
     const body = req.body
     
+    console.log(body, req.file)
     const newApplication = await new Applications({
         firstName: body.firstName,
         lastName: body.lastName,
         email: body.email,
         phoneNumber: body.phoneNumber,
         description: body.description,
-        file: body.file,
+        file: req.file.originalname,
         companyId: body.companyId,
         jobSeekerId: body.jobSeekerId
     })
@@ -82,6 +98,7 @@ applicationRouter.post('/', async (req, res, next) => {
     const savedApplication = await newApplication.save()
     res.json( savedApplication )
 })
+
 
 
 

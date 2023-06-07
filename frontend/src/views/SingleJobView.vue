@@ -104,6 +104,7 @@
                                 ref="myVueDropzone" 
                                 id="dropzone" 
                                 :options="dropzoneOptions"
+                                @vdropzone-success="fileUploaded"
                                 :useCustomSlot=true>
                                 <div class="dropzone-custom-content">
                                     <h3 class="dropzone-custom-title">Drag and drop to upload content!</h3>
@@ -122,6 +123,7 @@
 import jobApi from '@/utils/jobApi';
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+import applicationApi from '@/utils/applicationApi'
 
 export default {
     name: 'SingleJobView',
@@ -151,6 +153,29 @@ export default {
             } 
         }
     },
+    methods: {
+        fileUploaded(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('firstName', "Nikko");
+            formData.append('lastName', this.applicant.lastName);
+            formData.append('email', this.applicant.email);
+            formData.append('phoneNumber', this.applicant.phoneNumber);
+            formData.append('description', this.applicant.description);
+            formData.append('companyId', '6443e3ce3999375a8f25731e');
+            formData.append('jobSeekerId', null);
+
+            applicationApi.createApplication(formData)
+            .then(response => {
+                // Handle the response
+                console.log(response);
+            })
+            .catch(error => {
+                // Handle the error
+                console.error(error);
+            });
+        }
+    },
     created() {
         jobApi.getJobByID(this.jobId)
         .then(res => {
@@ -158,6 +183,7 @@ export default {
                 this.job = {...res.data}
             }
         })
+        
     }
 }
 </script>
