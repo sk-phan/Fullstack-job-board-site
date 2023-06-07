@@ -79,7 +79,10 @@ const jobCategories = [
     experienceLevel: {
         type: Number,
         validate: [ experienceLevelValidator, 'Invalid experience level' ]
-    }
+    },
+    responsibility: String,
+    skills: String,
+    benefits: String
     
 })
 

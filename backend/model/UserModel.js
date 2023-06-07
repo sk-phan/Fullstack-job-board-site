@@ -10,7 +10,8 @@ const userSchema = new mongoose.Schema({
     },
     name: String,
     passwordHash: String,
-    userType: Number, // 1 = Company, 2 = Job seeker
+    userType: Number, // 1 = Company, 2 = Job seeker,
+    introduction: String,
     jobs: [Job.schema],
 })
 

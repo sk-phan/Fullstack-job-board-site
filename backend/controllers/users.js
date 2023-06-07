@@ -13,7 +13,7 @@ const getTokenFrom = (req) => {
 }
 
 userRouter.post('/', async (req, res) => {
-  const { username, name, password, userType } = await req.body
+  const { username, name, password, userType, introduction } = await req.body
 
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(password, saltRounds)
@@ -22,7 +22,8 @@ userRouter.post('/', async (req, res) => {
     username,
     name,
     passwordHash,
-    userType
+    userType,
+    introduction
   })
 
   const savedUser = await user.save()
