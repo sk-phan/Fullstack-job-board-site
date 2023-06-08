@@ -5,9 +5,9 @@ const User = require('../model/UserModel')
 
 //Initial login
 loginRouter.post('/', async(req, res) => {
-    const { username, password } = req.body
+    const { email, password } = req.body
 
-    const user = await User.findOne({ username })
+    const user = await User.findOne({ email })
     const passwordCorrect = user === null
         ? false
         : await bcrypt.compare(password, user.passwordHash)
@@ -32,7 +32,7 @@ loginRouter.post('/', async(req, res) => {
     const refreshToken = jwt.sign(
         userForToken, 
         "refreshSecret", 
-        { expiresIn: '15m'}
+        { expiresIn: '60m'}
         );
 
     res

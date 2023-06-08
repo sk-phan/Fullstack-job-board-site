@@ -29,7 +29,6 @@ export default {
     methods: {
       logIn() {
         this.$router.push('/login')
-        this.$store.commit('setHideNavBar', true)
       }
     }
 }

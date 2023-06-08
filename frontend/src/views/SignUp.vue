@@ -78,6 +78,9 @@ export default {
                 })
             }
         }
+    },
+    beforeCreate() {
+        this.$store.commit('setHideNavBar', true)
     }
 }
 </script>
