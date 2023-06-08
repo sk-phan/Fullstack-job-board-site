@@ -10,5 +10,8 @@ export default {
     googleLogIn() {
       return api.get('/auth/google/callback')
            
+    },
+    signUp(newUser) {
+      return api.post('/users', newUser)
     }
   }

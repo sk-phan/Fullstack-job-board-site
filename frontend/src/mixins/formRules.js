@@ -12,6 +12,9 @@ export default {
                         "Please enter a valid email address"
                     );
                 },
+                password:  value =>
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(value) ||
+                'Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters',
             }
         }
     }

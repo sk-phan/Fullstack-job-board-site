@@ -25,7 +25,7 @@
                                 :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
                                 @click:append="showPass = !showPass"
                                 :type="showPass ? 'text' : 'password'"
-                                :rules="[rules.required]"
+                                :rules="[rules.required, rules.password]"
                             >
                             </v-text-field>
                         </v-col>
