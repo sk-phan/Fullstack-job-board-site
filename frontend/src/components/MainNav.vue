@@ -5,6 +5,10 @@
         </v-toolbar-title>
         
         <v-spacer></v-spacer>
+
+        <v-btn text>  
+          My jobs    
+        </v-btn>
         
         <v-btn text class="mr-3" @click=" logIn ">  
           Log in    

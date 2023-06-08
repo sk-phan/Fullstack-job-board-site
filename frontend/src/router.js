@@ -30,7 +30,11 @@ const routes = [
     name: 'SignUp',
     component: SignUp,
   },
-
+  {
+    path: '/myJob',
+    name: 'MyJob',
+    component: SignUp,
+  },
 ];
 
 

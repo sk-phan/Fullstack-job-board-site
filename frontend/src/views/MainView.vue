@@ -12,6 +12,7 @@
           </job-filter>
         </v-col>
         <v-col v-if=" jobs.length > 0 "  md="8">
+          <job-search></job-search>
           <div v-for=" job in jobSalaryFilter " :key=" job.id ">
             <job-item :job=" job "></job-item>
           </div>
@@ -22,13 +23,13 @@
   
 
 <script>
-import axios from 'axios';
 import JobFilter from '../components/JobFilter.vue';
 import JobItem from '../components/JobItem.vue';
+import JobSearch from '../components/JobSearch.vue';
 import jobApi from '../utils/jobApi';
 
 export default {
-components: { JobItem, JobFilter },
+components: { JobItem, JobFilter, JobSearch },
 name: 'MainView',
 data() {
   return {
@@ -139,7 +140,7 @@ computed: {
 },
 created() {
   this.getJobs()
-  axios.get('https://restcountries.com/v3.1/all').then(res => console.log(res.data))
+  //axios.get('https://restcountries.com/v3.1/all').then(res => console.log(res.data))
 }
 }
 </script>
