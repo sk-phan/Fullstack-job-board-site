@@ -1,9 +1,9 @@
 import api from "./api"
 
 export default {
-    logIn(username, password) {
+    logIn(email, password) {
       return api.post('/token', {
-        username, 
+        email, 
         password
       });
     },

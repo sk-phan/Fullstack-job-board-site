@@ -3,13 +3,13 @@
         <v-row class="container pt-0">
             <v-col cols="12" md="5" class="pl-10">
                 <v-form ref="form" class="form">
-                    <h3 class="mb-6 title">Log in</h3>
+                    <h3 class="mb-6 title">Sign up</h3>
                     <v-row>
                         <v-col>
                             <v-label>Username</v-label>
                             <v-text-field 
                                 outlined 
-                                v-model="email"
+                                v-model="username"
                                 :rules="[rules.required]"
                             >
                             </v-text-field>                    
@@ -31,8 +31,8 @@
                         </v-col>
                     </v-row>
                     <v-btn block color="primary" class="mb-6" depressed @click=" logIn ">Log in</v-btn> 
-                    <span>Don't have an account?
-                        <a class="link" href="/signup">Sign up</a>
+                    <span>Already have an account?
+                        <a class="link" href="/">Log in</a>
                     </span>
                 </v-form>
             </v-col>
@@ -49,14 +49,14 @@
 
 <script>
 import authApi from '@/utils/authApi';
-import img from '../assets/bg.png';
+import img from '../assets/signUpBg.png';
 import formRules from '../mixins/formRules';
 
 export default {
-    name: 'LogIn',
+    name: 'SignUp',
     data() {
         return {
-            email: '',
+            username: '',
             password: '',
             bg: img,
             showPass: false
@@ -67,7 +67,7 @@ export default {
         logIn() {
             if (this.$refs.form.validate()) {
                 authApi
-                .logIn(this.email, this.password)
+                .logIn(this.username, this.password)
                 .then(res => {
                     if (res.data) {
                         this.$router.push('/')

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import MainView from './views/MainView';
 import LogIn from './views/LogIn';
+import SignUp from './views/SignUp';
 import SingleJobView from './views/SingleJobView';
 
 Vue.use(VueRouter);
@@ -17,12 +18,17 @@ const routes = [
     path: '/job/:id',
     name: 'job',
     component: SingleJobView,
-    meta: { requiresAuth: true }
+   // meta: { requiresAuth: true }
   },
   {
     path: '/login',
     name: 'LogIn',
     component: LogIn,
+  },
+  {
+    path: '/signup',
+    name: 'SignUp',
+    component: SignUp,
   },
 
 ];

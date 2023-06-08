@@ -3,7 +3,7 @@ const uniqueValidator = require('mongoose-unique-validator')
 const Job = require('./JobModel')
 
 const userSchema = new mongoose.Schema({
-    username: {
+    email: {
         type: String,
         required: true,
         unique: true,

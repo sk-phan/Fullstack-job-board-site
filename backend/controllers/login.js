@@ -19,7 +19,7 @@ loginRouter.post('/', async(req, res) => {
     }
 
     const userForToken = {
-        username: user.username,
+        email: user.email,
         id: user._id
     }
     
@@ -37,7 +37,7 @@ loginRouter.post('/', async(req, res) => {
 
     res
     .status(200)
-    .send({ token, username: user.username, name: user.name, refreshToken })
+    .send({ token, email: user.email, name: user.name, refreshToken })
 
 })
 
@@ -52,7 +52,7 @@ loginRouter.post('/refresh', async(req, res) => {
         const decodedToken = jwt.verify(req.body.refreshToken, "refreshSecret");
 
         const userForToken = {
-            username: decodedToken.username,
+            email: decodedToken.email,
             id: decodedToken.id,
         };
         
