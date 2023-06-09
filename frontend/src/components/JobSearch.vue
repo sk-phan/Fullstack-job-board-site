@@ -5,7 +5,7 @@
                 flat
                 solo
                 dense
-                v-model=" search "
+                v-model=" search.job "
                 placeholder=" Job title, keyword or company "
                 append-icon="mdi-magnify"
             >
@@ -17,7 +17,7 @@
                 solo
                 flat
                 dense
-                v-model=" search "
+                v-model=" search.location "
                 placeholder="City or country"
                 append-icon="mdi-map-marker-outline"
             >
@@ -25,18 +25,31 @@
         </v-col>
 
         <v-col class="px-0 pt-0">
-            <v-btn class="px-9 py-5" depressed color="primary">Find jobs</v-btn>
+            <v-btn 
+                class="px-9 py-5" 
+                depressed 
+                color="primary"
+                @click=" findJobs ">
+                Find jobs
+            </v-btn>
         </v-col>
     </v-row>
 </template>
 
 <script>
 export default {
-    name: "JobSearch",
+    name: "JobSearch", 
     data() {
         return {
-            location: "",
-            search: ""
+            search: {
+                job: "",
+                location: ""
+            }
+        }
+    },
+    methods: {
+        findJobs() {
+            this.$emit('searchJobs', this.search )
         }
     }
 }

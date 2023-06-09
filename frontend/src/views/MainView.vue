@@ -12,8 +12,11 @@
           </job-filter>
         </v-col>
         <v-col v-if=" jobs.length > 0 "  md="8">
-          <job-search></job-search>
-          <div v-for=" job in jobSalaryFilter " :key=" job.id ">
+          <job-search
+            @searchJobs = " searchJobs "
+          >
+          </job-search>
+          <div v-for=" job in viewedJobs " :key=" job.id ">
             <job-item :job=" job "></job-item>
           </div>
         </v-col>
@@ -64,12 +67,20 @@ data() {
       "1000-3000": false,
       "3000-5000": false,
       "5000": false
-    }
+    },
+    searchInput: {
+      job: "",
+      location: ""
+    },
+    viewedJobs: []
   }
 },
 watch: {
   experienceLevel() {
     console.log(this.experienceLevel)
+  },
+  jobCategoriesFilter() {
+    this.viewedJobs = this.jobCategoriesFilter
   }
 },
 methods: {
@@ -81,6 +92,39 @@ methods: {
   },
   signIn() {
     window.location.href = 'http://localhost:3001/api/auth/google/callback';
+  },
+  searchJobs(items)  {
+    this.searchInput = items
+    this.viewedJobs = this.calculateFilteredJobs()
+  },
+  calculateFilteredJobs() {
+    let filteredJobs = this.jobCategoriesFilter;
+
+    if (this.searchInput.job !== "") {
+      const searchJob = this.searchInput.job.toLowerCase();
+
+      filteredJobs = filteredJobs.filter(
+        job => 
+          job.title.toLowerCase() === searchJob ||
+          job.name.toLowerCase() === searchJob ||
+          job.categories.toLowerCase() === searchJob
+      )
+    }
+
+    if (this.searchInput.location !== "") {
+      const searchCity = this.searchInput.location.toLowerCase();
+      filteredJobs = filteredJobs.filter(
+        job =>
+          job.city.toLowerCase() === searchCity ||
+          job.country.toLowerCase() === searchCity
+      );
+    }
+
+    if (this.searchInput.location === "" && this.searchInput.job === "") {
+      filteredJobs = this.jobCategoriesFilter
+    }
+
+    return filteredJobs;
   }
 },
 computed: {
@@ -126,7 +170,7 @@ computed: {
                                                     && job.maxSalary <= max )
     }
 
-     return this.jobTypeFilter
+    return this.jobTypeFilter
   },
   jobCategoriesFilter() {
     const keys = Object.keys( this.jobCategories )
