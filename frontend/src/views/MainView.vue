@@ -2,7 +2,7 @@
     <div class="my-10">
       <v-row class="mx-12">
         <v-col md="3" class="pa-0">
-          <!-- <v-btn @click="signIn">Login google</v-btn> -->
+          <!-- <v-btn @click="signIn">Login google</v-btn>  -->
           <job-filter
             @filterLevel = " experienceLevel = $event "
             @filterJobType = " jobTypes = $event "
@@ -11,14 +11,20 @@
             >
           </job-filter>
         </v-col>
-        <v-col v-if=" jobs.length > 0 "  md="8">
+        <v-col  md="8">
           <job-search
             @searchJobs = " searchJobs "
           >
           </job-search>
-          <div v-for=" job in viewedJobs " :key=" job.id ">
-            <job-item :job=" job "></job-item>
+
+          <div v-if=" viewedJobs.length > 0 ">
+            <div v-for=" job in viewedJobs " :key=" job.id ">
+              <job-item :job=" job "></job-item>
+            </div>
           </div>
+
+          <not-found v-else></not-found>
+
         </v-col>
       </v-row>
     </div>
@@ -29,10 +35,11 @@
 import JobFilter from '../components/JobFilter.vue';
 import JobItem from '../components/JobItem.vue';
 import JobSearch from '../components/JobSearch.vue';
+import NotFound from '../components/NotFound.vue';
 import jobApi from '../utils/jobApi';
 
 export default {
-components: { JobItem, JobFilter, JobSearch },
+components: { JobItem, JobFilter, JobSearch, NotFound },
 name: 'MainView',
 data() {
   return {
