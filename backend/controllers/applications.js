@@ -89,8 +89,7 @@ applicationRouter.post('/', upload.single("file"), async (req, res, next) => {
     if (jobInfo) {
 
         const newApplication = await new Applications({
-            firstName: body.firstName,
-            lastName: body.lastName,
+            name: body.name,
             email: body.email,
             phoneNumber: body.phoneNumber,
             description: body.description,
@@ -107,12 +106,12 @@ applicationRouter.post('/', upload.single("file"), async (req, res, next) => {
         const emailContent = `
             Subject: Application Forwarded - ${jobInfo.title}
     
-            Dear ${body.firstName},
+            Dear ${body.name},
     
             Thank you for applying to the position of [Position Title] through our job board. We want to inform you that your application has been successfully forwarded to the hiring company. We appreciate your interest in this opportunity and the effort you put into your application.
     
             Here are the details of your application:
-            - Full Name: ${body.firstName + ' ' + body.lastName}
+            - Full Name: ${body.name}
             - Email Address: ${body.email}
             - Phone Number: ${body.phoneNumber}
             - Position: ${jobInfo.title}

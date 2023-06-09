@@ -62,7 +62,7 @@
                 <div class="mt-6">
                     <v-row>
                         <v-col cols="12" md="6">
-                            <v-label>First name</v-label>
+                            <v-label>Name</v-label>
                             <v-text-field 
                                 outlined
                                 flat
@@ -75,21 +75,22 @@
                         </v-col>
     
                         <v-col cols="12" md="6">
-                            <v-label>Last name</v-label>
-                            <v-text-field 
-                                outlined
-                                flat
-                                solo
-                                dense
-                                placeholder="Last name"
-                                class="pt-2"
-                                >
-                            </v-text-field>
+                                <v-label>Phone number</v-label>
+                                <v-text-field 
+                                    outlined
+                                    flat
+                                    solo
+                                    dense
+                                    placeholder="Phone number"
+                                    class="pt-2"
+                                    >
+                                </v-text-field>
                         </v-col>
                     </v-row>
 
+
                     <v-row>
-                        <v-col cols="12" md="6">
+                        <v-col cols="12">
                             <v-label>Email</v-label>
                             <v-text-field 
                                 outlined
@@ -101,19 +102,7 @@
                                 >
                             </v-text-field>
                         </v-col>
-    
-                        <v-col cols="12" md="6">
-                            <v-label>Phone number</v-label>
-                            <v-text-field 
-                                outlined
-                                flat
-                                solo
-                                dense
-                                placeholder="Phone number"
-                                class="pt-2"
-                                >
-                            </v-text-field>
-                        </v-col>
+
                     </v-row>
 
                     <v-row>
@@ -170,8 +159,7 @@ export default {
                 description: ""
             },
             applicant: {
-                firstName: '',
-                lastName: '',
+                name: '',
                 email: '',
                 phoneNumber: '',
                 description: '',
@@ -191,8 +179,7 @@ export default {
         fileUploaded(file) {
             const formData = new FormData();
             formData.append('file', file);
-            formData.append('firstName', "Mikko");
-            formData.append('lastName', "Hassinen");
+            formData.append('name', "Mikko");
             formData.append('email', "hongnhung19121997@gmail.com");
             formData.append('phoneNumber', "0938291930");
             formData.append('description', this.applicant.description);

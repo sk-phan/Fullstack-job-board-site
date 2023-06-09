@@ -14,7 +14,7 @@
           Log in    
         </v-btn>
   
-        <v-btn depressed lowercase color="primary">  
+        <v-btn depressed lowercase color="primary" @click="signUp">  
           Sign up    
         </v-btn>
 
@@ -33,6 +33,9 @@ export default {
     methods: {
       logIn() {
         this.$router.push('/login')
+      },
+      signUp() {
+        this.$router.push('/signup')
       }
     }
 }
