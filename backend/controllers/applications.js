@@ -85,7 +85,7 @@ applicationRouter.get('/jobSeeker/:id', async (req, res, next) => {
 applicationRouter.post('/', upload.single("file"), async (req, res, next) => {
     const body = req.body
     const jobInfo = await Jobs.findById(req.body.jobId)
-
+    
     if (jobInfo) {
 
         const newApplication = await new Applications({

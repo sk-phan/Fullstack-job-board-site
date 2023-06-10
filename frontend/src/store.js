@@ -10,7 +10,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         hideNavBar: false,
-        user: null
+        user: {
+            id: null
+        }
     },
     getters: {
 

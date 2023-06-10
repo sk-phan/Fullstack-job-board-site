@@ -150,6 +150,7 @@
 
 <script>
 import jobApi from '@/utils/jobApi';
+import userApi from '@/utils/userApi';
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import applicationApi from '@/utils/applicationApi'
@@ -195,7 +196,7 @@ export default {
             formData.append('phoneNumber', this.applicant.phoneNumber);
             formData.append('description', this.applicant.description);
             formData.append('companyId', this.job.user);
-            formData.append('jobSeekerId', null);
+            formData.append('jobSeekerId', this.$store.state.user.id);
             formData.append('jobId', this.jobId);
 
             applicationApi.createApplication(formData)
@@ -207,9 +208,17 @@ export default {
                 // Handle the error
                 console.error(error);
             });
+        },
+        updateUsersJob() {
+            const currentUser = {...this.$store.state.user}
+
+            currentUser.jobs.push(this.job)
+            userApi
+            .updateUser(currentUser)
         }
     },
     created() {
+        console.log(this.$store.state.user)
         jobApi.getJobByID(this.jobId)
         .then(res => {
             console.log(res.data)
