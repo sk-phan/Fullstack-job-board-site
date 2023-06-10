@@ -51,6 +51,7 @@
 import authApi from '@/utils/authApi';
 import img from '../assets/bg.png';
 import formRules from '../mixins/formRules';
+import userApi from '@/utils/userApi';
 
 export default {
     name: 'LogIn',
@@ -64,6 +65,13 @@ export default {
     },
     mixins: [formRules],
     methods: {
+        getUser(id) {
+            userApi
+            .getUser(id)
+            .then(res => {
+                this.$store.commit('setUser', res.data)
+            })
+        },
         logIn() {
             if (this.$refs.form.validate()) {
                 authApi
@@ -72,6 +80,8 @@ export default {
                     if (res.data) {
                         this.$router.push('/')
                         this.$store.commit('setHideNavBar', false)
+                        this.getUser(res.data.id)
+
                         localStorage.setItem('token', res.data.token)
                         localStorage.setItem('refreshToken', res.data.refreshToken)
                     }

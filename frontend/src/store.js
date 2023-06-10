@@ -9,15 +9,18 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        hideNavBar: false
+        hideNavBar: false,
+        user: null
     },
     getters: {
 
     },
     mutations: {
         setHideNavBar(state, status) {
-            console.log(status)
             state.hideNavBar = status
+        },
+        setUser(state, userInfo) {
+            state.user = userInfo
         }
     },
 

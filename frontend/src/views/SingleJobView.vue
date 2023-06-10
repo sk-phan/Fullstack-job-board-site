@@ -114,7 +114,7 @@
                                 solo
                                 dense
                                 placeholder="Write something about yourself..."
-                                rows="6"
+                                rows="4"
                                 class="pt-2"
                                 >
                             </v-textarea>
@@ -134,6 +134,12 @@
                                     <div class="subtitle">...or click to select a file from your computer</div>
                                 </div>
                             </vue-dropzone>
+                        </v-col>
+                    </v-row>
+
+                    <v-row class="pt-6">
+                        <v-col>
+                            <v-btn @click="send" color="primary" depressed block>Send application</v-btn>
                         </v-col>
                     </v-row>
                 </div>
@@ -172,18 +178,23 @@ export default {
                 maxFilesize: 0.5,
                 headers: { "My-Awesome-Header": "header value" },
                 addRemoveLinks: true
-            } 
+            },
+            file: null 
         }
     },
     methods: {
         fileUploaded(file) {
+            this.file = file
+        },
+        send() {
             const formData = new FormData();
-            formData.append('file', file);
-            formData.append('name', "Mikko");
-            formData.append('email', "hongnhung19121997@gmail.com");
-            formData.append('phoneNumber', "0938291930");
+
+            formData.append('file', this.file);
+            formData.append('name', this.applicant.name);
+            formData.append('email', this.applicant.email);
+            formData.append('phoneNumber', this.applicant.phoneNumber);
             formData.append('description', this.applicant.description);
-            formData.append('companyId', '6443e3ce3999375a8f25731e');
+            formData.append('companyId', this.job.user);
             formData.append('jobSeekerId', null);
             formData.append('jobId', this.jobId);
 
@@ -201,6 +212,7 @@ export default {
     created() {
         jobApi.getJobByID(this.jobId)
         .then(res => {
+            console.log(res.data)
             if (res.data) {
                 this.job = {...res.data}
             }
