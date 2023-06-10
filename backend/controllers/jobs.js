@@ -99,7 +99,6 @@ jobRouter.delete('/:id', async (req, res, next) => {
 })
 
 jobRouter.put('/:id', async (req, res, next) => {
-    console.log(req.body)
     try {
         const decodedToken = jwt.verify( getTokenFrom(req), process.env.SECRET )
         if (!decodedToken.id) {
@@ -118,6 +117,63 @@ jobRouter.put('/:id', async (req, res, next) => {
             { new: true, runValidators: true, context: 'query' }
         )
         res.json(updateJob)
+    }
+    catch(err) {
+        next(err)
+    }
+})
+
+//Add favourite job by user
+jobRouter.put('/favourite/:userId', async (req, res, next) => {
+    try {
+        const decodedToken = jwt.verify( getTokenFrom(req), process.env.SECRET )
+        if (!decodedToken.id) {
+            return res.status(401).json({ error: 'token invalid' })
+        }
+        const userId = req.params.userId
+        const jobId = req.body.jobId
+        const job = await Job.findById(jobId)
+
+        job.favouriteUserIds.push(userId)
+
+        //If user id is invalid
+        if (!job) {
+            return res.status(404);
+        }
+        const updateJob = await Job.findByIdAndUpdate(
+            jobId,
+            job,
+            { new: true, runValidators: true, context: 'query' }
+        )
+        res.json(updateJob)
+    }
+    catch(err) {
+        next(err)
+    }
+})
+
+
+//Get all favourite jobs by user id
+jobRouter.get('/favourite/:jobSeekerId', async (req, res, next) => {
+    try {
+        const decodedToken = jwt.verify( getTokenFrom(req), process.env.SECRET )
+        if (!decodedToken.id) {
+            return res.status(401).json({ error: 'token invalid' })
+        }
+        const jobSeekerId = req.params.jobSeekerId
+
+        Job.find({ favouriteUserIds: { $in: [jobSeekerId] } })
+        .then(job => {
+    
+            if (job) {
+                res.json(job)
+            } else {
+                res.status(404).end()
+            }
+        })
+        .catch(error => next(error))
+
+    
     }
     catch(err) {
         next(err)
