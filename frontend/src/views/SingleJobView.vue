@@ -200,10 +200,13 @@ export default {
             formData.append('jobId', this.jobId);
 
             applicationApi.createApplication(formData)
-            .then(response => {
-                // Handle the response
-                console.log(response);
+            .then(() => {
+                // Handle the respons
+                if (this.$store.state.user && this.$store.state.userType === 2) {
+                    this.updateUsersJob()
+                }
             })
+            
             .catch(error => {
                 // Handle the error
                 console.error(error);

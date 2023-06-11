@@ -1,17 +1,19 @@
 <template>
    <v-row @click=" goToJob " class="card pa-4 mb-10">
         <v-col>
-            <v-row>
-                <v-col class="d-flex" cols="11">
+            <v-row class="d-flex justify-space-between">
+                <div class="d-flex" cols="11">
                     <img class="rounded mr-4" :src="img" alt="company logo" width="50px" height="50px"/>
                     <div class="d-flex flex-column">
                         <span class="title"> {{ job.title }} </span>
                         <span class="name"> {{ job.name }} </span>
                     </div>
-                </v-col>
-                <v-col class="d-flex flex-column justify-start">
-                    <v-icon>mdi-bookmark-outline</v-icon>
-                </v-col>
+                </div>
+                <div>
+                    <v-btn @click.stop="saveFavouriteJob" text class="ma-0 pa-0">
+                        <v-icon>mdi-bookmark-outline</v-icon>
+                    </v-btn>
+                </div>
             </v-row>
     
             <v-row class="mx-0">
@@ -48,6 +50,7 @@
 <script>
 import dayjs from 'dayjs';
 import sample from '../assets/sample.png'
+import jobApi from '../utils/jobApi';
 
 export default {
     name: 'JobItem',
@@ -83,6 +86,10 @@ export default {
     methods: {
         goToJob() {
             this.$router.push({ name: 'job', params: { id: this.job.id }})
+        },
+        saveFavouriteJob() {
+            console.log("save")
+            jobApi.saveFavouriteJob("64832c4bf9958d87969d9155", this.job.id)
         }
     }
 }

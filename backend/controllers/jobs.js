@@ -132,9 +132,12 @@ jobRouter.put('/favourite/:userId', async (req, res, next) => {
         }
         const userId = req.params.userId
         const jobId = req.body.jobId
-        const job = await Job.findById(jobId)
 
-        job.favouriteUserIds.push(userId)
+        if (jobId) {
+            const job = await Job.findById(jobId)
+    
+            job.favouriteUserIds.push(userId)
+        }
 
         //If user id is invalid
         if (!job) {
