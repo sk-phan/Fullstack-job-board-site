@@ -78,12 +78,19 @@ export default {
                 .logIn(this.email, this.password)
                 .then(res => {
                     if (res.data) {
+
+                        if (res.data.userType === 1) {
+                            this.$router.push('/myJob')
+                        }
                         this.$router.push('/')
                         this.$store.commit('setHideNavBar', false)
                         this.getUser(res.data.id)
 
                         localStorage.setItem('token', res.data.token)
                         localStorage.setItem('refreshToken', res.data.refreshToken)
+
+                        const user = {id: res.data.id, userType: res.data.userType}
+                        localStorage.setItem('user', JSON.stringify(user))
                     }
                 })
             }

@@ -37,7 +37,12 @@ loginRouter.post('/', async(req, res) => {
 
     res
     .status(200)
-    .send({ token, email: user.email, name: user.name, id: user._id, refreshToken })
+    .send({ token, 
+            email: user.email, 
+            name: user.name, 
+            id: user._id,
+            userType: user.userType,
+            refreshToken })
 
 })
 

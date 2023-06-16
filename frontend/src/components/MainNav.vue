@@ -6,16 +6,20 @@
         
         <v-spacer></v-spacer>
 
-        <v-btn text>  
+        <v-btn v-if="authenticated" text>  
           My jobs    
         </v-btn>
         
-        <v-btn text class="mr-3" @click=" logIn ">  
+        <v-btn v-if="!authenticated" text class="mr-3" @click=" logIn ">  
           Log in    
         </v-btn>
   
-        <v-btn depressed lowercase color="primary" @click="signUp">  
+        <v-btn v-if="!authenticated" depressed lowercase color="primary" @click="signUp">  
           Sign up    
+        </v-btn>
+
+        <v-btn v-if="authenticated" text @click="logOut">  
+          Log out    
         </v-btn>
 
       </v-app-bar>
@@ -27,7 +31,8 @@ export default {
     name: 'MainNav',
     data() {
         return {
-            logoImg: logo
+            logoImg: logo,
+            authenticated: null
         }
     },
     methods: {
@@ -36,7 +41,19 @@ export default {
       },
       signUp() {
         this.$router.push('/signup')
+      },
+      logOut() {
+        localStorage.clear();
+        this.authenticated = null;
+
+        if (this.$router.history.current.name !== "MainView") {
+          this.$router.push('/')
+        }
       }
+    },
+    mounted() {
+      const isValidToken = localStorage.getItem('token')
+      this.authenticated = isValidToken
     }
 }
 </script>
