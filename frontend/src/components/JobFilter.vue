@@ -276,8 +276,7 @@ export default {
 <style lang="scss" scoped>
     .bg {
         background: #fff !important;
-        height: 100vh !important;
-        overflow: scroll !important;
+        height: 100% !important;
     }
     .light-text {
         color: var(--secondary-base) !important;
