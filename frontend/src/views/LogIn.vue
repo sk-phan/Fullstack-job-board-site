@@ -65,13 +65,6 @@ export default {
     },
     mixins: [formRules],
     methods: {
-        getUser(id) {
-            userApi
-            .getUser(id)
-            .then(res => { 
-                localStorage.setItem('user', JSON.stringify(res.data))
-            })
-        },
         logIn() {
             if (this.$refs.form.validate()) {
                 authApi
@@ -84,7 +77,7 @@ export default {
                         localStorage.setItem('token', res.data.token)
                         localStorage.setItem('refreshToken', res.data.refreshToken)
                         
-                        this.getUser(res.data.id)
+                        localStorage.setItem('userId', res.data.id)
 
                         setTimeout(() => {
                             if (res.data.userType === 1) {

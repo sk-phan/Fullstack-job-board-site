@@ -1,7 +1,7 @@
 <template>
-    <v-row class="card pa-4 mb-10">
+    <v-row @click="goToJob" class="card pa-4 mb-10">
         <v-col>
-            <v-row class="mb-4">
+            <v-row class="mb-4 d-flex justify-space-between">
                 <div class="d-flex flex-row align-center">
                     <p class="title mb-0">{{ job.title }}</p>
                     <span class="highlight rounded px-4 ml-2">Active</span>
@@ -17,7 +17,7 @@
 
                     <v-icon>mdi-circle-small</v-icon>
 
-                    <div class=" d-flex">
+                    <div class="d-flex">
                         <v-icon class="pa-0 mr-2" small>mdi-bell-badge-outline</v-icon>
                         <span>2 new</span>
                     </div>
@@ -46,7 +46,12 @@ export default {
         expired() {
             return dayjs(this.job.expirationDate).fromNow()
         }
-    }
+    },
+    methods: {
+        goToJob() {
+            this.$router.push('/jobPosting')
+        }
+    },
 }
 </script>
 

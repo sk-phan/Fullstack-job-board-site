@@ -5,6 +5,7 @@ import LogIn from './views/LogIn';
 import SignUp from './views/SignUp';
 import SingleJobView from './views/SingleJobView';
 import MyJobs from './views/MyJobs';
+import JobPostingPage from './views/JobPostingPage';
 
 Vue.use(VueRouter);
 
@@ -35,6 +36,11 @@ const routes = [
     path: '/myJobs',
     name: 'MyJobs',
     component: MyJobs,
+  },
+  {
+    path: '/jobPosting',
+    name: 'JobPosting',
+    component: JobPostingPage,
   },
 ];
 

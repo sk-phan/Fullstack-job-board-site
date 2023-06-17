@@ -10,6 +10,7 @@
 
 <script>
 import JobCard from '@/components/JobCard.vue'
+import userApi from '@/utils/userApi'
 
 export default {
     name: "MyJobs",
@@ -21,8 +22,19 @@ export default {
             }
         }
     },
+    methods: {
+        async getUser() {
+            const id = await localStorage.getItem('userId')
+            userApi
+            .getUser(id)
+            .then(res => { 
+                this.user = {...res.data}
+            })
+            .catch(error => console.log(error))
+        },
+    },
     created() {
-        this.user = JSON.parse(localStorage.getItem('user'))
+        this.getUser()
     }
 }
 </script>
