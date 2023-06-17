@@ -12,7 +12,8 @@ export default new Vuex.Store({
         hideNavBar: false,
         user: {
             id: null
-        }
+        },
+        currentJob: null
     },
     getters: {
 
@@ -23,6 +24,9 @@ export default new Vuex.Store({
         },
         setUser(state, userInfo) {
             state.user = userInfo
+        },
+        setCurrentJob(state, job) {
+            state.currentJob = {...job}
         }
     },
 
