@@ -70,6 +70,7 @@
                                 dense
                                 placeholder="First name"
                                 class="pt-2"
+                                v-model="applicant.name"
                                 >
                             </v-text-field>
                         </v-col>
@@ -83,6 +84,7 @@
                                     dense
                                     placeholder="Phone number"
                                     class="pt-2"
+                                    v-model="applicant.phoneNumber"
                                     >
                                 </v-text-field>
                         </v-col>
@@ -99,6 +101,7 @@
                                 dense
                                 placeholder="Email"
                                 class="pt-2"
+                                v-model="applicant.email"
                                 >
                             </v-text-field>
                         </v-col>
@@ -116,6 +119,7 @@
                                 placeholder="Write something about yourself..."
                                 rows="4"
                                 class="pt-2"
+                                v-model="applicant.description"
                                 >
                             </v-textarea>
                         </v-col>
@@ -224,7 +228,6 @@ export default {
         console.log(this.$store.state.user)
         jobApi.getJobByID(this.jobId)
         .then(res => {
-            console.log(res.data)
             if (res.data) {
                 this.job = {...res.data}
             }

@@ -5,14 +5,17 @@
             <v-tab :value="2" @change=" tab = 2 ">Applications</v-tab>
         </v-tabs>
 
-        <job-details></job-details>
+        <job-details v-if="tab === 1"></job-details>
+        <application-list v-else></application-list>
+        
     </v-container>
 </template>
 
 <script>
+import ApplicationList from '../components/ApplicationList.vue'
 import JobDetails from '../components/JobDetails.vue'
 export default {
-  components: { JobDetails },
+  components: { JobDetails, ApplicationList },
     name: "JobPostingPage",
     data() {
         return {
