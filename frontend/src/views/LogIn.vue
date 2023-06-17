@@ -68,8 +68,8 @@ export default {
         getUser(id) {
             userApi
             .getUser(id)
-            .then(res => {
-                this.$store.commit('setUser', res.data)
+            .then(res => { 
+                localStorage.setItem('user', JSON.stringify(res.data))
             })
         },
         logIn() {
@@ -79,18 +79,22 @@ export default {
                 .then(res => {
                     if (res.data) {
 
-                        if (res.data.userType === 1) {
-                            this.$router.push('/myJob')
-                        }
-                        this.$router.push('/')
                         this.$store.commit('setHideNavBar', false)
-                        this.getUser(res.data.id)
-
+                        
                         localStorage.setItem('token', res.data.token)
                         localStorage.setItem('refreshToken', res.data.refreshToken)
+                        
+                        this.getUser(res.data.id)
 
-                        const user = {id: res.data.id, userType: res.data.userType}
-                        localStorage.setItem('user', JSON.stringify(user))
+                        setTimeout(() => {
+                            if (res.data.userType === 1) {
+                                this.$router.push('/myJobs')
+                            }
+                            else {
+                                this.$router.push('/')
+                            }
+                        }, 300)
+                        
                     }
                 })
             }
