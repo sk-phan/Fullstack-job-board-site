@@ -6,6 +6,7 @@ import SignUp from './views/SignUp';
 import SingleJobView from './views/SingleJobView';
 import MyJobs from './views/MyJobs';
 import JobPostingPage from './views/JobPostingPage';
+import EditJob from './views/EditJob';
 
 Vue.use(VueRouter);
 
@@ -38,9 +39,14 @@ const routes = [
     component: MyJobs,
   },
   {
-    path: '/jobPosting',
+    path: '/jobPosting/:id',
     name: 'JobPosting',
     component: JobPostingPage,
+  },
+  {
+    path: '/editJob/:id',
+    name: 'EditJob',
+    component: EditJob,
   },
 ];
 

@@ -50,7 +50,7 @@ export default {
     methods: {
         goToJob() {
             this.$store.commit('setCurrentJob', this.job)
-            this.$router.push('/jobPosting')
+            this.$router.push({ name: 'JobPosting', params: { id: this.job.id }})
         }
     },
 }

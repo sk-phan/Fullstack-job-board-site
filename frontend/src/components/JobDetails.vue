@@ -5,11 +5,11 @@
                 <div class="d-flex flex-row justify-space-between">
                     <h2 class="mb-4">Marketing manager</h2>
                     <div>
-                        <v-btn class="icon-btn pa-0 mr-4" text>
-                            <v-icon>mdi-pencil-outline</v-icon>
+                        <v-btn @click="editJob" class="icon-btn pa-0 mr-4" text>
+                            <v-icon>mdi-pencil-outline</v-icon> Edit
                         </v-btn>
                         <v-btn class="icon-btn pa-0" text>
-                            <v-icon>mdi-delete-outline</v-icon>
+                            <v-icon>mdi-delete-outline</v-icon> Delete
                         </v-btn>
                     </div>
                 </div>
@@ -25,8 +25,14 @@
 </template>
 
 <script>
+import jobApi from '../utils/jobApi'
 export default {
     name: "JobDetails",
+    props: {
+        id: {
+            type: String
+        }
+    },
     data() {
         return {
             job: {
@@ -46,9 +52,23 @@ export default {
             }
         }
     },
+    methods: {
+        editJob() {
+            this.$router.push({ name: 'EditJob', params: { id: this.id }})
+        }
+    },
     created() {
-        this.job = {...this.$store.state.currentJob}
-        console.log(this.job)
+
+        if (this.id) {
+            jobApi.getJobByID(this.id)
+            .then(res => {
+                if (res.data) {
+                    this.job = {...res.data}
+                    console.log(this.job)
+                }
+            })
+            .catch(e => console.log(e))
+        }
     }
 }
 </script>
