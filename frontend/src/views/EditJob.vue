@@ -1,5 +1,18 @@
 <template>
-    <v-container>
+    <v-container class="container pa-12 my-12">
+        <div class="d-flex justify-space-between">
+            <h2 class="mb-6">Edit job {{ editedJob.name }}</h2>
+
+            <div>
+                <v-btn @click="save" class="primary mr-4"> 
+                    <v-icon>mdi-content-save</v-icon>
+                    Save </v-btn>
+                <v-btn> 
+                    <v-icon>mdi-close</v-icon>
+                    Cancel 
+                </v-btn>
+            </div>
+        </div>
         <v-row>
             <v-col cols="12" md="4">
                 <v-label>Title</v-label>
@@ -63,6 +76,52 @@
                     suffix="€"
                 ></v-text-field>
             </v-col>
+
+            <v-col cols="12" md="4">
+                <v-label>Categories</v-label>
+                <v-select
+                    outlined
+                    flat
+                    solo
+                    v-model="editedJob.categories"
+                    :items="categories">
+                </v-select>
+            </v-col>
+        </v-row>
+
+        <v-row>
+            <v-col cols="12">
+                <v-label>Description</v-label>
+                <v-textarea 
+                    outlined
+                    solo
+                    flat
+                    rows="5"
+                    v-model="editedJob.description">
+                </v-textarea>
+            </v-col>
+
+            <v-col cols="12">
+                <v-label>Skills</v-label>
+                <v-textarea 
+                    outlined
+                    solo
+                    flat
+                    v-model="editedJob.skills"
+                    rows="5">
+                </v-textarea>
+            </v-col>
+
+            <v-col cols="12">
+                <v-label>Benefits</v-label>
+                <v-textarea 
+                    outlined
+                    solo
+                    flat
+                    v-model="editedJob.benefits"
+                    rows="5">
+                </v-textarea>
+            </v-col>
         </v-row>
     </v-container>
 </template>
@@ -97,7 +156,68 @@ export default {
                     text: 'Part-time',
                     value: 'partTime'
                 }
+            ],
+            categories: [
+                {
+                    text:"Accounting",
+                    value: "Accounting"
+                },
+                {
+                    text:"Administration",
+                    value: "Administration"
+                },
+                {
+                    text:"Customer Service",
+                    value: "Customer Service"
+                },
+                {
+                    text:"Design",
+                    value: "Design"
+                },
+                {
+                    text:"Engineering",
+                    value: "Engineering"
+                },
+                {
+                    text:"Finance",
+                    value: "Finance"
+                },
+                {
+                    text:"Healthcare",
+                    value: "Healthcare"
+                },
+                {
+                    text:"Human Resources",
+                    value: "Human Resources"
+                },
+                {
+                    text:"Information Technology (IT)",
+                    value: "Information Technology (IT)"
+                },
+                {
+                    text:"Legal",
+                    value: "Legal"
+                },
+                {
+                    text:"Marketing",
+                    value: "Marketing"
+                },
+                {
+                    text:"Operations",
+                    value: "Operations"
+                },
+                {
+                    text:"Sales",
+                    value: "Sales"
+                }
             ]
+        }
+    },
+    methods: {
+        save() {
+            jobApi
+            .updateJob(this.editedJob.id, this.editedJob)
+            .then(res => console.log(res.data))
         }
     },
     created() {
@@ -116,6 +236,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+    .container {
+        background: #fff;
+    }
 </style>
