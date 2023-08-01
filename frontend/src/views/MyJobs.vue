@@ -1,9 +1,8 @@
 <template>
-    <v-container class="my-10">
+    <v-container class="my-10 pa-6 container">
         <div>
             <h2 class="text-primary mb-10 pa-0 ml-0">Posted jobs</h2>
         </div>
-        
         <div v-if=" user.jobs.length > 0 ">
             <div v-for=" job in user.jobs " :key=" job.id ">
                 <job-card :job=" job "></job-card>
@@ -42,3 +41,9 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+.container {
+    background: transparent;
+}
+</style>

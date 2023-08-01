@@ -1,7 +1,7 @@
 <template>
-    <v-container fluid class="pt-0">
+    <v-container fluid class="pt-0 bg">
         <v-row class="container pt-0">
-            <v-col cols="12" md="5" class="pl-10">
+            <v-col cols="12" md="5" class="pl-10 form-col">
                 <v-form ref="form" class="form">
                     <h3 class="mb-6 title">Log in</h3>
                     <v-row>
@@ -102,6 +102,7 @@ export default {
 <style lang="scss" scoped>
     .container {
         width: 100vw !important;
+        height: 100vh;
     }
     .side-bg {
         background: var(--primary-base);
@@ -109,14 +110,19 @@ export default {
     }
     .img {
         width: auto;
-        height: 100vh;
+        height: 100%;
+        min-height: 100vh;
         position: absolute;
         overflow-x: hidden;
     }
+
+    .form-col {
+        height: 100%;
+        display: flex;        
+        align-items: center;
+    }
     .form {
         width: 80%;
-        position: relative;
-        top: 50%;
     }
     .title {
         font-size: 24px !important;
@@ -124,4 +130,5 @@ export default {
     .link {
         text-decoration: none;
     }
+
 </style>
