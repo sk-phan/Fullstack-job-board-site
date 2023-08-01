@@ -7,7 +7,7 @@
                 <v-btn @click="save" class="primary mr-4"> 
                     <v-icon>mdi-content-save</v-icon>
                     Save </v-btn>
-                <v-btn> 
+                <v-btn @click=" cancel "> 
                     <v-icon>mdi-close</v-icon>
                     Cancel 
                 </v-btn>
@@ -218,6 +218,9 @@ export default {
             jobApi
             .updateJob(this.editedJob.id, this.editedJob)
             .then(res => console.log(res.data))
+        },
+        cancel() {
+            this.$router.go(-1)
         }
     },
     created() {

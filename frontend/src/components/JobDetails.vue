@@ -8,7 +8,7 @@
                         <v-btn @click="editJob" class="icon-btn pa-0 mr-4" text>
                             <v-icon>mdi-pencil-outline</v-icon> Edit
                         </v-btn>
-                        <v-btn class="icon-btn pa-0" text>
+                        <v-btn @click="deleteJob" class="icon-btn pa-0" text>
                             <v-icon>mdi-delete-outline</v-icon> Delete
                         </v-btn>
                     </div>
@@ -55,6 +55,11 @@ export default {
     methods: {
         editJob() {
             this.$router.push({ name: 'EditJob', params: { id: this.id }})
+        },
+        deleteJob() {
+            jobApi
+            .deleteJob(this.id)
+            .then(res => console.log(res.data))
         }
     },
     created() {

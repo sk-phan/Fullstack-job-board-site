@@ -12,5 +12,8 @@ export default {
     },
     updateJob(jobId, updatedJob) {
       return api.put('/jobs/' + jobId, updatedJob)
+    },
+    deleteJob(jobId) {
+      return api.delete('/jobs/' + jobId)
     }
   }
