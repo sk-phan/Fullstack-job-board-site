@@ -1,16 +1,10 @@
 <template>
-    <v-container fluid class="pa-12">
+    <v-container fluid class="pa-12 container">
         <v-row class="justify-center">
-            <v-col cols="12" md="7" class="bg pa-12 mr-8">
+            <v-col cols="12" md="7" class="bg pa-12 mr-8 rounded">
                 <v-row>
                     <v-col class="pl-0">
                         <h2>{{ job.title }}</h2>
-                    </v-col>
-                    <v-col class="d-flex justify-end">
-                        <v-btn depressed>
-                            <v-icon small class="mr-2">mdi-cards-heart-outline</v-icon>
-                            Save as favourite
-                        </v-btn>
                     </v-col>
                 </v-row>
                 <v-row class="mt-6 mb-12">
@@ -24,7 +18,7 @@
 
                 <v-row>
                     <v-col>
-                        <v-row>Responsibility</v-row>
+                        <v-row class="title-2 mb-2">Responsibility</v-row>
                         <v-row>
                             <p class="responsibility-text">
                                 {{ job.responsibility }}
@@ -35,7 +29,7 @@
 
                 <v-row>
                     <v-col>
-                        <v-row>Skills</v-row>
+                        <v-row class="title-2 mb-2">Skills</v-row>
                         <v-row>
                             <p class="responsibility-text">
                                 {{ job.skills }}
@@ -46,7 +40,7 @@
 
                 <v-row>
                     <v-col>
-                        <v-row>Benefits</v-row>
+                        <v-row class="title-2 mb-2">Benefits</v-row>
                         <v-row>
                             <p class="responsibility-text">
                                 {{ job.benefits }}
@@ -56,7 +50,7 @@
                 </v-row>
             </v-col>
 
-            <v-col md="4" class="bg pa-12">
+            <v-col md="4" class="bg pa-12 rounded">
                 <span class="title">Application</span>
 
                 <div class="mt-6">
@@ -258,5 +252,9 @@ export default {
     }
     .responsibility-text {
         white-space: pre-line;
-        }
+    }
+
+    .container {
+        background: transparent !important;
+    }
 </style>
