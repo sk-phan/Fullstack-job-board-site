@@ -169,7 +169,7 @@ export default {
                 phoneNumber: '',
                 description: '',
                 cv: null,
-                experienceLevel: 1
+                experienceLevel: 1,
             },
             dropzoneOptions: {
                 url: 'data:text/plain;base64,',
