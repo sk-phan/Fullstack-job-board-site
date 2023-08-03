@@ -1,17 +1,16 @@
 <template>
     <div class="my-10">
       <v-row class="mx-12">
-        <v-col md="3" class="pa-0">
-          <!-- <v-btn @click="signIn">Login google</v-btn>  -->
-          <job-filter
-            @filterLevel = " experienceLevel = $event "
-            @filterJobType = " jobTypes = $event "
-            @filterCategories = " jobCategories = $event "
-            @filterSalary = " salaryRanges = $event "
-            >
-          </job-filter>
-        </v-col>
-        <v-col  md="8">
+      
+        <job-filter
+          @filterLevel = " experienceLevel = $event "
+          @filterJobType = " jobTypes = $event "
+          @filterCategories = " jobCategories = $event "
+          @filterSalary = " salaryRanges = $event "
+          >
+        </job-filter>
+        
+        <v-col >
           <job-search
             @searchJobs = " searchJobs "
           >

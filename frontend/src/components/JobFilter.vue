@@ -450,7 +450,7 @@ export default {
                 "3000-5000": false,
                 "0-5000": false
             },
-            isVisible: true
+            isVisible: false
         }
     },
     computed: {

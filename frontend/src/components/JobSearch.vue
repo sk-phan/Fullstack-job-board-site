@@ -25,13 +25,17 @@
             </v-autocomplete>
         </v-col>
 
-        <v-col class="px-0 pt-0">
+        <v-col :class="{ 'd-flex justify-center mb-10': $vuetify.breakpoint.mobile }" class="px-0 pt-0">
             <v-btn 
-                class="px-9 py-5" 
+                class=" mr-2 text-white" 
                 depressed 
-                color="primary"
+                color="#000"
                 @click=" findJobs ">
-                Find jobs
+                <v-icon class="mr-2">mdi-magnify</v-icon>
+                Search jobs
+            </v-btn>
+            <v-btn color="#000" outlined>
+                <v-icon color="outlined">mdi-filter-variant</v-icon>
             </v-btn>
         </v-col>
     </v-row>

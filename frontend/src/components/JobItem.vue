@@ -9,11 +9,11 @@
                         <span class="name"> {{ job.name }} </span>
                     </div>
                 </div>
-                <div>
+                <!-- <div>
                     <v-btn @click.stop="saveFavouriteJob" text class="ma-0 pa-0">
                         <v-icon>mdi-bookmark-outline</v-icon>
                     </v-btn>
-                </div>
+                </div> -->
             </v-row>
     
             <v-row class="mx-0">
