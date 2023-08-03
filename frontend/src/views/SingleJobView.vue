@@ -14,7 +14,7 @@
                     </v-col>
                 </v-row>
                 <v-row class="mt-6 mb-12">
-                    <span class="tag mr-3">{{ job.jobType }}</span>
+                    <span class="tag mr-3">{{ jobType }}</span>
                     <span class="tag">{{ job.city }}, {{ job.country }}</span>
                 </v-row>
 
@@ -222,6 +222,11 @@ export default {
             currentUser.jobs.push(this.job)
             userApi
             .updateUser(currentUser)
+        }
+    },
+    computed: {
+        jobType() {
+            return this.job.jobType === "fullTime" ? 'Full-time' : 'Part-time'
         }
     },
     created() {
