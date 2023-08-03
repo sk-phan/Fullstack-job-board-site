@@ -13,6 +13,7 @@
                                 outlined
                                 flat
                                 v-model="newUser.userType"
+                                disabled
                             >
                             </v-select>
                         </v-col>

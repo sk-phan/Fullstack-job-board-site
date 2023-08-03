@@ -13,15 +13,16 @@
         </v-col>
 
         <v-col class="px-0 mr-4 pt-0" cols="12" md="3">
-            <v-text-field
+            <v-autocomplete
                 solo
                 flat
                 dense
+                :items = "cityList"
                 v-model=" search.location "
-                placeholder="City or country"
+                placeholder="E.g. Helsinki"
                 append-icon="mdi-map-marker-outline"
             >
-            </v-text-field>
+            </v-autocomplete>
         </v-col>
 
         <v-col class="px-0 pt-0">
@@ -37,6 +38,8 @@
 </template>
 
 <script>
+import cities from '@/utils/cities';
+
 export default {
     name: "JobSearch", 
     data() {
@@ -44,7 +47,8 @@ export default {
             search: {
                 job: "",
                 location: ""
-            }
+            },
+            cityList: cities
         }
     },
     methods: {
