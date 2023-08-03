@@ -1,6 +1,6 @@
 <template>
     <v-app-bar flat class="nav">
-        <v-toolbar-title class="hover-style" @click=" $router.push('/') ">
+        <v-toolbar-title class="hover-style" @click="!authenticated ? $router.push('/') : null">
           <img :src="logoImg" style="height: 20px ;" alt="image"/>
         </v-toolbar-title>
         
