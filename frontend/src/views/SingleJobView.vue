@@ -1,7 +1,7 @@
 <template>
     <v-container fluid class="pa-12 container">
         <v-row class="justify-center">
-            <v-col cols="12" md="7" class="bg pa-12 mr-8 rounded">
+            <v-col cols="12" md="7" class="bg pa-12 rounded" :class="{ 'mr-8': !isMobile, 'mb-6': isMobile }">
                 <v-row>
                     <v-col class="pl-0">
                         <h2>{{ job.title }}</h2>
@@ -221,6 +221,9 @@ export default {
     computed: {
         jobType() {
             return this.job.jobType === "fullTime" ? 'Full-time' : 'Part-time'
+        },
+        isMobile() {
+            return this.$vuetify.breakpoint.mobile;
         }
     },
     created() {

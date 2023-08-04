@@ -21,22 +21,22 @@
                     <p>{{ description }}</p>
                 </v-col>
             </v-row>
-            <v-row class="mx-0 mb-10">
+            <v-row class="mx-0" :class="{'mb-2': isMobile, 'mb-10': !isMobile}">
                 <div>
-                    <span class="rounded pa-2 px-4 mr-2 highlight small-text">{{ job.categories }}</span>   
-                    <span class="rounded pa-2 px-4 mr-2 highlight small-text">{{ jobType }}</span> 
-                    <span class="rounded pa-2 px-4 mr-2 highlight small-text">{{ level[ job.experienceLevel - 1 ] }}</span> 
-                    <span class="rounded pa-2 px-4 mr-2 highlight small-text">{{ job.minSalary }} - {{ job.maxSalary }} €</span>     
+                    <span class="rounded pa-2 px-4 mr-2 highlight small-text" :class="{ 'inline-block mb-1': isMobile }">{{ job.categories }}</span>   
+                    <span class="rounded pa-2 px-4 mr-2 highlight small-text" :class="{ 'inline-block mb-1': isMobile }">{{ jobType }}</span> 
+                    <span class="rounded pa-2 px-4 mr-2 highlight small-text" :class="{ 'inline-block mb-1': isMobile }">{{ level[ job.experienceLevel - 1 ] }}</span> 
+                    <span class="rounded pa-2 px-4 mr-2 highlight small-text" :class="{ 'inline-block mb-1': isMobile }">{{ job.minSalary }} - {{ job.maxSalary }} €</span>     
                 </div>
             </v-row>
     
             <v-row class="mx-0">
-                <v-col class="d-flex align-center px-0" md="9">
+                <v-col  class="d-flex px-0"  :class="{ 'flex-column align-start': isMobile, 'align-center': !isMobile }" md="9" cols="12">
                     <span class="small-text d-flex flex-row align-center"> 
                         <v-icon small>mdi-map-marker-outline</v-icon> 
                         {{ job.city }}, {{ job.country }} 
                     </span>
-                    <v-icon>mdi-circle-small</v-icon>
+                    <v-icon v-if=" !isMobile ">mdi-circle-small</v-icon>
                     <span class="small-text"> {{ createdDate }} </span>
                 </v-col>
                 <v-col class="pa-0 ma-0 d-flex justify-end">
@@ -81,6 +81,9 @@ export default {
             const text = this.job.description.split(" ").slice(0, 29)
         
             return text.join(" ") + " ..."
+        },
+        isMobile() {
+            return this.$vuetify.breakpoint.mobile
         }
     },
     methods: {
