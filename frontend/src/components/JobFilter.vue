@@ -1,6 +1,6 @@
 <template>
      <v-dialog
-      v-model="isVisible"
+      v-model="visible"
       max-width="100vw"
       v-if="isMobile"
     >
@@ -418,6 +418,12 @@
 <script>
 export default {
     name: 'JobFilter',
+    props: {
+        isVisible: {
+            type: Boolean,
+            default: false
+        }
+    },
     data() {
         return {
             jobCategories: {
@@ -450,7 +456,7 @@ export default {
                 "3000-5000": false,
                 "0-5000": false
             },
-            isVisible: false
+            visible: this.isVisible
         }
     },
     computed: {
@@ -490,12 +496,21 @@ export default {
             this.$emit('filterSalary', this.salaryRanges)
         },
         closeFilterDialog() {
-            this.isVisible = false;
+            this.$emit('closeDialog')
             this.clearFilter;
         },
         closeDialog() {
-            this.isVisible = false;
+            this.$emit('closeDialog')
         }
+    },
+    watch: {
+        isVisible() {
+            this.visible = this.isVisible;
+        }
+    },
+    created() {
+        this.visible = this.isVisible;
+
     }
 }
 </script>

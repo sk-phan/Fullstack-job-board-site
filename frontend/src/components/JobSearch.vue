@@ -34,7 +34,7 @@
                 <v-icon class="mr-2">mdi-magnify</v-icon>
                 Search jobs
             </v-btn>
-            <v-btn color="#000" outlined>
+            <v-btn @click="$emit('openFilter')" color="#000" outlined v-if=" $vuetify.breakpoint.mobile ">
                 <v-icon color="outlined">mdi-filter-variant</v-icon>
             </v-btn>
         </v-col>

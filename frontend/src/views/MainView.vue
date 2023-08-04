@@ -7,12 +7,15 @@
           @filterJobType = " jobTypes = $event "
           @filterCategories = " jobCategories = $event "
           @filterSalary = " salaryRanges = $event "
+          @closeDialog = " filterDialog = false "
+          :isVisible = " filterDialog "
           >
         </job-filter>
         
         <v-col >
           <job-search
             @searchJobs = " searchJobs "
+            @openFilter = " filterDialog = true "
           >
           </job-search>
 
@@ -78,7 +81,8 @@ data() {
       job: "",
       location: ""
     },
-    viewedJobs: []
+    viewedJobs: [],
+    filterDialog: false
   }
 },
 watch: {
@@ -170,7 +174,6 @@ computed: {
 
       const max = Math.max(...salaryItems)
       const min = Math.min(...salaryItems)
-      console.log(salaryItems, max)
 
       return this.jobTypeFilter.filter(job => job.minSalary >= min 
                                                     && job.maxSalary <= max )
