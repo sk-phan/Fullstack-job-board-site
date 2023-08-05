@@ -20,7 +20,7 @@
 
                     <v-row class="mt-0">
                         <v-col>
-                            <v-label>Name</v-label>
+                            <v-label>Company</v-label>
                             <v-text-field 
                                 outlined 
                                 v-model="newUser.name"
@@ -150,9 +150,6 @@ export default {
         isMobile() {
             return this.$vuetify.breakpoint.mobile;
         }
-    },
-    beforeCreate() {
-        this.$store.commit('setHideNavBar', true)
     }
 }
 </script>

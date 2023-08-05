@@ -96,7 +96,7 @@ export default {
         }
     },
     created() {
-        const backendURL = 'http://localhost:3001'; // Replace with your actual backend URL
+        const backendURL = 'http://localhost:3001'; 
         const imageURL = `${backendURL}/${this.job.companyLogo}`;
 
         fetch(imageURL)

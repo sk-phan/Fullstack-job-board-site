@@ -96,9 +96,6 @@ export default {
         isMobile() {
             return this.$vuetify.breakpoint.mobile;
         }
-    },
-    beforeCreate() {
-        this.$store.commit('setHideNavBar', true)
     }
 }
 </script>

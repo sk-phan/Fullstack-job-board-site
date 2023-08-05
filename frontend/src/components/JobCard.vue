@@ -10,22 +10,8 @@
 
             <v-row>
                 <v-col class="d-flex flex-row pa-0">
-                    <div class="d-flex">
-                        <v-icon class="mr-2" small>mdi-clipboard-account-outline</v-icon>
-                        <span>{{ job.jobSeekerIds.length }} applied</span>
-                    </div>
-
-                    <v-icon>mdi-circle-small</v-icon>
-
-                    <div class="d-flex">
-                        <v-icon class="pa-0 mr-2" small>mdi-bell-badge-outline</v-icon>
-                        <span>2 new</span>
-                    </div>
-
-                    <v-icon>mdi-circle-small</v-icon>
-
                     <div>
-                        <span>Expire {{ expired }}</span>
+                        <span>Created {{ created }}</span>
                     </div>
                 </v-col>
             </v-row>
@@ -43,8 +29,8 @@ export default {
         }
     },
     computed: {
-        expired() {
-            return dayjs(this.job.expirationDate).fromNow()
+        created() {
+            return dayjs(this.job.createdAt).fromNow()
         }
     },
     methods: {
