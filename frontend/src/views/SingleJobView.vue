@@ -53,10 +53,10 @@
             <v-col md="4" class="bg pa-12 rounded">
                 <span class="title">Application</span>
 
-                <div class="mt-6">
+                <v-form ref="form" class="mt-6">
                     <v-row>
                         <v-col cols="12" md="6">
-                            <v-label>Name</v-label>
+                            <v-label>Name *</v-label>
                             <v-text-field 
                                 outlined
                                 flat
@@ -65,12 +65,13 @@
                                 placeholder="First name"
                                 class="pt-2"
                                 v-model="applicant.name"
+                                :rules="[ rules.required ]"
                                 >
                             </v-text-field>
                         </v-col>
     
                         <v-col cols="12" md="6">
-                                <v-label>Phone number</v-label>
+                                <v-label>Phone number *</v-label>
                                 <v-text-field 
                                     outlined
                                     flat
@@ -79,6 +80,7 @@
                                     placeholder="Phone number"
                                     class="pt-2"
                                     v-model="applicant.phoneNumber"
+                                    :rules="[ rules.required ]"
                                     >
                                 </v-text-field>
                         </v-col>
@@ -87,7 +89,7 @@
 
                     <v-row>
                         <v-col cols="12">
-                            <v-label>Email</v-label>
+                            <v-label>Email *</v-label>
                             <v-text-field 
                                 outlined
                                 flat
@@ -96,6 +98,7 @@
                                 placeholder="Email"
                                 class="pt-2"
                                 v-model="applicant.email"
+                                :rules="[ rules.required, rules.email ]"
                                 >
                             </v-text-field>
                         </v-col>
@@ -121,6 +124,9 @@
 
                     <v-row>
                         <v-col>
+                            <v-label>CV *
+                                <span v-if="!file" class="text-error ml-2">Required</span>
+                            </v-label>
                             <vue-dropzone 
                                 ref="myVueDropzone" 
                                 id="dropzone" 
@@ -140,7 +146,7 @@
                             <v-btn @click="send" color="primary" depressed block>Send application</v-btn>
                         </v-col>
                     </v-row>
-                </div>
+                </v-form>
             </v-col>
         </v-row>
     </v-container>
@@ -152,10 +158,12 @@ import userApi from '@/utils/userApi';
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import applicationApi from '@/utils/applicationApi'
+import formRules from '@/mixins/formRules';
 
 export default {
     name: 'SingleJobView',
     components: { vueDropzone: vue2Dropzone },
+    mixins: [formRules],
     data() {
         return {
             jobId: this.$route.params.id,
@@ -186,29 +194,30 @@ export default {
             this.file = file
         },
         send() {
-            const formData = new FormData();
 
-            formData.append('file', this.file);
-            formData.append('name', this.applicant.name);
-            formData.append('email', this.applicant.email);
-            formData.append('phoneNumber', this.applicant.phoneNumber);
-            formData.append('description', this.applicant.description);
-            formData.append('companyId', this.job.user);
-            formData.append('jobSeekerId', this.$store.state.user.id);
-            formData.append('jobId', this.jobId);
-
-            applicationApi.createApplication(formData)
-            .then(() => {
-                // Handle the respons
-                if (this.$store.state.user && this.$store.state.userType === 2) {
-                    this.updateUsersJob()
-                }
-            })
-            
-            .catch(error => {
-                // Handle the error
-                console.error(error);
-            });
+            if (this.$refs.form.validate()) {
+                const formData = new FormData();
+    
+                formData.append('file', this.file);
+                formData.append('name', this.applicant.name);
+                formData.append('email', this.applicant.email);
+                formData.append('phoneNumber', this.applicant.phoneNumber);
+                formData.append('description', this.applicant.description);
+                formData.append('companyId', this.job.user);
+                formData.append('jobSeekerId', this.$store.state.user.id);
+                formData.append('jobId', this.jobId);
+    
+                applicationApi.createApplication(formData)
+                .then(() => {
+                    if (this.$store.state.user && this.$store.state.userType === 2) {
+                        this.updateUsersJob()
+                    }
+                })
+                
+                .catch(error => {
+                    console.error(error);
+                });
+            }
         },
         updateUsersJob() {
             const currentUser = {...this.$store.state.user}

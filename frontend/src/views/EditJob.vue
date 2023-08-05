@@ -6,7 +6,7 @@
             </v-btn>
         </div>
         <div class="d-flex justify-space-between">
-            <h2 class="mb-6">Edit job {{ editedJob.name }}</h2>
+            <h2 class="mb-6">Edit job {{ editedJob.title }}</h2>
 
             <div>
                 <v-btn @click="save" class="primary mr-4"> 
@@ -18,131 +18,146 @@
                 </v-btn>
             </div>
         </div>
-        <v-row>
-            <v-col cols="12" md="4">
-                <v-label>Title</v-label>
-                <v-text-field
-                    outlined
-                    flat
-                    solo
-                    v-model="editedJob.title"
-                ></v-text-field>
-            </v-col>
 
-            <v-col cols="12" md="4">
-                <v-label>City</v-label>
-                <v-text-field
-                    outlined
-                    flat
-                    solo
-                    v-model="editedJob.city"
-                ></v-text-field>
-            </v-col>
-
-            <v-col cols="12" md="4">
-                <v-label>Country</v-label>
-                <v-text-field
-                    outlined
-                    flat
-                    solo
-                    v-model="editedJob.country"
-                ></v-text-field>
-            </v-col>
-
-            <v-col cols="12" md="4">
-                <v-label>Job type</v-label>
-                <v-select
-                    outlined
-                    solo
-                    flat
-                    v-model="editedJob.jobType"
-                    :items = "jobTypes"
-                ></v-select>
-            </v-col>
-
-            <v-col cols="12" md="4">
-                <v-label>Min salary</v-label>
-                <v-text-field
-                    outlined
-                    flat
-                    solo
-                    v-model.number="editedJob.minSalary"
-                    suffix="€"
-                ></v-text-field>
-            </v-col>
-
-            <v-col cols="12" md="4">
-                <v-label>Max salary</v-label>
-                <v-text-field
-                    outlined
-                    flat
-                    solo
-                    v-model.number="editedJob.maxSalary"
-                    suffix="€"
-                ></v-text-field>
-            </v-col>
-
-            <v-col cols="12" md="4">
-                <v-label>Categories</v-label>
-                <v-select
-                    outlined
-                    flat
-                    solo
-                    v-model="editedJob.categories"
-                    :items="categories">
-                </v-select>
-            </v-col>
-        </v-row>
-
-        <v-row>
-            <v-col cols="12">
-                <v-label>Description</v-label>
-                <v-textarea 
-                    outlined
-                    solo
-                    flat
-                    rows="5"
-                    v-model="editedJob.description">
-                </v-textarea>
-            </v-col>
-
-            <v-col cols="12">
-                <v-label>Skills</v-label>
-                <v-textarea 
-                    outlined
-                    solo
-                    flat
-                    v-model="editedJob.skills"
-                    rows="5">
-                </v-textarea>
-            </v-col>
-
-            <v-col cols="12">
-                <v-label>Benefits</v-label>
-                <v-textarea 
-                    outlined
-                    solo
-                    flat
-                    v-model="editedJob.benefits"
-                    rows="5">
-                </v-textarea>
-            </v-col>
-        </v-row>
+        <v-form ref="form">
+            <v-row>
+                <v-col cols="12" md="4">
+                    <v-label>Title</v-label>
+                    <v-text-field
+                        outlined
+                        flat
+                        solo
+                        :rules="[ rules.required ]"
+                        v-model="editedJob.title"
+                    ></v-text-field>
+                </v-col>
+    
+                <v-col cols="12" md="4">
+                    <v-label>City</v-label>
+                    <v-autocomplete
+                        outlined
+                        flat
+                        solo
+                        :items = "cityList"
+                        v-model="editedJob.city"
+                        :rules="[ rules.required ]"
+                    ></v-autocomplete>
+                </v-col>
+    
+                <v-col cols="12" md="4">
+                    <v-label>Country</v-label>
+                    <v-text-field
+                        outlined
+                        flat
+                        solo
+                        disabled
+                        v-model="editedJob.country"
+                    ></v-text-field>
+                </v-col>
+    
+                <v-col cols="12" md="4">
+                    <v-label>Job type</v-label>
+                    <v-select
+                        outlined
+                        solo
+                        flat
+                        :rules="[ rules.required ]"
+                        v-model="editedJob.jobType"
+                        :items = "jobTypes"
+                    ></v-select>
+                </v-col>
+    
+                <v-col cols="12" md="4">
+                    <v-label>Min salary</v-label>
+                    <v-text-field
+                        outlined
+                        flat
+                        solo
+                        :rules="[ rules.required ]"
+                        v-model.number="editedJob.minSalary"
+                        suffix="€"
+                    ></v-text-field>
+                </v-col>
+    
+                <v-col cols="12" md="4">
+                    <v-label>Max salary</v-label>
+                    <v-text-field
+                        outlined
+                        flat
+                        solo
+                        :rules="[ rules.required ]"
+                        v-model.number="editedJob.maxSalary"
+                        suffix="€"
+                    ></v-text-field>
+                </v-col>
+    
+                <v-col cols="12" md="4">
+                    <v-label>Categories</v-label>
+                    <v-select
+                        outlined
+                        flat
+                        solo
+                        :rules="[ rules.required ]"
+                        v-model="editedJob.categories"
+                        :items="categories">
+                    </v-select>
+                </v-col>
+            </v-row>
+    
+            <v-row>
+                <v-col cols="12">
+                    <v-label>Description</v-label>
+                    <v-textarea 
+                        outlined
+                        solo
+                        flat
+                        rows="5"
+                        :rules="[ rules.required ]"
+                        v-model="editedJob.description">
+                    </v-textarea>
+                </v-col>
+    
+                <v-col cols="12">
+                    <v-label>Skills</v-label>
+                    <v-textarea 
+                        outlined
+                        solo
+                        flat
+                        v-model="editedJob.skills"
+                        rows="5">
+                    </v-textarea>
+                </v-col>
+    
+                <v-col cols="12">
+                    <v-label>Benefits</v-label>
+                    <v-textarea 
+                        outlined
+                        solo
+                        flat
+                        v-model="editedJob.benefits"
+                        rows="5">
+                    </v-textarea>
+                </v-col>
+            </v-row>
+        </v-form>
     </v-container>
 </template>
 
 <script>
 import jobApi from '../utils/jobApi';
+import formRules from '@/mixins/formRules';
+import cities from '@/utils/cities';
 
 export default {
     name: 'EditJob',
+    mixins: [formRules],
     data() {
         return {
             editedJob: {
                 benefits: '',
                 categories: '',
                 city: '',
-                country: '',
+                country: 'Finland',
                 description: '',
                 experienceLeve: 1,
                 jobType: '',
@@ -216,14 +231,22 @@ export default {
                     text:"Sales",
                     value: "Sales"
                 }
-            ]
+            ],
+            cityList: cities
         }
     },
     methods: {
         save() {
-            jobApi
-            .updateJob(this.editedJob.id, this.editedJob)
-            .then(res => console.log(res.data))
+            if (this.$refs.form.validate()) {
+                jobApi
+                .updateJob(this.editedJob.id, this.editedJob)
+                .then(res => {
+                    if (res) {
+                        this.$router.go(-1)
+                    }
+                })
+                .catch(e => console.log(e))
+            }
         },
         cancel() {
             this.$router.go(-1)
