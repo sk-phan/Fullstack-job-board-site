@@ -1,6 +1,7 @@
 const config = require('./config')
 const express = require('express')
 const session = require('express-session');
+const helmet = require('helmet');
 
 // const passport = require('passport')
 // const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -29,6 +30,7 @@ mongoose.connect(config.MONGO_URI)
     .catch(error => {
         logger.error('error connecting to MongoDB', error)
     })
+
 
 app.use(session({
  secret: config.SESSION_SECRET,

@@ -3,4 +3,7 @@ module.exports = defineConfig({
   transpileDependencies: [
     'vuetify'
   ],
+  devServer: {
+    port: 8081,
+  },
 })

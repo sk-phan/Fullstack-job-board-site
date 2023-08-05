@@ -11,7 +11,7 @@ let isRefreshing = false;
 let refreshQueue = [];
 
 const api = axios.create({
-  baseURL: 'http://localhost:3001/api',
+  baseURL: 'http://0.0.0.0:3000/api',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
