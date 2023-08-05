@@ -51,7 +51,6 @@
 import authApi from '@/utils/authApi';
 import img from '../assets/bg.png';
 import formRules from '../mixins/formRules';
-// import userApi from '@/utils/userApi';
 
 export default {
     name: 'LogIn',

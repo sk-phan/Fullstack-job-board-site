@@ -18,127 +18,151 @@
                 </v-btn>
             </div>
         </div>
-        <v-row>
-            <v-col cols="12" md="4">
-                <v-label>Title</v-label>
-                <v-text-field
-                    outlined
-                    flat
-                    solo
-                    v-model="job.title"
-                ></v-text-field>
-            </v-col>
 
-            <v-col cols="12" md="4">
-                <v-label>City</v-label>
-                <v-autocomplete
-                    outlined
-                    flat
-                    solo
-                    :items = "cityList"
-                    v-model="job.city"
-                ></v-autocomplete>
-            </v-col>
+        <v-form ref="form">
+            <v-row>
+                <v-col cols="12" md="4">
+                    <v-label>Title *</v-label>
+                    <v-text-field
+                        outlined
+                        flat
+                        solo
+                        :rules="[ rules.required ]"
+                        v-model="job.title"
+                    ></v-text-field>
+                </v-col>
+    
+                <v-col cols="12" md="4">
+                    <v-label>City *</v-label>
+                    <v-autocomplete
+                        outlined
+                        flat
+                        solo
+                        :items = "cityList"
+                        v-model="job.city"
+                        :rules="[ rules.required ]"
+                    ></v-autocomplete>
+                </v-col>
+    
+                <v-col cols="12" md="4">
+                    <v-label>Country *</v-label>
+                    <v-text-field
+                        outlined
+                        flat
+                        solo
+                        disabled
+                        value="Finland"
+                    ></v-text-field>
+                </v-col>
+    
+                <v-col cols="12" md="4">
+                    <v-label>Job type *</v-label>
+                    <v-select
+                        outlined
+                        solo
+                        flat
+                        v-model="job.jobType"
+                        :items = "jobTypes"
+                        :rules="[ rules.required ]"
+                    ></v-select>
+                </v-col>
+    
+                <v-col cols="12" md="4">
+                    <v-label>Min salary *</v-label>
+                    <v-text-field
+                        outlined
+                        flat
+                        solo
+                        v-model.number="job.minSalary"
+                        suffix="€"
+                        :rules="[ rules.required ]"
+                    ></v-text-field>
+                </v-col>
+    
+                <v-col cols="12" md="4">
+                    <v-label>Max salary *</v-label>
+                    <v-text-field
+                        outlined
+                        flat
+                        solo
+                        v-model.number="job.maxSalary"
+                        suffix="€"
+                        :rules="[ rules.required ]"
+                    ></v-text-field>
+                </v-col>
+    
+                <v-col cols="12" md="4">
+                    <v-label>Categories *</v-label>
+                    <v-select
+                        outlined
+                        flat
+                        solo
+                        v-model="job.categories"
+                        :items="categories"
+                        :rules="[ rules.required ]">
+                    </v-select>
+                </v-col>
 
-            <v-col cols="12" md="4">
-                <v-label>Country</v-label>
-                <v-text-field
-                    outlined
-                    flat
-                    solo
-                    disabled
-                    value="Finland"
-                ></v-text-field>
-            </v-col>
-
-            <v-col cols="12" md="4">
-                <v-label>Job type</v-label>
-                <v-select
-                    outlined
-                    solo
-                    flat
-                    v-model="job.jobType"
-                    :items = "jobTypes"
-                ></v-select>
-            </v-col>
-
-            <v-col cols="12" md="4">
-                <v-label>Min salary</v-label>
-                <v-text-field
-                    outlined
-                    flat
-                    solo
-                    v-model.number="job.minSalary"
-                    suffix="€"
-                ></v-text-field>
-            </v-col>
-
-            <v-col cols="12" md="4">
-                <v-label>Max salary</v-label>
-                <v-text-field
-                    outlined
-                    flat
-                    solo
-                    v-model.number="job.maxSalary"
-                    suffix="€"
-                ></v-text-field>
-            </v-col>
-
-            <v-col cols="12" md="4">
-                <v-label>Categories</v-label>
-                <v-select
-                    outlined
-                    flat
-                    solo
-                    v-model="job.categories"
-                    :items="categories">
-                </v-select>
-            </v-col>
-        </v-row>
-
-        <v-row>
-            <v-col cols="12">
-                <v-label>Description</v-label>
-                <v-textarea 
-                    outlined
-                    solo
-                    flat
-                    rows="5"
-                    v-model="job.description">
-                </v-textarea>
-            </v-col>
-
-            <v-col cols="12">
-                <v-label>Skills</v-label>
-                <v-textarea 
-                    outlined
-                    solo
-                    flat
-                    v-model="job.skills"
-                    rows="5">
-                </v-textarea>
-            </v-col>
-
-            <v-col cols="12">
-                <v-label>Benefits</v-label>
-                <v-textarea 
-                    outlined
-                    solo
-                    flat
-                    v-model="job.benefits"
-                    rows="5">
-                </v-textarea>
-            </v-col>
-        </v-row>
+                <v-col cols="12" md="4">
+                    <v-label>Experience level *</v-label>
+                    <v-select
+                        outlined
+                        flat
+                        solo
+                        v-model="job.experienceLeve"
+                        :items="experienceLevels"
+                        :rules="[ rules.required ]">
+                    </v-select>
+                </v-col>
+            </v-row>
+    
+            <v-row>
+                <v-col cols="12">
+                    <v-label>Description</v-label>
+                    <v-textarea 
+                        outlined
+                        solo
+                        flat
+                        rows="5"
+                        :rules="[ rules.required ]"
+                        v-model="job.description">
+                    </v-textarea>
+                </v-col>
+    
+                <v-col cols="12">
+                    <v-label>Skills</v-label>
+                    <v-textarea 
+                        outlined
+                        solo
+                        flat
+                        v-model="job.skills"
+                        rows="5">
+                    </v-textarea>
+                </v-col>
+    
+                <v-col cols="12">
+                    <v-label>Benefits</v-label>
+                    <v-textarea 
+                        outlined
+                        solo
+                        flat
+                        v-model="job.benefits"
+                        rows="5">
+                    </v-textarea>
+                </v-col>
+            </v-row>
+        </v-form>
     </v-container>
 </template>
 
 <script>
 import cities from '@/utils/cities';
 import jobApi from '../utils/jobApi';
+import formRules from '@/mixins/formRules';
 
 export default {
     name: 'EditJob',
+    mixins: [formRules],
     data() {
         return {
             cityList: cities,
@@ -165,6 +189,20 @@ export default {
                 {
                     text: 'Part-time',
                     value: 'partTime'
+                }
+            ],
+            experienceLevels: [
+                {
+                    text: 'Entry',
+                    value: 1
+                },
+                {
+                    text: 'Intermidate',
+                    value: 2
+                },
+                {
+                    text: 'Expert',
+                    value: 3
                 }
             ],
             categories: [
@@ -225,13 +263,21 @@ export default {
     },
     methods: {
         save() {
-            const newJob = {
-                ...this.job,
-                user: this.$store.state.user.id
+
+            if (this.$refs.form.validate()) {
+                const newJob = {
+                    ...this.job,
+                    user: this.$store.state.user.id
+                }
+                jobApi
+                .createJob(newJob)
+                .then(res => {
+                    if (res.data) {
+                        this.$router.push("/myJobs")
+                    }
+                })
+                .catch(e => console.log(e))
             }
-            jobApi
-            .createJob(newJob)
-            .then(res => console.log(res.data))
         },
         cancel() {
             this.$router.go(-1)
