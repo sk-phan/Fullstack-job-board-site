@@ -1,9 +1,10 @@
 <template>
-    <v-container fluid class="pt-0 bg">
-        <v-row class="container pt-0">
+    <v-container fluid class="pt-0 container">
+        <v-row class="pt-0">
             <v-col cols="12" md="5" class="pl-10 form-col">
-                <v-form ref="form" class="form">
+                <v-form ref="form" class="px-16">
                     <h3 class="mb-6 title">Sign up</h3>
+
                     <v-row class="mt-0">
                         <v-col>
                             <v-label>I am</v-label>
@@ -17,7 +18,7 @@
                             </v-select>
                         </v-col>
                     </v-row>
-
+    
                     <v-row class="mt-0">
                         <v-col>
                             <v-label>Name</v-label>
@@ -29,7 +30,7 @@
                             </v-text-field>                    
                         </v-col>
                     </v-row>
-
+    
                     <v-row class="mt-0">
                         <v-col>
                             <v-label>Email</v-label>
@@ -39,6 +40,21 @@
                                 :rules="[rules.required, rules.email]"
                             >
                             </v-text-field>                    
+                        </v-col>
+                    </v-row>
+    
+                    <v-row class="mt-0">
+                        <v-col>
+                            <v-label>Password</v-label>
+                            <v-text-field 
+                                outlined 
+                                v-model="newUser.password"
+                                :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+                                @click:append="showPass = !showPass"
+                                :type="showPass ? 'text' : 'password'"
+                                :rules="[rules.required, rules.password]"
+                            >
+                            </v-text-field>
                         </v-col>
                     </v-row>
 
@@ -59,13 +75,14 @@
                         </v-col>
                     </v-row>
 
-                    <v-btn block color="#000" class="mb-6 text-white" depressed @click=" logIn ">Sign up</v-btn> 
-                    <span>Already have an account?
-                        <a class="link" href="/login">Log in</a>
+                    <v-btn block color="#000" class="mb-6 btn-text" depressed @click=" signUp ">Sign up</v-btn> 
+                        <span>Already have an account?
+                            <a class="link" href="/login">Log in</a>
                     </span>
                 </v-form>
-            </v-col>
 
+            </v-col>
+        
             <v-col v-if=" !isMobile ">
                 <div class="side-bg">
                     <img class="img" :src="bg" alt="log in image"/>
@@ -118,35 +135,30 @@ export default {
     },
     mixins: [formRules],
     methods: {
-        logIn() {
+        fileUploaded(file) {
+            this.file = file
+        },
+        signUp() {
             if (this.$refs.form.validate()) {
+                const formData = new FormData();
+                formData.append("name", this.newUser.name);
+                formData.append("email", this.newUser.email);
+                formData.append("password", this.newUser.password);
+                formData.append("userType", this.newUser.userType);
+                formData.append("file", this.file);
+
                 authApi
-                .logIn(this.email, this.password)
+                .signUp(formData)
                 .then(res => {
                     if (res.data) {
-
+                        this.$router.push('/')
                         this.$store.commit('setHideNavBar', false)
-                        
-                        localStorage.setItem('token', res.data.token)
-                        localStorage.setItem('refreshToken', res.data.refreshToken)
-                        
-                        localStorage.setItem('userId', res.data.id)
-
-                        setTimeout(() => {
-                            if (res.data.userType === 1) {
-                                this.$router.push('/myJobs')
-                            }
-                            else {
-                                this.$router.push('/')
-                            }
-                        }, 300)
-                        
                     }
                 })
             }
         }
     },
-    computed: {
+    created: {
         isMobile() {
             return this.$vuetify.breakpoint.mobile;
         }
@@ -160,7 +172,6 @@ export default {
 <style lang="scss" scoped>
     .container {
         width: 100vw !important;
-        height: 100vh;
     }
     .side-bg {
         background: var(--primary-base);
@@ -168,25 +179,24 @@ export default {
     }
     .img {
         width: auto;
-        height: 100%;
-        min-height: 100vh;
+        height: 100vh;
         position: absolute;
         overflow-x: hidden;
     }
-
     .form-col {
-        height: 100%;
-        display: flex;        
-        align-items: center;
-    }
-    .form {
-        width: 80%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
     .title {
         font-size: 24px !important;
     }
     .link {
         text-decoration: none;
+    }
+    .btn-text {
+        color: #fff;
     }
 
     .vue-dropzone {
