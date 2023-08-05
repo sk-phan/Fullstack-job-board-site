@@ -149,6 +149,13 @@
                 </v-form>
             </v-col>
         </v-row>
+        
+        <confirm-dialog
+            :visible = " confirmDialog "
+            :company=" job.name "
+            @closeModal = " confirmDialog = false "
+        >
+        </confirm-dialog>
     </v-container>
 </template>
 
@@ -159,10 +166,11 @@ import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import applicationApi from '@/utils/applicationApi'
 import formRules from '@/mixins/formRules';
+import ConfirmDialog from '../components/ConfirmDialog.vue';
 
 export default {
     name: 'SingleJobView',
-    components: { vueDropzone: vue2Dropzone },
+    components: { vueDropzone: vue2Dropzone, ConfirmDialog },
     mixins: [formRules],
     data() {
         return {
@@ -186,7 +194,8 @@ export default {
                 headers: { "My-Awesome-Header": "header value" },
                 addRemoveLinks: true
             },
-            file: null 
+            file: null,
+            confirmDialog: false 
         }
     },
     methods: {
@@ -195,7 +204,7 @@ export default {
         },
         send() {
 
-            if (this.$refs.form.validate()) {
+            if (this.$refs.form.validate() && this.file) {
                 const formData = new FormData();
     
                 formData.append('file', this.file);
@@ -209,6 +218,20 @@ export default {
     
                 applicationApi.createApplication(formData)
                 .then(() => {
+
+                    this.confirmDialog = true;
+
+                    this.applicant = {
+                        name: '',
+                        email: '',
+                        phoneNumber: '',
+                        description: '',
+                        cv: null,
+                        experienceLevel: 1,
+                    }
+                    this.$refs.myVueDropzone.removeFile(this.file)
+                    this.file = null;
+
                     if (this.$store.state.user && this.$store.state.userType === 2) {
                         this.updateUsersJob()
                     }
@@ -236,7 +259,6 @@ export default {
         }
     },
     created() {
-        console.log(this.$store.state.user)
         jobApi.getJobByID(this.jobId)
         .then(res => {
             if (res.data) {
