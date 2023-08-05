@@ -3,6 +3,7 @@ const userRouter = require('express').Router()
 const User = require('../model/UserModel')
 const jwt = require('jsonwebtoken')
 const Job = require('../model/JobModel')
+const multer = require('multer');
 
 const getTokenFrom = (req) => {
   const authorization = req.get('authorization')
@@ -11,9 +12,24 @@ const getTokenFrom = (req) => {
   }
   return null
 }
+// Set up storage configuration for multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads'); // Set the destination folder where the files will be saved
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + file.originalname); // Set custom file name  },
+  }
+});
 
-userRouter.post('/', async (req, res) => {
+
+// Create the multer upload instance
+const upload = multer({ storage });
+
+userRouter.post('/', upload.single("file"), async (req, res) => {
   const { email, name, password, userType, introduction } = await req.body
+
 
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(password, saltRounds)
@@ -23,7 +39,8 @@ userRouter.post('/', async (req, res) => {
     name,
     passwordHash,
     userType,
-    introduction
+    introduction,
+    companyLogo: req.file.path
   })
 
   const savedUser = await user.save()
@@ -136,11 +153,11 @@ userRouter.put('/updateApplication/:id', async (req, res, next) => {
 userRouter.delete('/:id', async (req, res, next) => {
   
   try {
-    // const decodedToken =  await jwt.verify(getTokenFrom(req), process.env.SECRET)
+    const decodedToken =  await jwt.verify(getTokenFrom(req), process.env.SECRET)
 
-    // if (!decodedToken.id) {
-    //   return res.status(401).json({ error: 'token invalid' })
-    // }
+    if (!decodedToken.id) {
+      return res.status(401).json({ error: 'token invalid' })
+    }
 
     const id = req.params.id
     const user = await User.findByIdAndDelete(id)

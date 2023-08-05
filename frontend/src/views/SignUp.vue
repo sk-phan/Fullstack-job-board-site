@@ -43,7 +43,7 @@
                         </v-col>
                     </v-row>
     
-                    <v-row class="mt-0 mb-2">
+                    <v-row class="mt-0">
                         <v-col>
                             <v-label>Password</v-label>
                             <v-text-field 
@@ -57,6 +57,24 @@
                             </v-text-field>
                         </v-col>
                     </v-row>
+
+                    <v-row class="mt-0 mb-6">
+                        <v-col>
+                            <v-label>Company logo </v-label>
+                            <vue-dropzone 
+                                ref="myVueDropzone" 
+                                id="dropzone" 
+                                :options="dropzoneOptions"
+                                @vdropzone-success="fileUploaded"
+                                :useCustomSlot=true>
+                                <div class="dropzone-custom-content">
+                                    <h3 class="dropzone-custom-title">Drag and drop to upload content!</h3>
+                                    <div class="subtitle">...or click to select a file from your computer</div>
+                                </div>
+                            </vue-dropzone>
+                        </v-col>
+                    </v-row>
+
                     <v-btn block color="#000" class="mb-6 btn-text" depressed @click=" signUp ">Sign up</v-btn> 
                         <span>Already have an account?
                             <a class="link" href="/login">Log in</a>
@@ -79,9 +97,12 @@
 import authApi from '@/utils/authApi';
 import img from '../assets/signUpBg.png';
 import formRules from '../mixins/formRules';
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 export default {
     name: 'SignUp',
+    components: { vueDropzone: vue2Dropzone },
     data() {
         return {
             newUser: {
@@ -101,15 +122,33 @@ export default {
                     text: "Talent",
                     value: 2
                 }
-            ]
+            ],
+            dropzoneOptions: {
+                url: 'data:text/plain;base64,',
+                thumbnailWidth: 150,
+                maxFilesize: 5,
+                headers: { "My-Awesome-Header": "header value" },
+                addRemoveLinks: true
+            },
+            file: null
         }
     },
     mixins: [formRules],
     methods: {
+        fileUploaded(file) {
+            this.file = file
+        },
         signUp() {
             if (this.$refs.form.validate()) {
+                const formData = new FormData();
+                formData.append("name", this.newUser.name);
+                formData.append("email", this.newUser.email);
+                formData.append("password", this.newUser.password);
+                formData.append("userType", this.newUser.userType);
+                formData.append("file", this.file);
+
                 authApi
-                .signUp(this.newUser)
+                .signUp(formData)
                 .then(res => {
                     if (res.data) {
                         this.$router.push('/')
@@ -153,5 +192,10 @@ export default {
     }
     .btn-text {
         color: #fff;
+    }
+
+    .vue-dropzone {
+        border: 2px dashed #eee !important;
+        border-radius: 10px;
     }
 </style>

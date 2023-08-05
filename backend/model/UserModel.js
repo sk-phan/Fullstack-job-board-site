@@ -12,7 +12,13 @@ const userSchema = new mongoose.Schema({
     passwordHash: String,
     userType: Number, // 1 = Company, 2 = Job seeker,
     introduction: String,
+    companyLogo: {
+        type: String,
+    },
     jobs: [Job.schema],
+        companyLogo: {
+        type: String,
+    },
 })
 
 userSchema.plugin(uniqueValidator)

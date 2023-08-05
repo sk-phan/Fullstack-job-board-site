@@ -128,6 +128,17 @@
                         v-model="job.description">
                     </v-textarea>
                 </v-col>
+
+                <v-col cols="12">
+                    <v-label>Responsibility</v-label>
+                    <v-textarea 
+                        outlined
+                        solo
+                        flat
+                        rows="5"
+                        v-model="job.responsibility">
+                    </v-textarea>
+                </v-col>
     
                 <v-col cols="12">
                     <v-label>Skills</v-label>

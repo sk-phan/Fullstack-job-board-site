@@ -3,7 +3,7 @@
         <v-col>
             <v-row class="d-flex justify-space-between">
                 <div class="d-flex" cols="11">
-                    <img class="rounded mr-4" :src="img" alt="company logo" width="50px" height="50px"/>
+                    <img class="rounded mr-4" :src="'http://localhost:3001/' + job.companyLogo" alt="company logo" width="50px" height="50px"/>
                     <div class="d-flex flex-column">
                         <span class="title"> {{ job.title }} </span>
                         <span class="name"> {{ job.name }} </span>
@@ -94,6 +94,18 @@ export default {
             console.log("save")
             jobApi.saveFavouriteJob("64832c4bf9958d87969d9155", this.job.id)
         }
+    },
+    created() {
+        const backendURL = 'http://localhost:3001'; // Replace with your actual backend URL
+        const imageURL = `${backendURL}/${this.job.companyLogo}`;
+
+        fetch(imageURL)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(error => {
+            console.error('Error fetching image:', error);
+        });
     }
 }
 </script>

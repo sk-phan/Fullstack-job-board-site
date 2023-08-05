@@ -51,7 +51,7 @@ jobRouter.post('/', async (req, res, next) => {
         minSalary: body.minSalary,
         maxSalary: body.maxSalary,
         jobType: body.jobType,
-        companyLogo: body.companyLogo,
+        companyLogo: user.companyLogo,
         createdAt: new Date().toISOString(),
         expirationDate: body.expirationDate,
         description: body.description,

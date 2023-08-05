@@ -282,7 +282,7 @@ export default {
     }
     .vue-dropzone {
         border: 2px dashed #eee !important;
-        border-radius: 5px;
+        border-radius: 10px;
     }
     .responsibility-text {
         white-space: pre-line;
