@@ -37,7 +37,7 @@
                 </v-form>
             </v-col>
 
-            <v-col>
+            <v-col v-if=" !isMobile ">
                 <div class="side-bg">
                     <img class="img" :src="bg" alt="log in image"/>
                 </div>
@@ -91,6 +91,11 @@ export default {
                     }
                 })
             }
+        }
+    },
+    computed: {
+        isMobile() {
+            return this.$vuetify.breakpoint.mobile;
         }
     },
     beforeCreate() {

@@ -3,7 +3,7 @@
         <v-col>
             <v-col>
                 <div class="d-flex flex-row justify-space-between">
-                    <h2 class="mb-4">Marketing manager</h2>
+                    <h2 class="mb-4">{{ job.title }}</h2>
                     <div>
                         <v-btn @click="editJob" class="icon-btn pa-0 mr-4" text>
                             <v-icon>mdi-pencil-outline</v-icon> Edit
@@ -14,19 +14,60 @@
                     </div>
                 </div>
                 <div>
-                    <p>{{ job.type }}</p>
-                    <p>{{ job.responsibility }}</p>
-                    <p>{{ job.benefits }}</p>
-                    <p>{{ job.description }}</p>
+                    <v-row class="ma-0">
+                        <p>{{ job.description }}</p>
+                    </v-row>
+
+                    <v-row class="ma-0">
+                        <v-col>
+                            <v-row class="title-2 mb-2">Responsibility</v-row>
+                            <v-row>
+                                <p class="responsibility-text">
+                                    {{ job.responsibility }}
+                                </p>
+                            </v-row>
+                        </v-col>
+                    </v-row>
+
+                    <v-row class="ma-0">
+                        <v-col>
+                            <v-row class="title-2 mb-2">Skills</v-row>
+                            <v-row>
+                                <p class="responsibility-text">
+                                    {{ job.skills }}
+                                </p>
+                            </v-row>
+                        </v-col>
+                    </v-row>
+
+                    <v-row class="ma-0">
+                        <v-col>
+                            <v-row class="title-2 mb-2">Benefits</v-row>
+                            <v-row>
+                                <p class="responsibility-text">
+                                    {{ job.benefits }}
+                                </p>
+                            </v-row>
+                        </v-col>
+                    </v-row>
                 </div>
             </v-col>
         </v-col>
+
+        <delete-job-dialog
+            :visible=" openDeleteDialog "
+            :name = " job.name "
+            @confirm = " confirmDelete ">
+        </delete-job-dialog>
     </v-row>
 </template>
 
 <script>
 import jobApi from '../utils/jobApi'
+import DeleteJobDialog from './DeleteJobDialog.vue'
+
 export default {
+  components: { DeleteJobDialog },
     name: "JobDetails",
     props: {
         id: {
@@ -48,8 +89,9 @@ export default {
                 name: '',
                 responsibility: '',
                 skills: '',
-                title: ''
-            }
+                title: '',
+            },
+            openDeleteDialog: false,
         }
     },
     methods: {
@@ -57,9 +99,21 @@ export default {
             this.$router.push({ name: 'EditJob', params: { id: this.id }})
         },
         deleteJob() {
-            jobApi
-            .deleteJob(this.id)
-            .then(res => console.log(res.data))
+            this.openDeleteDialog = true
+        },
+        confirmDelete( confirm ) {
+            if (confirm) {
+                jobApi
+                .deleteJob(this.id)
+                .then(res => {
+                    if (res.status === 204) {
+                        this.$router.push("/myJobs")
+                    }
+                })
+            }
+            else {
+                this.openDeleteDialog = false;
+            }
         }
     },
     created() {

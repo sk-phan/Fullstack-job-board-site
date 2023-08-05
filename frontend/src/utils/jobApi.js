@@ -10,6 +10,9 @@ export default {
     saveFavouriteJob(jobSeekerId, jobId) {
       return api.put('/jobs/favourite/' + jobSeekerId, {jobId})
     },
+    createJob(job) {
+      return api.post('/jobs/', job)
+    },
     updateJob(jobId, updatedJob) {
       return api.put('/jobs/' + jobId, updatedJob)
     },

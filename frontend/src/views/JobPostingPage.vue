@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="bg py-12">
         <!-- <v-tabs>
             <v-tab :value="1" @change=" tab = 1 ">Job details</v-tab>
             <v-tab :value="2" @change=" tab = 2 ">Applications</v-tab>
@@ -26,3 +26,9 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+    .bg {
+        background: transparent !important;
+    }
+</style>

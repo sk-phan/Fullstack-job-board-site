@@ -1,12 +1,12 @@
 <template>
     <v-container class="container pa-12 my-12">
         <div class="d-flex justify-end mt-n6 mb-4">
-            <v-btn text class="pa-0 width-0" @click=" cancel ">
+            <v-btn v-if="isMobile" text class="pa-0 width-0" @click=" cancel ">
                 <v-icon>mdi-close</v-icon>
             </v-btn>
         </div>
         <div class="d-flex justify-space-between">
-            <h2 class="mb-6">Edit job {{ editedJob.name }}</h2>
+            <h2 class="mb-6">Create job</h2>
 
             <div>
                 <v-btn @click="save" class="primary mr-4"> 
@@ -25,18 +25,19 @@
                     outlined
                     flat
                     solo
-                    v-model="editedJob.title"
+                    v-model="job.title"
                 ></v-text-field>
             </v-col>
 
             <v-col cols="12" md="4">
                 <v-label>City</v-label>
-                <v-text-field
+                <v-autocomplete
                     outlined
                     flat
                     solo
-                    v-model="editedJob.city"
-                ></v-text-field>
+                    :items = "cityList"
+                    v-model="job.city"
+                ></v-autocomplete>
             </v-col>
 
             <v-col cols="12" md="4">
@@ -45,7 +46,8 @@
                     outlined
                     flat
                     solo
-                    v-model="editedJob.country"
+                    disabled
+                    value="Finland"
                 ></v-text-field>
             </v-col>
 
@@ -55,7 +57,7 @@
                     outlined
                     solo
                     flat
-                    v-model="editedJob.jobType"
+                    v-model="job.jobType"
                     :items = "jobTypes"
                 ></v-select>
             </v-col>
@@ -66,7 +68,7 @@
                     outlined
                     flat
                     solo
-                    v-model.number="editedJob.minSalary"
+                    v-model.number="job.minSalary"
                     suffix="€"
                 ></v-text-field>
             </v-col>
@@ -77,7 +79,7 @@
                     outlined
                     flat
                     solo
-                    v-model.number="editedJob.maxSalary"
+                    v-model.number="job.maxSalary"
                     suffix="€"
                 ></v-text-field>
             </v-col>
@@ -88,7 +90,7 @@
                     outlined
                     flat
                     solo
-                    v-model="editedJob.categories"
+                    v-model="job.categories"
                     :items="categories">
                 </v-select>
             </v-col>
@@ -102,7 +104,7 @@
                     solo
                     flat
                     rows="5"
-                    v-model="editedJob.description">
+                    v-model="job.description">
                 </v-textarea>
             </v-col>
 
@@ -112,7 +114,7 @@
                     outlined
                     solo
                     flat
-                    v-model="editedJob.skills"
+                    v-model="job.skills"
                     rows="5">
                 </v-textarea>
             </v-col>
@@ -123,7 +125,7 @@
                     outlined
                     solo
                     flat
-                    v-model="editedJob.benefits"
+                    v-model="job.benefits"
                     rows="5">
                 </v-textarea>
             </v-col>
@@ -132,17 +134,19 @@
 </template>
 
 <script>
+import cities from '@/utils/cities';
 import jobApi from '../utils/jobApi';
 
 export default {
     name: 'EditJob',
     data() {
         return {
-            editedJob: {
+            cityList: cities,
+            job: {
                 benefits: '',
                 categories: '',
                 city: '',
-                country: '',
+                country: 'Finland',
                 description: '',
                 experienceLeve: 1,
                 jobType: '',
@@ -151,7 +155,7 @@ export default {
                 name: '',
                 responsibility: '',
                 skills: '',
-                title: ''
+                title: '',
             },
             jobTypes: [
                 {
@@ -221,8 +225,12 @@ export default {
     },
     methods: {
         save() {
+            const newJob = {
+                ...this.job,
+                user: this.$store.state.user.id
+            }
             jobApi
-            .updateJob(this.editedJob.id, this.editedJob)
+            .createJob(newJob)
             .then(res => console.log(res.data))
         },
         cancel() {
@@ -234,19 +242,6 @@ export default {
             return this.$vuetify.breakpoint.mobile;
         }
     },
-    created() {
-        const jobId = this.$route.params.id;
-
-        if (jobId) {
-            jobApi.getJobByID(jobId)
-            .then(res => {
-                if (res.data) {
-                    this.editedJob = {...res.data}
-                }
-            })
-            .catch(e => console.log(e))
-        }
-    }
 }
 </script>
 
