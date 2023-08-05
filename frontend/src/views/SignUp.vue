@@ -1,7 +1,7 @@
 <template>
-    <v-container fluid class="pt-0 bg">
-        <v-row class="container pt-0">
-            <v-col cols="12" md="5" class="pl-10 form-col">
+    <v-container fluid class="pt-4 bg">
+        <v-row class="pt-0 white-bg" :class="{ 'container': !isMobile }">
+            <v-col cols="12" md="5" class="text-side" :class="{ 'd-flex justify-center': isMobile, 'pl-10 form-col': !isMobile }">
                 <v-form ref="form" class="form">
                     <h3 class="mb-6 title">Sign up</h3>
                     <v-row class="mt-0">
@@ -66,7 +66,7 @@
                 </v-form>
             </v-col>
 
-            <v-col v-if=" !isMobile ">
+            <v-col v-if=" !isMobile " class="pa-0">
                 <div class="side-bg">
                     <img class="img" :src="bg" alt="log in image"/>
                 </div>
@@ -155,9 +155,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .text-side {
+        background: white;
+        height: 100vh;
+    }
     .container {
         width: 100vw !important;
-        height: 100vh;
     }
     .side-bg {
         background: var(--primary-base);
@@ -170,10 +173,10 @@ export default {
         position: absolute;
         overflow-x: hidden;
     }
-
+    
     .form-col {
-        height: 100%;
         display: flex;        
+        height: 100vh;
         align-items: center;
     }
     .form {

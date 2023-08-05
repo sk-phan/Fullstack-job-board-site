@@ -1,7 +1,7 @@
 <template>
     <v-container fluid class="pt-0 bg">
         <v-row class="container pt-0">
-            <v-col cols="12" md="5" class="pl-10 form-col">
+            <v-col cols="12" md="5" :class="{ 'justify-center': isMobile, 'pl-10': !isMobile }" class="form-col">
                 <v-form ref="form" class="form">
                     <h3 class="mb-6 title">Log in</h3>
                     <v-row>
@@ -37,7 +37,7 @@
                 </v-form>
             </v-col>
 
-            <v-col v-if=" !isMobile ">
+            <v-col v-if="!isMobile ">
                 <div class="side-bg">
                     <img class="img" :src="bg" alt="log in image"/>
                 </div>
