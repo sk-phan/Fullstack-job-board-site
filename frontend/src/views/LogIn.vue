@@ -1,7 +1,7 @@
 <template>
-    <v-container fluid class="pt-0">
+    <v-container fluid class="pt-0 bg">
         <v-row class="container pt-0">
-            <v-col cols="12" md="5" class="pl-10">
+            <v-col cols="12" md="5" :class="{ 'justify-center': isMobile, 'pl-10': !isMobile }" class="form-col">
                 <v-form ref="form" class="form">
                     <h3 class="mb-6 title">Log in</h3>
                     <v-row>
@@ -37,7 +37,7 @@
                 </v-form>
             </v-col>
 
-            <v-col>
+            <v-col v-if="!isMobile ">
                 <div class="side-bg">
                     <img class="img" :src="bg" alt="log in image"/>
                 </div>
@@ -70,17 +70,32 @@ export default {
                 .logIn(this.email, this.password)
                 .then(res => {
                     if (res.data) {
-                        this.$router.push('/')
+
                         this.$store.commit('setHideNavBar', false)
+                        
                         localStorage.setItem('token', res.data.token)
                         localStorage.setItem('refreshToken', res.data.refreshToken)
+                        
+                        localStorage.setItem('userId', res.data.id)
+
+                        setTimeout(() => {
+                            if (res.data.userType === 1) {
+                                this.$router.push('/myJobs')
+                            }
+                            else {
+                                this.$router.push('/')
+                            }
+                        }, 300)
+                        
                     }
                 })
             }
         }
     },
-    beforeCreate() {
-        this.$store.commit('setHideNavBar', true)
+    computed: {
+        isMobile() {
+            return this.$vuetify.breakpoint.mobile;
+        }
     }
 }
 </script>
@@ -88,6 +103,7 @@ export default {
 <style lang="scss" scoped>
     .container {
         width: 100vw !important;
+        height: 100vh;
     }
     .side-bg {
         background: var(--primary-base);
@@ -95,14 +111,19 @@ export default {
     }
     .img {
         width: auto;
-        height: 100vh;
+        height: 100%;
+        min-height: 100vh;
         position: absolute;
         overflow-x: hidden;
     }
+
+    .form-col {
+        height: 100%;
+        display: flex;        
+        align-items: center;
+    }
     .form {
         width: 80%;
-        position: relative;
-        top: 50%;
     }
     .title {
         font-size: 24px !important;
@@ -110,4 +131,5 @@ export default {
     .link {
         text-decoration: none;
     }
+
 </style>

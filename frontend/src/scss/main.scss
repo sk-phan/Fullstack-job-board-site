@@ -4,4 +4,29 @@
     --primary-lighten: #e8f5e9c8;
     --secondary-darken: #e99c02;
     --secondary-base: #9e9e9e;
+    --error-base: #FF5252;
   }
+
+.text-primary {
+  color: var(--primary-base);
+}
+
+.text-white {
+  color: #fff !important;
+}
+
+.text-error {
+  color: var(--error-base);
+}
+button {
+  box-shadow: none !important;
+}
+
+.title-2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.inline-block {
+  display: inline-block;
+}

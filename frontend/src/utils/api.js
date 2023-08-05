@@ -11,7 +11,7 @@ let isRefreshing = false;
 let refreshQueue = [];
 
 const api = axios.create({
-  baseURL: 'http://localhost:3001/api',
+  baseURL: process.env.VUE_APP_BACKEND_LOCAL_URL,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -129,9 +129,13 @@ function processRefreshQueue(accessToken) {
 
 api.interceptors.request.use(
   async (config) => {
-    const token = await getNewAccessToken();
-
-    config.headers.Authorization = `Bearer ${token}`
+    const storedToken = await getAccessToken()
+    
+    //Validate token only after user logged in
+    if (storedToken) {
+      const token = await getNewAccessToken();
+      config.headers.Authorization = `Bearer ${token}`
+    }
 
     return config;
   },

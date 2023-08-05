@@ -74,7 +74,7 @@ const jobCategories = [
     categories: {
         type: String,
         require: true,
-       validate: [ categoriesValidator, 'Invalid categories' ]
+        validate: [ categoriesValidator, 'Invalid categories' ]
     },
     experienceLevel: {
         type: Number,
@@ -82,8 +82,9 @@ const jobCategories = [
     },
     responsibility: String,
     skills: String,
-    benefits: String
-    
+    benefits: String,
+    jobSeekerIds: [String],
+    favouriteUserIds: [String]
 })
 
 jobSchema.set('toJSON', {

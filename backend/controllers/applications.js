@@ -1,6 +1,7 @@
 const applicationRouter = require('express').Router()
 const Applications = require('../model/ApplicationModel')
 const Jobs = require('../model/JobModel')
+const Users = require('../model/UserModel')
 
 const nodemailer = require('nodemailer');
 const multer = require('multer');
@@ -85,12 +86,12 @@ applicationRouter.get('/jobSeeker/:id', async (req, res, next) => {
 applicationRouter.post('/', upload.single("file"), async (req, res, next) => {
     const body = req.body
     const jobInfo = await Jobs.findById(req.body.jobId)
-
+    const companyInfo = await Users.findById(jobInfo.user)
+    
     if (jobInfo) {
 
         const newApplication = await new Applications({
-            firstName: body.firstName,
-            lastName: body.lastName,
+            name: body.name,
             email: body.email,
             phoneNumber: body.phoneNumber,
             description: body.description,
@@ -105,27 +106,23 @@ applicationRouter.post('/', upload.single("file"), async (req, res, next) => {
     
         // Compose email content
         const emailContent = `
-            Subject: Application Forwarded - ${jobInfo.title}
+            Subject: New Job Application for - ${jobInfo.title}
     
-            Dear ${body.firstName},
+            Dear ${companyInfo.name},
     
-            Thank you for applying to the position of [Position Title] through our job board. We want to inform you that your application has been successfully forwarded to the hiring company. We appreciate your interest in this opportunity and the effort you put into your application.
-    
-            Here are the details of your application:
-            - Full Name: ${body.firstName + ' ' + body.lastName}
-            - Email Address: ${body.email}
-            - Phone Number: ${body.phoneNumber}
-            - Position: ${jobInfo.title}
-            - Application Date: ${new Date().toLocaleDateString()}
-    
-            Please note that this email serves as confirmation that your application has been received and forwarded. The hiring company will now review your application and consider your qualifications and experience. If your profile matches their requirements, they may contact you directly for further steps in the selection process.
-    
-            We kindly request your patience as the hiring process takes place. Each company has its own timeline and procedures for reviewing applications. Rest assured that your application will be given due consideration.
-    
-            If you have any questions or need further assistance, please do not hesitate to contact us at sukiphan97@gmail.com. We are here to support you throughout your job search.
-    
-            Thank you again for using our job board and best of luck with your application. We hope you find success in your career endeavors.
-    
+            I hope this email finds you well. 
+            I am writing to inform you that we have received a new job application for the ${jobInfo.title} at WorkHive. The applicant's details are as follows:
+           
+            Applicant Name: ${body.name}
+            Email Address: ${body.email}
+            Phone Number: ${body.phoneNumber}
+            Cover Letter: ${body.description}
+
+            Attached to this email, you will find the applicant's CV detailing their qualifications and experience.
+
+            We kindly request you to review the application and consider the candidate. If you have any additional questions or require further information, please don't hesitate to reach out to us.
+
+            Thank you for your time and consideration. 
             Warm regards,
             Suki
             WorkHive
@@ -133,17 +130,23 @@ applicationRouter.post('/', upload.single("file"), async (req, res, next) => {
         `;
     
         const mailOptions = {
-            from: "Suki from WorkHive <hongnhung19121997@gmail.com>",
-            to: "hongnhung19121997@gmail.com",
+            from: "Suki from WorkHive <sukiphan97@gmail.com>",
+            to: companyInfo.email,
             subject: "Notification",
-            text: emailContent
+            text: emailContent,
+            attachments: [
+                {
+                filename: req.file.name,
+                path: req.file.path,
+                },
+            ],
         }
     
         const transporter = nodemailer.createTransport({
             service: "Gmail",
             auth: {
                 user: "sukiphan97@gmail.com",
-                pass: "lrmpbvkxswjmsjnl"
+                pass: "vsryagefwpmeglkm"
             }
         })
     

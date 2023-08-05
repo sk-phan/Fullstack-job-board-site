@@ -2,8 +2,8 @@ const logger = require('./utils/logger')
 const app = require('./utils/app')
 const config = require('./utils/config')
 
-const options = { host: "0.0.0.0" }
+// Define your routes and middleware here
 
-app.listen(config.PORT, options, () => {
-    logger.info(`Server running on port ${config.PORT}`)
-})
+app.listen(config.PORT, '0.0.0.0', () => {
+  console.log(`Server listening on ${config.PORT}`);
+});

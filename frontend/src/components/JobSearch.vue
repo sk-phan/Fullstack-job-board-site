@@ -1,6 +1,6 @@
 <template>
     <v-row>
-        <v-col class="px-0 mr-4 pt-0" cols="12" md="7">
+        <v-col class="px-0 mr-4 pt-0" cols="12" md="5">
             <v-text-field
                 flat
                 solo
@@ -13,30 +13,37 @@
         </v-col>
 
         <v-col class="px-0 mr-4 pt-0" cols="12" md="3">
-            <v-text-field
+            <v-autocomplete
                 solo
                 flat
                 dense
+                :items = "cityList"
                 v-model=" search.location "
-                placeholder="City or country"
+                placeholder="E.g. Helsinki"
                 append-icon="mdi-map-marker-outline"
             >
-            </v-text-field>
+            </v-autocomplete>
         </v-col>
 
-        <v-col class="px-0 pt-0">
+        <v-col :class="{ 'd-flex justify-center mb-10': $vuetify.breakpoint.mobile }" class="px-0 pt-0">
             <v-btn 
-                class="px-9 py-5" 
+                class=" mr-2 text-white" 
                 depressed 
-                color="primary"
+                color="#000"
                 @click=" findJobs ">
-                Find jobs
+                <v-icon class="mr-2">mdi-magnify</v-icon>
+                Search jobs
+            </v-btn>
+            <v-btn @click="$emit('openFilter')" color="#000" outlined v-if=" $vuetify.breakpoint.mobile ">
+                <v-icon color="outlined">mdi-filter-variant</v-icon>
             </v-btn>
         </v-col>
     </v-row>
 </template>
 
 <script>
+import cities from '@/utils/cities';
+
 export default {
     name: "JobSearch", 
     data() {
@@ -44,7 +51,8 @@ export default {
             search: {
                 job: "",
                 location: ""
-            }
+            },
+            cityList: cities
         }
     },
     methods: {

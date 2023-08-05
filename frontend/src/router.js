@@ -4,7 +4,11 @@ import MainView from './views/MainView';
 import LogIn from './views/LogIn';
 import SignUp from './views/SignUp';
 import SingleJobView from './views/SingleJobView';
-
+import MyJobs from './views/MyJobs';
+import JobPostingPage from './views/JobPostingPage';
+import EditJob from './views/EditJob';
+import NewJob from './views/NewJob';
+import store from './store';
 Vue.use(VueRouter);
 
 const routes = [
@@ -12,28 +16,55 @@ const routes = [
     path: '/',
     name: 'MainView',
     component: MainView,
-   // meta: { requiresAuth: true } // Add the meta property to specify authentication requirement
+    beforeEnter(to, from, next) {
+      // Call the Vuex mutation here to set hideNavBar to true
+      store.commit('setHideNavBar', false);
+      next();
+    }
   },
   {
     path: '/job/:id',
     name: 'job',
     component: SingleJobView,
-   // meta: { requiresAuth: true }
   },
   {
     path: '/login',
     name: 'LogIn',
     component: LogIn,
+    beforeEnter(to, from, next) {
+      // Call the Vuex mutation here to set hideNavBar to true
+      store.commit('setHideNavBar', true);
+      next();
+    }
   },
   {
     path: '/signup',
     name: 'SignUp',
     component: SignUp,
+    beforeEnter(to, from, next) {
+      store.commit('setHideNavBar', true);
+      next();
+    }
   },
   {
-    path: '/myJob',
-    name: 'MyJob',
-    component: SignUp,
+    path: '/myJobs',
+    name: 'MyJobs',
+    component: MyJobs,
+  },
+  {
+    path: '/jobPosting/:id',
+    name: 'JobPosting',
+    component: JobPostingPage,
+  },
+  {
+    path: '/editJob/:id',
+    name: 'EditJob',
+    component: EditJob,
+  },
+  {
+    path: '/newJob',
+    name: 'NewJob',
+    component: NewJob,
   },
 ];
 
@@ -56,7 +87,6 @@ router.beforeEach( async (to, from, next) => {
   try {
     const isValidToken = await localStorage.getItem('token')
 
-    console.log("isValid", isValidToken)
     if (isValidToken) {
       // If the token is valid, proceed to the next route
       next();

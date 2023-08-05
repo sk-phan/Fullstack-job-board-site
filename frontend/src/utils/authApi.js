@@ -12,6 +12,10 @@ export default {
            
     },
     signUp(newUser) {
-      return api.post('/users', newUser)
+      return api.post('/users', newUser, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Set the content type specifically for this request
+        },
+    })
     }
   }
