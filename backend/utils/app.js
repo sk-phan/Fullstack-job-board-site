@@ -32,11 +32,11 @@ mongoose.connect(config.MONGO_URI)
     })
 
 
-app.use(session({
- secret: config.SESSION_SECRET,
- resave: false,
- saveUninitialized: false
-}));
+// app.use(session({
+//  secret: config.SESSION_SECRET,
+//  resave: false,
+//  saveUninitialized: false
+// }));
 // Configure Google OAuth credentials
 // const GOOGLE_CLIENT_ID = '412119717362-jp25n0j9895eq5b906qvdd82dlhc54pb.apps.googleusercontent.com';
 // const GOOGLE_CLIENT_SECRET = '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';

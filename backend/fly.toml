@@ -15,10 +15,11 @@ kill_timeout = "5s"
 
 [env]
   PORT = "8080"
+  MONGO_URI = "mongodb+srv://sukiphan97:Hongnhung1912@cluster0.kn1fqop.mongodb.net/?retryWrites=true&w=majority"
 
 [[services]]
-  protocol = "tcp"
-  internal_port = 3000
+  http_checks = []
+  internal_port = 8080 
   processes = ["app"]
 
   [[services.ports]]

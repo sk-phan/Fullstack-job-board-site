@@ -11,7 +11,7 @@ let isRefreshing = false;
 let refreshQueue = [];
 
 const api = axios.create({
-  baseURL: 'http://0.0.0.0:3000/api',
+  baseURL: process.env.VUE_APP_BACKEND_LOCAL_URL,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',

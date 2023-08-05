@@ -42,6 +42,21 @@
                         </v-col>
                     </v-row>
 
+                    <v-row class="mt-0">
+                        <v-col>
+                            <v-label>Password</v-label>
+                            <v-text-field 
+                                outlined 
+                                v-model="newUser.password"
+                                :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+                                @click:append="showPass = !showPass"
+                                :type="showPass ? 'text' : 'password'"
+                                :rules="[rules.required, rules.password]"
+                            >
+                            </v-text-field>
+                        </v-col>
+                    </v-row>
+
                     <v-row class="mt-0 mb-6">
                         <v-col>
                             <v-label>Company logo </v-label>
@@ -59,7 +74,7 @@
                         </v-col>
                     </v-row>
 
-                    <v-btn block color="#000" class="mb-6 text-white" depressed @click=" logIn ">Sign up</v-btn> 
+                    <v-btn block color="#000" class="mb-6 text-white" depressed @click=" signUp ">Sign up</v-btn> 
                     <span>Already have an account?
                         <a class="link" href="/login">Log in</a>
                     </span>
@@ -118,29 +133,29 @@ export default {
     },
     mixins: [formRules],
     methods: {
-        logIn() {
+        fileUploaded(file) {
+            this.file = file
+        },
+        signUp() {
             if (this.$refs.form.validate()) {
+
+                const formData = new FormData();
+    
+                formData.append('file', this.file);
+                formData.append('name', this.newUser.name);
+                formData.append('email', this.newUser.email);
+                formData.append('password', this.newUser.password);
+                formData.append('userType', this.newUser.userType);
+
                 authApi
-                .logIn(this.email, this.password)
+                .signUp(formData)
                 .then(res => {
-                    if (res.data) {
+                    console.log(res)
 
+                        if (res.data) {
+                        this.$router.push('/')
                         this.$store.commit('setHideNavBar', false)
-                        
-                        localStorage.setItem('token', res.data.token)
-                        localStorage.setItem('refreshToken', res.data.refreshToken)
-                        
-                        localStorage.setItem('userId', res.data.id)
-
-                        setTimeout(() => {
-                            if (res.data.userType === 1) {
-                                this.$router.push('/myJobs')
-                            }
-                            else {
-                                this.$router.push('/')
-                            }
-                        }, 300)
-                        
+                
                     }
                 })
             }
