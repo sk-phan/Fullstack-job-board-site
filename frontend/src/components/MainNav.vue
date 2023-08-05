@@ -1,6 +1,6 @@
 <template>
     <v-app-bar flat class="nav">
-        <v-toolbar-title class="hover-style" @click="!authenticated ? $router.push('/') : null">
+        <v-toolbar-title class="hover-style" @click="goBack">
           <img :src="logoImg" style="height: 20px ;" alt="image"/>
         </v-toolbar-title>
         
@@ -49,6 +49,9 @@ export default {
         if (this.$router.history.current.name !== "MainView") {
           this.$router.push('/')
         }
+      },
+      goBack() {
+        !this.authenticated ? this.$router.push('/') : this.$router.push('/myJobs')
       }
     },
     mounted() {

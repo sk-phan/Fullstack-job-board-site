@@ -183,7 +183,7 @@ export default {
                 city: '',
                 country: 'Finland',
                 description: '',
-                experienceLeve: 1,
+                experienceLevel: 1,
                 jobType: '',
                 minSalary: 0,
                 maxSalary: 0,

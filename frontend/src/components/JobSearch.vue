@@ -1,6 +1,6 @@
 <template>
     <v-row>
-        <v-col class="px-0 mr-4 pt-0" cols="12" md="7">
+        <v-col class="px-0 mr-4 pt-0" cols="12" md="5">
             <v-text-field
                 flat
                 solo

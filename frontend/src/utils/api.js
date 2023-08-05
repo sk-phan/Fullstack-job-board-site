@@ -129,9 +129,13 @@ function processRefreshQueue(accessToken) {
 
 api.interceptors.request.use(
   async (config) => {
-    const token = await getNewAccessToken();
-
-    config.headers.Authorization = `Bearer ${token}`
+    const storedToken = await getAccessToken()
+    
+    //Validate token only after user logged in
+    if (storedToken) {
+      const token = await getNewAccessToken();
+      config.headers.Authorization = `Bearer ${token}`
+    }
 
     return config;
   },

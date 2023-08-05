@@ -3,7 +3,7 @@
         <v-col>
             <v-row class="d-flex justify-space-between">
                 <div class="d-flex" cols="11">
-                    <img class="rounded mr-4" :src="'http://localhost:3001/' + job.companyLogo" alt="company logo" width="50px" height="50px"/>
+                    <img class="rounded mr-4" :src="img" alt="company logo" width="50px" height="50px"/>
                     <div class="d-flex flex-column">
                         <span class="title"> {{ job.title }} </span>
                         <span class="name"> {{ job.name }} </span>
@@ -101,7 +101,7 @@ export default {
 
         fetch(imageURL)
         .then(response => {
-            console.log(response)
+            this.img = response.url
         })
         .catch(error => {
             console.error('Error fetching image:', error);

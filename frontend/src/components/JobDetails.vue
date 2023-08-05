@@ -123,7 +123,6 @@ export default {
             .then(res => {
                 if (res.data) {
                     this.job = {...res.data}
-                    console.log(this.job)
                 }
             })
             .catch(e => console.log(e))

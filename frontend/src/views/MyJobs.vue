@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <div class="d-flex flex-column align-center justify-center">
+        <div v-else class="d-flex flex-column align-center justify-center">
             <img src="@/assets/noData.png" width="30%" />
             <p class="text-center">
                 Oops, it seems like there haven't been any new job postings recently. 
