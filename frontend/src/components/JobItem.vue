@@ -99,7 +99,6 @@ export default {
         const backendURL =  process.env.NODE_ENV === 'production'
                             ? process.env.VUE_APP_BACKEND_PRODUCTION_URL
                             : process.env.VUE_APP_BACKEND_LOCAL_URL;
-
         const imageURL = `${backendURL}/${this.job.companyLogo}`;
 
         fetch(imageURL)

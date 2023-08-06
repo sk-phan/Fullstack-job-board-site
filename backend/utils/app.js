@@ -87,7 +87,7 @@ app.use('/api/token', loginRouter)
 app.use('/api/applications', applicationRouter)
 
 //Backend server is configured to serve static files from the uploads folder
-app.use('/uploads', express.static('uploads'));
+app.use('/api/uploads', express.static('uploads'));
 
 
 app.use(middleware.unknownEndpoint)
