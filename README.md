@@ -18,9 +18,9 @@ Please feel free to use our dummy account to log in and view the insight.
    :sparkles: To help the recruiter not miss any talents, WorkHive informs the Recruiter when a job posting receives a new application. The Recruiter will receive a notify email with all related info about the application, such as Name, Phone number, Email, Cover Letter, and CV.
 
 - For Job Seeker:
-  :sparkles: By providing diverse filters on our platform, we help the job seekers find the best matches for them.
-  :sparkles: The job application process is now simpler. Job seekers can simply fill in the inputs with their name, phone number, email, short message to the recruiter, and upload their CV. The application will be directly sent to the recruiter.
-er can simple fill in the inputs with their name, phone number, email, short message to recruiter, and uplOad their CV. The application will be directly sent to the recruiter
+   :sparkles: By providing diverse filters on our platform, we help the job seekers find the best matches for them.
+   :sparkles: The job application process is now simpler. Job seekers can simply fill in the inputs with their name, phone number, email, short message to the recruiter, and upload their CV. The application will be directly sent to the recruiter.
+
  
 # How to run it
 1. Clone the project to your local environment:
