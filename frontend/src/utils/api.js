@@ -15,7 +15,7 @@ let isRefreshing = false;
 let refreshQueue = [];
 
 const api = axios.create({
-  baseURL: "https://suki-job-board.fly.dev/api",
+  baseURL: process.env.VUE_APP_BACKEND_PRODUCTION_URL,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
