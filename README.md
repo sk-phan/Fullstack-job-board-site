@@ -13,13 +13,14 @@ Please feel free to use our dummy account to log in and view the insight.
 
 # Features
 - For Recruiter:
-   :sparkles: With a simple registration proccess, user can create an account by simply providing their email, password, company, and company logo
-   :sparkles: Understanding how to attract tallents, WorkHive provide outstanding templates for the Recruiter to create job opportunities. The platform also enable user to view and make any modification for the jobs later
-   :sparkles: To help the recruiter not missing any talents, WorkHive inform the Recruiter when a job posting recieves a new application. The Recruiter will receive an notify email with all related info about the application such as Name, Phone number, Email, Cover Letter and CV
+   :sparkles: With a simple registration process, users can create an account by simply providing their email, password, company, and company logo.
+   :sparkles: Understanding how to attract talents, WorkHive provides outstanding templates for the Recruiter to create job opportunities. The platform also enables users to view and make any modifications for the jobs later.
+   :sparkles: To help the recruiter not miss any talents, WorkHive informs the Recruiter when a job posting receives a new application. The Recruiter will receive a notify email with all related info about the application, such as Name, Phone number, Email, Cover Letter, and CV.
 
 - For Job Seeker:
-  :sparkles: By providing a diverse filters on our platform, we help the job seekers get find the best matches for the,
-  :sparkles: The job application proccess is now more simple. Job seeker can simple fill in the inputs with their name, phone number, email, short message to recruiter, and uplOad their CV. The application will be directly sent to the recruiter
+  :sparkles: By providing diverse filters on our platform, we help the job seekers find the best matches for them.
+  :sparkles: The job application process is now simpler. Job seekers can simply fill in the inputs with their name, phone number, email, short message to the recruiter, and upload their CV. The application will be directly sent to the recruiter.
+er can simple fill in the inputs with their name, phone number, email, short message to recruiter, and uplOad their CV. The application will be directly sent to the recruiter
  
 # How to run it
 1. Clone the project to your local environment:
