@@ -3,6 +3,10 @@ import jwtDecode from 'jwt-decode';
 
 const TOKEN_STORAGE_KEY = 'token';
 const REFRESH_TOKEN_STORAGE_KEY = 'refreshToken';
+const apiKey = process.env.NODE_ENV === 'production'
+  ? process.env.VUE_APP_BACKEND_PRODUCTION_URL
+  : process.env.VUE_APP_BACKEND_LOCAL_URL;
+
 
 // Create a variable to track if token refresh is in progress
 let isRefreshing = false;
@@ -11,7 +15,7 @@ let isRefreshing = false;
 let refreshQueue = [];
 
 const api = axios.create({
-  baseURL: process.env.VUE_APP_BACKEND_URL,
+  baseURL: apiKey,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
