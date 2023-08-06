@@ -21,6 +21,7 @@ Please feel free to use our dummy account to log in and view the insight.
   :sparkles: By providing a diverse filters on our platform, we help the job seekers get find the best matches for the,
   :sparkles: The job application proccess is now more simple. Job seeker can simple fill in the inputs with their name, phone number, email, short message to recruiter, and uplOad their CV. The application will be directly sent to the recruiter
  
+ 
 # How to run it
 1. Clone the project to your local environment:
 
