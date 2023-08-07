@@ -8,6 +8,9 @@ const express = require('express')
 const app = express()
 
 const cors = require('cors')
+app.use(cors())
+
+
 
 const jobRouter = require('../controllers/jobs')
 const userRouter = require('../controllers/users')
@@ -61,7 +64,6 @@ mongoose.connect(config.MONGO_URI)
 //   done(null, user);
 // });
 
-app.use(cors())
 app.use(express.static('build'))
 app.use(express.json())
 app.use(middleware.requestLogger)

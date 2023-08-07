@@ -150,7 +150,6 @@ export default {
                 authApi
                 .signUp(formData)
                 .then(res => {
-                    console.log(res)
 
                         if (res.data) {
                         this.$router.push('/')
