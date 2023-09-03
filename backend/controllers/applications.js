@@ -54,33 +54,39 @@ applicationRouter.get('/:id', async (req, res, next) => {
 
 //Get applications by company id
 applicationRouter.get('/company/:id', async (req, res, next) => {
-    const companyId = req.params.id
-
-    Applications.find({ companyId })
-    .then(application => {
-        if (application) {
-            res.json(application)
-        } else {
-            res.status(404).end()
-        }
-    })
-    .catch(error => next(error))
+   try {
+       const companyId = req.params.id
+   
+       const application = Applications.find({ companyId })
+      
+       if (application) {
+           res.json(application)
+       } else {
+           res.status(404).end()
+       }
+   }
+   catch(e) {
+    next(e)
+   }
 })
 
 //Get applications by job seeker id
 applicationRouter.get('/jobSeeker/:id', async (req, res, next) => {
-    const jobSeekerId = req.params.id
+    try {
+        const jobSeekerId = req.params.id;
 
-    Applications.find({ jobSeekerId })
-    .then(application => {
+        const application = await Applications.find({ jobSeekerId });
+
         if (application) {
-            res.json(application)
+            res.json(application);
         } else {
-            res.status(404).end()
+            res.status(404).end();
         }
-    })
-    .catch(error => next(error))
-})
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 //Create application
 applicationRouter.post('/', upload.single("file"), async (req, res, next) => {

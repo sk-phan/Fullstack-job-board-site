@@ -19,19 +19,21 @@ jobRouter.get('/', (req, res) => {
 
 jobRouter.get('/:id', async (req, res, next) => {
     
-    const id = await req.params.id
-
-    Job.findById(id)
-    .then(job => {
-
-        if (job) {
-            res.json(job)
-        } else {
-            res.status(404).end()
-        }
-    })
-    .catch(error => next(error))
-
+    try {
+        const id = req.params.id
+    
+        const job = await Job.findById(id)
+    
+            if (job) {
+                res.json(job)
+            } else {
+                res.status(404).end()
+            }
+    }
+    catch(e) {
+        next(e)
+    }
+    
 })
 
 jobRouter.post('/', async (req, res, next) => {
@@ -165,18 +167,13 @@ jobRouter.get('/favourite/:jobSeekerId', async (req, res, next) => {
         }
         const jobSeekerId = req.params.jobSeekerId
 
-        Job.find({ favouriteUserIds: { $in: [jobSeekerId] } })
-        .then(job => {
-    
-            if (job) {
-                res.json(job)
-            } else {
-                res.status(404).end()
-            }
-        })
-        .catch(error => next(error))
-
-    
+        const job = Job.find({ favouriteUserIds: { $in: [jobSeekerId] } })
+        
+        if (job) {
+            res.json(job)
+        } else {
+            res.status(404).end()
+        }
     }
     catch(err) {
         next(err)
