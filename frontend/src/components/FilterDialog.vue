@@ -30,9 +30,6 @@
                                 @change=" $emit('filterLevel', experienceLevel) "
                             ></v-checkbox>
                         </v-col>
-                        <v-col cols="1">
-                            <span class="light-text">6</span>
-                        </v-col>
                     </v-row>
     
                     <v-row >
@@ -46,9 +43,6 @@
                                 @change=" $emit('filterLevel', experienceLevel) "
                             ></v-checkbox>
                         </v-col>
-                        <v-col cols="1">
-                            <span class="light-text">20</span>
-                        </v-col>
                     </v-row>
 
                     <v-row >
@@ -61,9 +55,6 @@
                                 v-model=" experienceLevel.expert "
                                 @change=" $emit('filterLevel', experienceLevel) "
                             ></v-checkbox>
-                        </v-col>
-                        <v-col cols="1">
-                            <span class="light-text">12</span>
                         </v-col>
                     </v-row>
                 </div>
@@ -85,9 +76,6 @@
                                 @change="$emit('filterJobType', jobTypes)"
                             ></v-checkbox>
                         </v-col>
-                        <v-col cols="1">
-                            <span class="light-text">1</span>
-                        </v-col>
                     </v-row>
     
                     <v-row >
@@ -100,9 +88,6 @@
                                 v-model=" jobTypes.partTime "
                                 @change="$emit('filterJobType', jobTypes)"
                             ></v-checkbox>
-                        </v-col>
-                        <v-col cols="1">
-                            <span class="light-text">1</span>
                         </v-col>
                     </v-row>
                 </div>
@@ -124,9 +109,6 @@
                                 @change=" $emit('filterSalary', salaryRanges) "
                             ></v-checkbox>
                         </v-col>
-                        <v-col cols="1">
-                            <span class="light-text">1</span>
-                        </v-col>
                     </v-row>
     
                     <v-row >
@@ -139,9 +121,6 @@
                                 v-model=" salaryRanges['1000-3000'] "
                                 @change=" $emit('filterSalary', salaryRanges)"
                             ></v-checkbox>
-                        </v-col>
-                        <v-col cols="1">
-                            <span class="light-text">1</span>
                         </v-col>
                     </v-row>
 
@@ -156,9 +135,6 @@
                                 @change=" $emit('filterSalary', salaryRanges) "
                             ></v-checkbox>
                         </v-col>
-                        <v-col cols="1">
-                            <span class="light-text">1</span>
-                        </v-col>
                     </v-row>
 
                     <v-row >
@@ -171,9 +147,6 @@
                                 v-model=" salaryRanges[5000] "
                                 @change="$emit('filterSalary', salaryRanges)"
                             ></v-checkbox>
-                        </v-col>
-                        <v-col cols="1">
-                            <span class="light-text">1</span>
                         </v-col>
                     </v-row>
 
@@ -197,9 +170,6 @@
                                 v-model=" jobCategories[i] "
                                 @change=" $emit('filterCategories', jobCategories) "
                             ></v-checkbox>
-                        </v-col>
-                        <v-col cols="1">
-                            <span class="light-text">1</span>
                         </v-col>
                     </v-row>
                 </div>
