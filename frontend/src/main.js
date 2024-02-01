@@ -3,6 +3,7 @@ import App from './App.vue'
 import vuetify from './vuetify'
 import router from './router'
 import store from './store'
+import './scss/main.css';
 
 import dayjs from 'dayjs'
 const relativeTime = require('dayjs/plugin/relativeTime')

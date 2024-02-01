@@ -50,21 +50,25 @@ const routes = [
     path: '/myJobs',
     name: 'MyJobs',
     component: MyJobs,
+    meta: { requiresAuth: true },
   },
   {
     path: '/jobPosting/:id',
     name: 'JobPosting',
     component: JobPostingPage,
+    meta: { requiresAuth: true },
   },
   {
     path: '/editJob/:id',
     name: 'EditJob',
     component: EditJob,
+    meta: { requiresAuth: true },
   },
   {
     path: '/newJob',
     name: 'NewJob',
     component: NewJob,
+    meta: { requiresAuth: true },
   },
 ];
 
