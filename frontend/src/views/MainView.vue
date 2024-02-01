@@ -12,7 +12,7 @@
           >
         </job-filter>
         
-        <v-col >
+        <v-col cols="12" md="9">
           <job-search
             @searchJobs = " searchJobs "
             @openFilter = " filterDialog = true "
@@ -104,14 +104,15 @@ methods: {
     window.location.href = 'http://localhost:3001/api/auth/google/callback';
   },
   searchJobs(items)  {
+    console.log(items)
     this.searchInput = items
     this.viewedJobs = this.calculateFilteredJobs()
   },
   calculateFilteredJobs() {
-    let filteredJobs = this.jobCategoriesFilter;
+    let filteredJobs = [...this.jobCategoriesFilter];
 
     if (this.searchInput.job !== "") {
-      const searchJob = this.searchInput.job.toLowerCase();
+      const searchJob = this.searchInput.job ? this.searchInput.job.toLowerCase() : "";
 
       filteredJobs = filteredJobs.filter(
         job => 
@@ -121,7 +122,7 @@ methods: {
       )
     }
 
-    if (this.searchInput.location !== "") {
+    if (this.searchInput.location && this.searchInput.location !== "") {
       const searchCity = this.searchInput.location.toLowerCase();
       filteredJobs = filteredJobs.filter(
         job =>
@@ -129,6 +130,9 @@ methods: {
           job.country.toLowerCase() === searchCity
       );
     }
+    else {
+      filteredJobs = this.jobCategoriesFilter
+    } 
 
     if (this.searchInput.location === "" && this.searchInput.job === "") {
       filteredJobs = this.jobCategoriesFilter
