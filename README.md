@@ -1,7 +1,7 @@
 # :briefcase: Fullstack-job-board-site
 Job Board website is built with Vue.js and Node.js
 
-Test account:  
+🧪 Test account:  
 **email:** testUser@gmail.com  
 **password:** Pass123@
 
