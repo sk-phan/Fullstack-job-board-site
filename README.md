@@ -2,8 +2,8 @@
 Job Board website is built with Vue.js and Node.js
 
 Test account:
-email: testUser@gmail.com
-password: Pass123@
+**email: testUser@gmail.com
+**password: Pass123@
 
 # :computer: About the project
 WorkHive is a comprehensive platform that facilitates seamless job searches and applications for individuals, while enabling recruiters to post job opportunities and connect with talented professionals.
