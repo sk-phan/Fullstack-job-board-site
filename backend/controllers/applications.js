@@ -151,8 +151,8 @@ applicationRouter.post('/', upload.single("file"), async (req, res, next) => {
         const transporter = nodemailer.createTransport({
             service: "Gmail",
             auth: {
-                user: "sukiphan97@gmail.com",
-                pass: "vsryagefwpmeglkm"
+                user: process.env.EMAIL,
+                pass:  process.env.EMAIL_PASSWORD
             }
         })
     
