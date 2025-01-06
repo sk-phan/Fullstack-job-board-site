@@ -2,7 +2,7 @@
 Job Board website is built with Vue.js and Node.js
 
 🧪 Test account:  
-**email:** testUser@gmail.com  
+**email:** test@workhive.com 
 **password:** Pass123@
 
 # :computer: About the project
