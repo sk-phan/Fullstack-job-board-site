@@ -14,9 +14,6 @@ kill_timeout = "5s"
 [build]
 
 [env]
-  PORT = "8080"
-  SECRET = "accessSecret"
-  MONGO_URI = "mongodb+srv://sukiphan97:Hongnhung1912@cluster0.kn1fqop.mongodb.net/?retryWrites=true&w=majority"
 
 [[services]]
   http_checks = []
